@@ -1,0 +1,11 @@
+<rest measure="yes-no"> (measure not required).
+    (the following is optional but if it is present all are needed).
+    <display-step>
+        STEP
+        (required)
+    </display-step>
+    <display-octave>
+        OCTAVE
+        (required)
+    </display-octave>
+</rest>

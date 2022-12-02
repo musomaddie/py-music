@@ -1,0 +1,51 @@
+<note> (ordered)
+    <one-of>
+        <grace> (ordered) [required]
+            <one-of>
+                <ordered>
+                    <ordered>
+                        <chord /> [OPTIONAL}
+                        <one-of>
+                            <pitch />
+                            <unpitched />
+                            <rest />
+                        </one-of>
+                    </ordered>
+                    <tie />
+                </ordered>
+                <ordered>
+                    <cue> [required] </cue>
+                    <ordered>
+                        <chord /> [OPTIONAL]
+                        <one-of>
+                            <pitch />
+                            <unpitched />
+                            <rest />
+                        </one-of>
+                    </ordered>
+                </ordered>
+            </one-of>
+        </grace>
+        <cue> (ordered) [required]
+            <ordered>
+                <chord /> [OPTIONAL]
+                <one-of>
+                    <pitch />
+                    <unpitched />
+                    <rest />
+                </one-of>
+            </ordered>
+            <duration /> [required]
+        </cue>
+        <ordered>
+            <chord /> [OPTIONAL]
+            <one-of>
+                <pitch />
+                <unpitched />
+                <rest />
+            </one-of>
+            <duration /> [required]
+            <tie /> [0 - 2 times]
+        </ordered>
+    </one-of>
+</note>

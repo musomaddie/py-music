@@ -1,0 +1,11 @@
+<pitch>
+    <step>
+        (required)
+    </step>
+    <alter>
+        (optional)
+    </alter>
+    <octave>
+        (Required)
+    </octave>
+</pitch>

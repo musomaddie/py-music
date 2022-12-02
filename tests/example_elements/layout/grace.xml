@@ -1,0 +1,4 @@
+<grace make-time="divisions"
+       slash="yes-no"
+       steal-time-following="percent"
+       steal-time-previous="percent" />
