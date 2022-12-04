@@ -18,10 +18,11 @@ class Octave:
     _allowed_values = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
     def __init__(self, value):
-        """Constructs a new octave with the given value.
+        """
 
-        Raises:
-            ValueError: The value passed does not represent a valid octave.
+        :param value: current octave
+        :type value: int
+        :raise ValueError: if the octave does not fall within the allowed range.
         """
         if value not in Octave._allowed_values:
             raise ValueError(

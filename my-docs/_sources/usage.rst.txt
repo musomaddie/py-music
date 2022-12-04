@@ -1,5 +1,8 @@
-Classes
------------
+Information
+==================
 
+Octave
+----------------
 
 .. autoclass:: pymusic.octave.Octave
+.. autofunction:: pymusic.octave.Octave.__init__
