@@ -11,6 +11,9 @@ class Octave:
     https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/octave/ for more information
     regarding octaves in music XML.
 
+    TODO: I am not confident that these octaves match the ASPN octaves -> i.e. am I SURE that
+    middle C is the 4th octave.(because then the octaves are shifted off)
+
     :param value: the current octave.
     :type value: int
     """

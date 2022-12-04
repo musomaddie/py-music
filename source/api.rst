@@ -5,3 +5,4 @@ API
     :toctree: generated
 
     pymusic.octave
+    pymusic.note_name
