@@ -202,6 +202,14 @@
         <li class="md-nav__item"><a href="#pymusic.note_name.get_note_name_from_string" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_note_name_from_string()</span></code></a>
         </li></ul>
             </nav>
+        </li>
+        <li class="md-nav__item"><a href="#pitch" class="md-nav__link">Pitch</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#pymusic.pitch.Pitch" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Pitch</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#pymusic.pitch.Pitch.create_from_xml_soup" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">create_from_xml_soup()</span></code></a>
+        </li></ul>
+            </nav>
         </li></ul>
             </nav>
         </li>
@@ -231,6 +239,8 @@
 Middle C is found in octave 4. See
 <a class="reference external" href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/octave/">https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/octave/</a> for more information
 regarding octaves in music XML.</p>
+<p>TODO: I am not confident that these octaves match the ASPN octaves -&gt; i.e. am I SURE that
+middle C is the 4th octave.(because then the octaves are shifted off)</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><p><strong>value</strong> (<em>int</em>) – the current octave.</p>
@@ -256,7 +266,8 @@ regarding octaves in music XML.</p>
 <dt class="sig sig-object py" id="pymusic.note_name.NoteName">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.note_name.</span></span><span class="sig-name descname"><span class="pre">NoteName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_name.NoteName" title="Permalink to this definition">¶</a></dt>
 <dd><p>The names of each note in an octave as defined by <a class="reference external" href="https://viva.pressbooks.pub/openmusictheory/chapter/aspn/">ASPN</a>.</p>
-<p>Each octave starts at C.</p>
+<p>Each octave starts at C, so the value assigned by the enum reflects this. Internal
+implementation of the <a class="reference external" href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/">step</a> data type defined in Music XML.</p>
 </dd></dl>
 <dl class="py function">
 <dt class="sig sig-object py" id="pymusic.note_name.get_note_name_from_string">
@@ -277,6 +288,52 @@ regarding octaves in music XML.</p>
 <dd class="field-even"><p><strong>ValueError</strong> – if the string passed is not a valid note name.</p>
 </dd>
 </dl>
+</dd></dl>
+</section>
+<section id="pitch">
+<h2 id="pitch">Pitch<a class="headerlink" href="#pitch" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymusic.pitch.Pitch">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.pitch.</span></span><span class="sig-name descname"><span class="pre">Pitch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pymusic.note_name.NoteName" title="pymusic.note_name.NoteName"><span class="pre">NoteName</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">octave</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pymusic.octave.Octave" title="pymusic.octave.Octave"><span class="pre">Octave</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.pitch.Pitch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Identifies each note through their pitch which generated through the step (note name) and the
+octave.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>step</strong> (<a class="reference internal" href="#pymusic.note_name.NoteName" title="pymusic.note_name.NoteName"><em>NoteName</em></a>) – the diatonic step value of this note</p></li>
+<li><p><strong>octave</strong> (<a class="reference internal" href="#pymusic.octave.Octave" title="pymusic.octave.Octave"><em>Octave</em></a>) – the octave of this note</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymusic.pitch.Pitch.create_from_xml_soup">
+<span class="sig-prename descclassname"><span class="pre">pymusic.pitch.Pitch.</span></span><span class="sig-name descname"><span class="pre">create_from_xml_soup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">pitch_soup</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">Tag</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">→</span> <span class="sig-return-typehint"><a class="reference internal" href="#pymusic.pitch.Pitch" title="pymusic.pitch.Pitch"><span class="pre">Pitch</span></a></span></span><a class="headerlink" href="#pymusic.pitch.Pitch.create_from_xml_soup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a Pitch instance from the provided MusicXML.</p>
+<p>The provided XML must contain both an &lt;octave&gt; and &lt;step&gt; element which must contain the
+octave number and string note name respectively. The following example creates a Pitch
+corresponding to middle C.</p>
+<div class="highlight-xml notranslate"><div class="highlight"><pre><span></span><span class="nt">&lt;pitch&gt;</span>
+<span class="hll">    <span class="nt">&lt;octave&gt;</span>4<span class="nt">&lt;/octave&gt;</span>
+</span><span class="hll">    <span class="nt">&lt;step&gt;</span>C<span class="nt">&lt;/step&gt;</span>
+</span><span class="nt">&lt;/pitch&gt;</span>
+</pre></div>
+</div>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>pitch_soup</strong> (<em>bs4.Tag</em>) – the XML containing this pitch and passed through BeautifulSoup.</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>the created pitch.</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pymusic.pitch.Pitch" title="pymusic.pitch.Pitch">Pitch</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – If the XML is cannot be parsed correctly to form a pitch.</p>
+</dd>
+</dl>
+<p>(double check Tag type is processed correctly).</p>
 </dd></dl>
 <p>FIGURE OUT HOW  TO STRUCTURE THIS BETTER SO THAT __INIT__ ISN”T SHOWN AS A HEADING BUT CONTENT IS
 STILL THERE
