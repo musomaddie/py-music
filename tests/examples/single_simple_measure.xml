@@ -1,0 +1,59 @@
+<score-partwise version="3.0">
+    <part id="P1">
+        <measure number="1" width="236">
+            <print new-page="yes">
+                <system-layout>
+                    <system-margins>
+                        <left-margin>50</left-margin>
+                        <right-margin>0</right-margin>
+                    </system-margins>
+                    <top-system-distance>182</top-system-distance>
+                </system-layout>
+                <measure-layout>
+                    <measure-distance>50</measure-distance>
+                </measure-layout>
+            </print>
+            <attributes>
+                <divisions>256</divisions>
+                <key color="#000000">
+                    <fifths>0</fifths>
+                    <mode>major</mode>
+                </key>
+                <time color="#000000">
+                    <beats>4</beats>
+                    <beat-type>4</beat-type>
+                </time>
+                <staves>1</staves>
+                <clef number="1" color="#000000">
+                    <sign>G</sign>
+                    <line>2</line>
+                </clef>
+                <staff-details number="1" print-object="yes"/>
+            </attributes>
+            <note color="#000000" default-x="75" default-y="-15">
+                <pitch>
+                    <step>C</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>512</duration>
+                <instrument id="P1-I1"/>
+                <voice>1</voice>
+                <type>half</type>
+                <stem>up</stem>
+                <staff>1</staff>
+            </note>
+            <note color="#000000" default-x="156" default-y="-10">
+                <pitch>
+                    <step>D</step>
+                    <octave>4</octave>
+                </pitch>
+                <duration>512</duration>
+                <instrument id="P1-I1"/>
+                <voice>1</voice>
+                <type>half</type>
+                <stem>up</stem>
+                <staff>1</staff>
+            </note>
+        </measure>
+    </part>
+</score-partwise>
