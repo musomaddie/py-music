@@ -1,11 +1,11 @@
 Information
 ==================
 
-Octave
-----------------
+Note Length
+-------------
 
-.. autoclass:: pymusic.octave.Octave
-.. autofunction:: pymusic.octave.Octave.__init__
+.. autoclass:: pymusic.note_length.NoteLength
+.. autofunction:: pymusic.note_length.NoteLength.__init__
 
 Note Name
 -----------
@@ -13,11 +13,20 @@ Note Name
 .. autoclass:: pymusic.note_name.NoteName
 .. autofunction:: pymusic.note_name.get_note_name_from_string
 
+
+Octave
+----------------
+
+.. autoclass:: pymusic.octave.Octave
+.. autofunction:: pymusic.octave.Octave.__init__
+
 Pitch
 -------------------
 
 .. autoclass:: pymusic.pitch.Pitch
 .. autofunction:: pymusic.pitch.Pitch..create_from_xml_soup
+
+
 
 
 STILL THERE

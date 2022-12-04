@@ -4,5 +4,7 @@ API
 .. autosummary::
     :toctree: generated
 
-    pymusic.octave
+    pymusic.note_length
     pymusic.note_name
+    pymusic.octave
+    pymusic.pitch

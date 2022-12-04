@@ -187,11 +187,11 @@
   <ul class="md-nav__list" data-md-scrollfix="">
         <li class="md-nav__item"><a href="#usage--page-root" class="md-nav__link">Information</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#octave" class="md-nav__link">Octave</a><nav class="md-nav">
+        <li class="md-nav__item"><a href="#note-length" class="md-nav__link">Note Length</a><nav class="md-nav">
               <ul class="md-nav__list">
-        <li class="md-nav__item"><a href="#pymusic.octave.Octave" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Octave</span></code></a>
+        <li class="md-nav__item"><a href="#pymusic.note_length.NoteLength" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NoteLength</span></code></a>
         </li>
-        <li class="md-nav__item"><a href="#pymusic.octave.Octave.__init__" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a>
+        <li class="md-nav__item"><a href="#pymusic.note_length.NoteLength.__init__" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a>
         </li></ul>
             </nav>
         </li>
@@ -200,6 +200,14 @@
         <li class="md-nav__item"><a href="#pymusic.note_name.NoteName" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">NoteName</span></code></a>
         </li>
         <li class="md-nav__item"><a href="#pymusic.note_name.get_note_name_from_string" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">get_note_name_from_string()</span></code></a>
+        </li></ul>
+            </nav>
+        </li>
+        <li class="md-nav__item"><a href="#octave" class="md-nav__link">Octave</a><nav class="md-nav">
+              <ul class="md-nav__list">
+        <li class="md-nav__item"><a href="#pymusic.octave.Octave" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">Octave</span></code></a>
+        </li>
+        <li class="md-nav__item"><a href="#pymusic.octave.Octave.__init__" class="md-nav__link"><code class="docutils literal notranslate"><span class="pre">__init__()</span></code></a>
         </li></ul>
             </nav>
         </li>
@@ -229,6 +237,66 @@
             
   <section id="information">
 <h1 id="usage--page-root">Information<a class="headerlink" href="#usage--page-root" title="Permalink to this heading">¶</a></h1>
+<section id="note-length">
+<h2 id="note-length">Note Length<a class="headerlink" href="#note-length" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymusic.note_length.NoteLength">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.note_length.</span></span><span class="sig-name descname"><span class="pre">NoteLength</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">original_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_length.NoteLength" title="Permalink to this definition">¶</a></dt>
+<dd><p>Represents the length of the note.</p>
+<p>Internal representation of the <a class="reference external" href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/note-type-value/">note-type-value</a> type in MusicXML. The British note names
+are used to refer to the notes duration through this program as I am Australian, and to help
+differentiate between the duration as written, and the duration when performed - as this may
+vary due to musical style and preference.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>length_name</strong> (<em>str</em>) – length name</p></li>
+<li><p><strong>amount</strong> (<em>int</em>) – the amount of time</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymusic.note_length.NoteLength.__init__">
+<span class="sig-prename descclassname"><span class="pre">pymusic.note_length.NoteLength.</span></span><span class="sig-name descname"><span class="pre">__init__</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">original_type</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_length.NoteLength.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a NoteLength instance from the given American length descriptor.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>original_type</strong> (<em>str</em>) – The American description of this note length</p>
+</dd>
+</dl>
+</dd></dl>
+</section>
+<section id="note-name">
+<h2 id="note-name">Note Name<a class="headerlink" href="#note-name" title="Permalink to this heading">¶</a></h2>
+<dl class="py class">
+<dt class="sig sig-object py" id="pymusic.note_name.NoteName">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.note_name.</span></span><span class="sig-name descname"><span class="pre">NoteName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_name.NoteName" title="Permalink to this definition">¶</a></dt>
+<dd><p>The names of each note in an octave as defined by <a class="reference external" href="https://viva.pressbooks.pub/openmusictheory/chapter/aspn/">ASPN</a>.</p>
+<p>Each octave starts at C, so the value assigned by the enum reflects this. Internal
+implementation of the <a class="reference external" href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/">step data type</a> defined in Music XML.</p>
+</dd></dl>
+<dl class="py function">
+<dt class="sig sig-object py" id="pymusic.note_name.get_note_name_from_string">
+<span class="sig-prename descclassname"><span class="pre">pymusic.note_name.</span></span><span class="sig-name descname"><span class="pre">get_note_name_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_name.get_note_name_from_string" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the note name as a string, returns the matching enum.</p>
+<p>Is case-insensitive and will strip white space.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the note name to look up</p>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The NoteName corresponding to the passed string</p>
+</dd>
+<dt class="field-odd">Return type<span class="colon">:</span></dt>
+<dd class="field-odd"><p><a class="reference internal" href="#pymusic.note_name.NoteName" title="pymusic.note_name.NoteName">NoteName</a></p>
+</dd>
+<dt class="field-even">Raises<span class="colon">:</span></dt>
+<dd class="field-even"><p><strong>ValueError</strong> – if the string passed is not a valid note name.</p>
+</dd>
+</dl>
+</dd></dl>
+</section>
 <section id="octave">
 <h2 id="octave">Octave<a class="headerlink" href="#octave" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -260,36 +328,6 @@ middle C is the 4th octave.(because then the octaves are shifted off)</p>
 </dl>
 </dd></dl>
 </section>
-<section id="note-name">
-<h2 id="note-name">Note Name<a class="headerlink" href="#note-name" title="Permalink to this heading">¶</a></h2>
-<dl class="py class">
-<dt class="sig sig-object py" id="pymusic.note_name.NoteName">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.note_name.</span></span><span class="sig-name descname"><span class="pre">NoteName</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_name.NoteName" title="Permalink to this definition">¶</a></dt>
-<dd><p>The names of each note in an octave as defined by <a class="reference external" href="https://viva.pressbooks.pub/openmusictheory/chapter/aspn/">ASPN</a>.</p>
-<p>Each octave starts at C, so the value assigned by the enum reflects this. Internal
-implementation of the <a class="reference external" href="https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/">step</a> data type defined in Music XML.</p>
-</dd></dl>
-<dl class="py function">
-<dt class="sig sig-object py" id="pymusic.note_name.get_note_name_from_string">
-<span class="sig-prename descclassname"><span class="pre">pymusic.note_name.</span></span><span class="sig-name descname"><span class="pre">get_note_name_from_string</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">value</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.note_name.get_note_name_from_string" title="Permalink to this definition">¶</a></dt>
-<dd><p>Given the note name as a string, returns the matching enum.</p>
-<p>Is case-insensitive and will strip white space.</p>
-<dl class="field-list simple">
-<dt class="field-odd">Parameters<span class="colon">:</span></dt>
-<dd class="field-odd"><p><strong>value</strong> (<em>str</em>) – the note name to look up</p>
-</dd>
-<dt class="field-even">Returns<span class="colon">:</span></dt>
-<dd class="field-even"><p>The NoteName corresponding to the passed string</p>
-</dd>
-<dt class="field-odd">Return type<span class="colon">:</span></dt>
-<dd class="field-odd"><p><a class="reference internal" href="#pymusic.note_name.NoteName" title="pymusic.note_name.NoteName">NoteName</a></p>
-</dd>
-<dt class="field-even">Raises<span class="colon">:</span></dt>
-<dd class="field-even"><p><strong>ValueError</strong> – if the string passed is not a valid note name.</p>
-</dd>
-</dl>
-</dd></dl>
-</section>
 <section id="pitch">
 <h2 id="pitch">Pitch<a class="headerlink" href="#pitch" title="Permalink to this heading">¶</a></h2>
 <dl class="py class">
@@ -297,6 +335,7 @@ implementation of the <a class="reference external" href="https://www.w3.org/202
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">pymusic.pitch.</span></span><span class="sig-name descname"><span class="pre">Pitch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">step</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pymusic.note_name.NoteName" title="pymusic.note_name.NoteName"><span class="pre">NoteName</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">octave</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#pymusic.octave.Octave" title="pymusic.octave.Octave"><span class="pre">Octave</span></a></span></em><span class="sig-paren">)</span><a class="headerlink" href="#pymusic.pitch.Pitch" title="Permalink to this definition">¶</a></dt>
 <dd><p>Identifies each note through their pitch which generated through the step (note name) and the
 octave.</p>
+<p>Internal representation of the <a class="reference internal" href="#pitch">pitch</a> element in MusicXML.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
@@ -333,10 +372,9 @@ corresponding to middle C.</p>
 <dd class="field-even"><p><strong>ValueError</strong> – If the XML is cannot be parsed correctly to form a pitch.</p>
 </dd>
 </dl>
-<p>(double check Tag type is processed correctly).</p>
+<p>TODO: display beautiful soup tag better!!</p>
 </dd></dl>
-<p>FIGURE OUT HOW  TO STRUCTURE THIS BETTER SO THAT __INIT__ ISN”T SHOWN AS A HEADING BUT CONTENT IS
-STILL THERE
+<p>STILL THERE
 ALSO reference return types nicely.</p>
 </section>
 </section>

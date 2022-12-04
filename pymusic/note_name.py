@@ -3,13 +3,13 @@ from enum import Enum
 
 class NoteName(Enum):
     """
-    The names of each note in an octave as defined by ASPN_.
+    The names of each note in an octave as defined by `ASPN`_.
 
     Each octave starts at C, so the value assigned by the enum reflects this. Internal
-    implementation of the step_ data type defined in Music XML.
+    implementation of the `step data type`_ defined in Music XML.
 
-    .. _ASPN: https://viva.pressbooks.pub/openmusictheory/chapter/aspn/
-    .. _step: https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/
+    .. _`ASPN`: https://viva.pressbooks.pub/openmusictheory/chapter/aspn/
+    .. _`step data type`: https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/
     """
     C = 1
     D = 2
