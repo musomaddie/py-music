@@ -10,7 +10,8 @@ from pymusic.octave import Octave
 @dataclass
 class Pitch:
     """
-    Identifies each note through their pitch which generated through the step (note name) and the
+    Identifies each note through their pitch_soup which generated through the step (note name)
+    and the
     octave.
 
     Internal representation of the pitch_ element in MusicXML.
@@ -37,16 +38,16 @@ class Pitch:
         .. code-block:: xml
             :emphasize-lines: 2,3
 
-            <pitch>
+            <pitch_soup>
                 <octave>4</octave>
                 <step>C</step>
-            </pitch>
+            </pitch_soup>
 
-        :param pitch_soup: the XML containing this pitch and passed through BeautifulSoup.
+        :param pitch_soup: the XML containing this pitch_soup and passed through BeautifulSoup.
         :type pitch_soup: bs4.Tag
-        :return: the created pitch.
+        :return: the created pitch_soup.
         :rtype: Pitch
-        :raise ValueError: If the XML is cannot be parsed correctly to form a pitch.
+        :raise ValueError: If the XML is cannot be parsed correctly to form a pitch_soup.
 
         TODO: display beautiful soup tag better!!
         """
@@ -55,11 +56,11 @@ class Pitch:
 
         # TODO: add more useful information to these error messages - namely the bar and part.
         if found_octave is None:
-            raise ValueError(f"The pitch {pitch_soup} is missing an octave.")
+            raise ValueError(f"The pitch_soup {pitch_soup} is missing an octave.")
         elif len(found_octave.contents) == 0:
             raise ValueError(f"The octave '{found_octave}' is missing content.")
         if found_step is None:
-            raise ValueError(f"The pitch {pitch_soup} is missing a step.")
+            raise ValueError(f"The pitch_soup {pitch_soup} is missing a step.")
         elif len(found_step.contents) == 0:
             raise ValueError(f"The step '{found_step}' is missing content")
 

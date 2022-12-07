@@ -73,3 +73,12 @@ class NoteLength:
         """
         self.length_name = NoteLength.american_to_british_names[original_type]
         self.amount = NoteLength.name_to_length[self.length_name]
+
+    def __eq__(self, other):
+        if isinstance(other, NoteLength):
+            return self.length_name == other.length_name
+        return False
+
+    @staticmethod
+    def create_from_xml_soup(note_length_soup):
+        return NoteLength(note_length_soup.contents[0])

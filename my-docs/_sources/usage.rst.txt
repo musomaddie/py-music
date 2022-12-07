@@ -1,6 +1,21 @@
 Information
 ==================
 
+Note
+--------------
+
+.. autoclass:: pymusic.note.Note
+.. autoclass:: pymusic.note.NoteBuilder
+.. autofunction:: pymusic.note.NoteBuilder.build
+.. autofunction:: pymusic.note.NoteBuilder.add_display_info
+.. autofunction:: pymusic.note.NoteBuilder.add_duration
+.. autofunction:: pymusic.note.NoteBuilder.add_instrument
+.. autofunction:: pymusic.note.NoteBuilder.add_measure
+.. autofunction:: pymusic.note.NoteBuilder.add_note_length
+.. autofunction:: pymusic.note.NoteBuilder.add_pitch
+.. autofunction:: pymusic.note.NoteBuilder.add_voice
+
+
 Note Length
 -------------
 
@@ -25,6 +40,10 @@ Pitch
 
 .. autoclass:: pymusic.pitch.Pitch
 .. autofunction:: pymusic.pitch.Pitch..create_from_xml_soup
+
+Vertical Direction
+----------------------------
+.. autoclass:: pymusic.vertical_direction.VerticalDirection
 
 
 
