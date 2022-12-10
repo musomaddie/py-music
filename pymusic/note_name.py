@@ -1,4 +1,7 @@
+from dataclasses import dataclass
 from enum import Enum
+
+from pymusic.accidental import Accidental
 
 
 class NoteName(Enum):
@@ -49,3 +52,58 @@ def get_note_name_from_string(value: str):
         return NoteName.G
 
     raise ValueError(f"{value} is not a valid note name.")
+
+
+@dataclass
+class FullNoteName:
+    """ Contains the full note name (including accidentals). """
+    # TODO: improve documentation. & test.
+    note_name: NoteName
+    accidental: Accidental
+
+    def _to_string(self):
+        if self.accidental == Accidental.NONE:
+            return self.note_name.name
+        return f"{self.note_name.name} ({self.accidental.name})"
+
+    def __hash__(self):
+        return hash((self.note_name, self.accidental))
+
+    def __eq__(self, other):
+        if isinstance(other, FullNoteName):
+            return self.note_name == other.note_name and self.accidental == other.accidental
+        return False
+
+    def __repr__(self):
+        return self._to_string()
+
+    def __str__(self):
+        return self._to_string()
+
+
+ALL_NOTE_NAMES = dict(
+    zip([f"{name}{a}" for name in ["A", "B", "C", "D", "E", "F", "G"] for a in ["b", "", "#"]],
+        [FullNoteName(n, a)
+         for n in [NoteName.A, NoteName.B, NoteName.C, NoteName.D, NoteName.E, NoteName.F, NoteName.G]
+         for a in [Accidental.FLAT, Accidental.NONE, Accidental.SHARP]]))
+
+# Shorter variable for readability.
+ann = ALL_NOTE_NAMES
+keyboard_keys_ordered = [
+    [ann["A"]],
+    [ann["A#"], ann["Bb"]],
+    [ann["B"], ann["Cb"]],
+    [ann["C"], ann["B#"]],
+    [ann["C#"], ann["Db"]],
+    [ann["D"]],
+    [ann["D#"], ann["Eb"]],
+    [ann["E"], ann["Fb"]],
+    [ann["F"], ann["E#"]],
+    [ann["F#"], ann["Gb"]],
+    [ann["G"]],
+    [ann["G#"], ann["Ab"]]
+]
+
+all_doubles = [key for key in keyboard_keys_ordered if len(key) == 2]
+v1, v2 = zip(*all_doubles)
+EQUIVALENCE = dict(all_doubles) | dict(zip(v2, v1))
