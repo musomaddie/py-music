@@ -15,28 +15,30 @@ class Score:
 @dataclass
 class ScoreBuilder:
     _og_xml: lxml.etree._ElementTree
+    _additional_info: list = field(default_factory=list)
     _title: str = ""
-    _additional_info: dict[str, str] = field(default_factory=dict)
 
     def _find_title(self):
         """ Finds and adds the title from the xml."""
         root = self._og_xml.getroot()
         # find work
         for parent_element in root.iter("work"):
-            for child_element in root.iter("work-title"):
+            for child_element in parent_element.iter("work-title"):
                 self._title = child_element.text
 
     def _process_children(self):
         root = self._og_xml.getroot()
+        interesting_children = ["part-list", "part"]
         for child in root:
-            print(child)
+            if child.tag not in interesting_children:
+                self._additional_info.append(child)
 
     @staticmethod
     def create_from_musicxml_file(filename):
         builder = ScoreBuilder(etree.parse(filename))
         builder._find_title()
-        print(builder)
         builder._process_children()
+        print(builder)
         # root = etree.parse(filename).getroot()
         #
         # for child in root:
