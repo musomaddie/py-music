@@ -3,6 +3,8 @@ from dataclasses import dataclass, field
 import lxml
 from lxml import etree
 
+from pymusic.parts import PartsBuilder
+
 
 @dataclass
 class Score:
@@ -17,6 +19,12 @@ class ScoreBuilder:
     _og_xml: lxml.etree._ElementTree
     _additional_info: list = field(default_factory=list)
     _title: str = ""
+    _interesting_children_map = {
+        "part-list": PartsBuilder.create_from_part_list_xml
+    }
+
+    # TODO: add links to parts, and links to bars.
+    # This is all gonna be one crazy connected tree / graph thing, but that's ok.
 
     def find_title(self):
         """ Finds and adds the title from the xml."""
@@ -30,8 +38,9 @@ class ScoreBuilder:
         root = self._og_xml.getroot()
         interesting_children = ["part-list", "part"]
         for child in root:
-            if child.tag in interesting_children:
+            if child.tag in self._interesting_children_map:
                 print(f"########################## CHILD {child} ###########################")
+                self._interesting_children_map[child.tag](child)
                 print(child.text)
                 print(child.attrib)
                 print("########################### END CHILD ##############################\n\n")
@@ -47,4 +56,4 @@ class ScoreBuilder:
 
 
 if __name__ == '__main__':
-    ScoreBuilder.create_from_musicxml_file("../tests/realexamples/lavender haze.musicxml")
+    ScoreBuilder.create_from_musicxml_file("../../tests/realexamples/lavender haze.musicxml")
