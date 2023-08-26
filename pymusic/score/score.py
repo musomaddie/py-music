@@ -1,9 +1,13 @@
+import logging
 from dataclasses import dataclass, field
 
 import lxml
 from lxml import etree
 
+from pymusic import globalvars
 from pymusic.parts import PartsBuilder
+
+log = logging.getLogger("score")
 
 
 @dataclass
@@ -29,26 +33,24 @@ class ScoreBuilder:
     def find_title(self):
         """ Finds and adds the title from the xml."""
         root = self._og_xml.getroot()
-        # find work
         for parent_element in root.iter("work"):
             for child_element in parent_element.iter("work-title"):
                 self._title = child_element.text
+                log.debug(f"{globalvars.prefix}title - %s", self._title)
 
     def process_children(self):
         root = self._og_xml.getroot()
         interesting_children = ["part-list", "part"]
         for child in root:
             if child.tag in self._interesting_children_map:
-                print(f"########################## CHILD {child} ###########################")
                 self._interesting_children_map[child.tag](child)
-                print(child.text)
-                print(child.attrib)
-                print("########################### END CHILD ##############################\n\n")
             if child.tag not in interesting_children:
                 self._additional_info.append(child)
 
     @staticmethod
     def create_from_musicxml_file(filename):
+        globalvars.prefix = "ScoreBuilder:"
+        log.info(f"{globalvars.prefix} creating from %s", filename)
         builder = ScoreBuilder(etree.parse(filename))
         builder.find_title()
         builder.process_children()
@@ -56,4 +58,4 @@ class ScoreBuilder:
 
 
 if __name__ == '__main__':
-    ScoreBuilder.create_from_musicxml_file("../../tests/realexamples/lavender haze.musicxml")
+    ScoreBuilder.create_from_musicxml_file("tests/realexamples/lavender haze.musicxml")
