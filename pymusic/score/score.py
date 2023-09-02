@@ -40,11 +40,10 @@ class ScoreBuilder:
 
     def process_children(self):
         root = self._og_xml.getroot()
-        interesting_children = ["part-list", "part"]
         for child in root:
             if child.tag in self._interesting_children_map:
                 self._interesting_children_map[child.tag](child)
-            if child.tag not in interesting_children:
+            if child.tag not in self._interesting_children_map:
                 self._additional_info.append(child)
 
     @staticmethod
@@ -54,7 +53,6 @@ class ScoreBuilder:
         builder = ScoreBuilder(etree.parse(filename))
         builder.find_title()
         builder.process_children()
-        # print(builder)
 
 
 if __name__ == '__main__':

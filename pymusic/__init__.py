@@ -2,6 +2,8 @@ import logging
 
 import colorlog
 
+from .update_globs import update_prefix
+
 handler = colorlog.StreamHandler()
 handler.setFormatter(
     colorlog.ColoredFormatter(
