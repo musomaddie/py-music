@@ -26,11 +26,8 @@ class PartsBuilder:
         update_prefix(":", "-> PartsBuilder:")
         log.info(f"{globalvars.prefix} building")
 
-        # Assign to a part group if need to.
-
-        for child in part_list_xml:
-            print(child)
+        # I don't think I have to care that much about part groups -> :).
+        # TODO - handle part grouping.
 
         for item in part_list_xml.iter("score-part"):
-            # TODO - I have to be careful - I only want the immediate children to match - not the kids of the kids.
             PartBuilder.create_from_part_list(item)
