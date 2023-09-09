@@ -13,7 +13,9 @@ class Part:
     """
     Links to bars with notes for this instrument only.
     """
-    pass
+    part_id: str
+    part_name: str
+    part_abbr: str
 
 
 @dataclass
@@ -31,18 +33,20 @@ class PartBuilder:
         "part-abbreviation"]
 
     def __str__(self):
-        return f"{self._part_name} ({self._part_abbr})"
+        return f"{self._part_name} ({self._part_abbr}) [{self.part_id}]"
 
     @staticmethod
-    def create_from_part_list(part_list_xml: lxml.etree.Element):
+    def create_from_part_list_xml(part_list_xml: lxml.etree.Element) -> Part:
         update_prefix(":", "-> Part Builder:", unless_contains="Part Builder")
         builder = PartBuilder(part_list_xml.attrib["id"], part_list_xml)
         log.info(f"{globalvars.prefix} [{builder.part_id}]")
 
         builder.process_children()
+        return builder.build()
 
-        log.info(f"{globalvars.prefix} {builder} info built.")
-        return builder
+    def build(self) -> Part:
+        log.info(f"{globalvars.prefix} {self} built.")
+        return Part(self.part_id, self._part_name, self._part_abbr)
 
     def process_children(self):
         for child in self.og_xml:
