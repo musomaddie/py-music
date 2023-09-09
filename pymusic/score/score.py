@@ -6,6 +6,7 @@ from lxml import etree
 
 from pymusic import globalvars
 from pymusic.parts import PartsBuilder
+from pymusic.parts.parts import Parts
 
 log = logging.getLogger("score")
 
@@ -26,6 +27,7 @@ class ScoreBuilder:
     _interesting_children_map = {
         "part-list": PartsBuilder.create_from_part_list_xml
     }
+    _parts: Parts = field
 
     # TODO: add links to parts, and links to bars.
     # This is all gonna be one crazy connected tree / graph thing, but that's ok.
@@ -41,9 +43,10 @@ class ScoreBuilder:
     def process_children(self):
         root = self._og_xml.getroot()
         for child in root:
-            if child.tag in self._interesting_children_map:
-                self._interesting_children_map[child.tag](child)
-            if child.tag not in self._interesting_children_map:
+            if child.tag == "part-list":
+                self._parts = PartsBuilder.create_from_part_list_xml(child)
+                log.debug(f"{globalvars.prefix} added part {self._parts}")
+            else:
                 self._additional_info.append(child)
 
     @staticmethod
