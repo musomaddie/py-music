@@ -15,3 +15,7 @@ def update_prefix(
         return
 
     globalvars.prefix = globalvars.prefix.replace(to_remove, to_replace)
+
+
+def remove_section(to_remove: str):
+    globalvars.prefix = globalvars.prefix.replace(to_remove, "")

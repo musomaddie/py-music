@@ -19,9 +19,13 @@
 
    https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/
 """
+import logging
 from dataclasses import dataclass, field
 
 import lxml.etree
+from lxml import etree
+
+log = logging.getLogger("attributes")
 
 
 # Worry about what exactly to attach this to later, for now let's just the relevant parts processed.
@@ -47,5 +51,10 @@ class AttributesBuilder:
         - directive: TODO - seems deprecated?
         - measure-style: TODO - will need for multi rest, and some other fancy things.
     """
-    _og_xml: lxml.etree.Element
+    og_xml: lxml.etree.Element
     _additional_info: list = field(default_factory=list)
+
+    @staticmethod
+    def create_from_attribute_xml(attribute_xml: etree.Element) -> 'AttributesBuilder':
+        builder = AttributesBuilder(attribute_xml)
+        log.warning(f"Building {builder} ...")

@@ -6,7 +6,6 @@ from lxml import etree
 
 from pymusic import globalvars
 from pymusic.parts import PartsBuilder
-from pymusic.parts.parts import Parts
 
 log = logging.getLogger("score")
 
@@ -24,10 +23,7 @@ class ScoreBuilder:
     _og_xml: lxml.etree._ElementTree
     _additional_info: list = field(default_factory=list)
     _title: str = ""
-    _interesting_children_map = {
-        "part-list": PartsBuilder.create_from_part_list_xml
-    }
-    _parts: Parts = field
+    _parts: PartsBuilder = field
 
     # TODO: add links to parts, and links to bars.
     # This is all gonna be one crazy connected tree / graph thing, but that's ok.
@@ -45,14 +41,17 @@ class ScoreBuilder:
         for child in root:
             if child.tag == "part-list":
                 self._parts = PartsBuilder.create_from_part_list_xml(child)
-                log.debug(f"{globalvars.prefix} added part {self._parts}")
+                # TODO - change debug statements.
+                log.debug(f"added parts {self._parts}")
+            elif child.tag == "part":
+                self._parts.add_measures_to_part(child)
+                break
             else:
                 self._additional_info.append(child)
 
     @staticmethod
     def create_from_musicxml_file(filename):
-        globalvars.prefix = "ScoreBuilder:"
-        log.info(f"{globalvars.prefix} creating from %s", filename)
+        log.info(f"creating from %s", filename)
         builder = ScoreBuilder(etree.parse(filename))
         builder.find_title()
         builder.process_children()

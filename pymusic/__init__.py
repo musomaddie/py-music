@@ -2,7 +2,7 @@ import logging
 
 import colorlog
 
-from .update_globs import update_prefix
+from .update_globs import update_prefix, remove_section
 
 handler = colorlog.StreamHandler()
 handler.setFormatter(
