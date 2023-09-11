@@ -56,6 +56,7 @@ class MeasureBuilder:
 
         for child in measure_xml:
             if child.tag == "attributes":
+                # TODO - save result.
                 AttributesBuilder.create_from_attribute_xml(child)
             else:
                 builder._additional_info.append(child)

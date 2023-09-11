@@ -36,8 +36,6 @@ class AttributesBuilder:
     (https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/).
 
     (Plan) of what happens with its children.
-        - footnote: additional info
-        - level: additional info
         - divisions: delegates to a time builder (is important to determine relative note lengths).
         - key: delegates to key builder
         - time: delegates to time builder
@@ -58,3 +56,8 @@ class AttributesBuilder:
     def create_from_attribute_xml(attribute_xml: etree.Element) -> 'AttributesBuilder':
         builder = AttributesBuilder(attribute_xml)
         log.warning(f"Building {builder} ...")
+
+        for child in attribute_xml:
+            print(child)
+
+        return builder
