@@ -51,8 +51,13 @@ class MeasureBuilder:
 
     @staticmethod
     def create_from_measure_xml(measure_xml: etree.Element) -> 'MeasureBuilder':
+        """ Creates a measure builder from the given xml. """
         builder = MeasureBuilder(measure_xml.attrib["number"], measure_xml)
         log.warning(f"Starting to build {builder}")
+
+        # TODO -> figure out what to do with print. (should this just go into additional info?,
+        #  or a specialised layout place??), and at the very least document it.
+        # TODO -> measure-layout -> either document or decide what to do with.
 
         for child in measure_xml:
             if child.tag == "attributes":

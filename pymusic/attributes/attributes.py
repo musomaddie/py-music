@@ -25,6 +25,8 @@ from dataclasses import dataclass, field
 import lxml.etree
 from lxml import etree
 
+from pymusic.rhythm.time_signature import TimeSignatureBuilder
+
 log = logging.getLogger("attributes")
 
 
@@ -58,6 +60,11 @@ class AttributesBuilder:
         log.warning(f"Building {builder} ...")
 
         for child in attribute_xml:
-            print(child)
+            if child.tag == "key":
+                log.warning(f"key child - {child}")
+            if child.tag == "time":
+                time_signature_builder = TimeSignatureBuilder.create_from_xml(
+                    attribute_xml.find("divisions"), child)
+                log.warning(time_signature_builder)
 
         return builder
