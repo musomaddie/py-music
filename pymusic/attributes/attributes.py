@@ -63,8 +63,8 @@ class AttributesBuilder:
             if child.tag == "key":
                 log.warning(f"key child - {child}")
             if child.tag == "time":
-                time_signature_builder = TimeSignatureBuilder.create_from_xml(
+                time_signature = TimeSignatureBuilder.create_from_xml(
                     attribute_xml.find("divisions"), child)
-                log.warning(time_signature_builder)
+                log.warning(time_signature)
 
         return builder
