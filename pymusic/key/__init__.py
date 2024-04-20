@@ -1,3 +1,5 @@
+""" Mode things :) """
+
 from .mode import Mode
 from ..pitch import (
     TONE, UNISON, MAJOR_2nd, MAJOR_3rd, PERFECT_4th, OCTAVE, PERFECT_5th, MAJOR_6th, MAJOR_7th,
@@ -53,3 +55,9 @@ LOCRIAN = Mode(
     intervals=[UNISON, MINOR_2nd, MINOR_3rd, PERFECT_4th, TRITONE, MINOR_6th, MINOR_7th, OCTAVE],
     intervals_relative=[SEMITONE, TONE, TONE, SEMITONE, TONE, TONE, TONE]
 )
+
+
+def find_mode_from_text(text: str) -> Mode:
+    """ Given text returns the corresponding mode. """
+    if text == "major":
+        return MAJOR
