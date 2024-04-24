@@ -37,6 +37,7 @@ class PartsBuilder:
     def create_from_part_list_xml(part_list_xml: etree.Element) -> 'PartsBuilder':
         builder = PartsBuilder(part_list_xml)
         builder.process_children()
+        log.debug(builder)
         log.info(f"Created initial parts: {builder.glance()}")
         return builder
 
