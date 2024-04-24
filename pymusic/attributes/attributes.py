@@ -26,6 +26,7 @@ import lxml.etree
 from lxml import etree
 
 from pymusic.key.key import KeyBuilder
+from pymusic.parts.clef import Clef
 from pymusic.rhythm.time_signature import TimeSignatureBuilder
 
 log = logging.getLogger("attributes")
@@ -60,14 +61,28 @@ class AttributesBuilder:
         builder = AttributesBuilder(attribute_xml)
         log.warning(f"Building {builder} ...")
 
+        # TODO -> have a better way of representing that it isn't present, and we should use the previous one instead
+        # (if it exists). -> possibly just take in  the previous attributes instead, and use references.
+        time_signature = None
+        key = None
+        number_of_staves = 1  # default if absent, according to musicxml documentation.
+        clef = None  # TODO -> better default here.
         for child in attribute_xml:
-            if child.tag == "time":
+            if child.tag == "divisions":
+                # Divisions are only used in combination with time signature, but I want to explicitly mark them as
+                # handled for my own peace of mind.
+                pass
+            elif child.tag == "time":
                 time_signature = TimeSignatureBuilder.create_from_xml(
                     attribute_xml.find("divisions"), child)
-                # log.warning(time_signature)
-            if child.tag == "key":
-                KeyBuilder.create_from_key_xml(
-                    child
-                )
+            elif child.tag == "key":
+                key = KeyBuilder.create_from_key_xml(child)
+            elif child.tag == "staves":
+                # TODO -> handle multiple staves.
+                number_of_staves = 1
+            elif child.tag == "clef":
+                clef = Clef.create_from_xml(child)
+            else:
+                log.error(f"\tUnhandled attribute {child}")
 
         return builder

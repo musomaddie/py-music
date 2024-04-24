@@ -33,10 +33,12 @@ class TimeSignatureBuilder:
             time_xml: etree.Element,
     ) -> TimeSignature:
         """ A builder for the time signature, taking into account divisions. """
-        return TimeSignatureBuilder(
+        time_sig = TimeSignatureBuilder(
             divisions_xml,
             time_xml,
             int(divisions_xml.text),
             int(time_xml.find("beats").text),
             int(time_xml.find("beat-type").text)
         ).build()
+        log.info(time_sig)
+        return time_sig
