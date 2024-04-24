@@ -46,6 +46,10 @@ class Clef:
     symbol: ClefSymbol
     line: int
 
+    def glance(self) -> str:
+        """ Returns a string representing the clef at a glance. """
+        return self.symbol.name
+
     @staticmethod
     def create_from_xml(clef_xml: etree.Element) -> 'Clef':
         """ Creates a clef from some given xml. """
@@ -53,5 +57,6 @@ class Clef:
             symbol=ClefSymbol.get_symbol_from_string(clef_xml.find("sign").text),
             line=clef_xml.find("line").text)
 
-        log.info(clef)
+        log.debug(clef)
+        log.info(f"{clef.glance()} clef")
         return clef

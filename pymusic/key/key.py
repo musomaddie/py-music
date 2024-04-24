@@ -16,6 +16,10 @@ class Key:
     note: Note | BlackNote
     human_readable: str
 
+    def glance(self) -> str:
+        """ Returns a string representing this key at a glance. """
+        return self.human_readable
+
 
 @dataclass
 class KeyBuilder:
@@ -24,6 +28,7 @@ class KeyBuilder:
     link: https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
     """
 
+    # TODO -> the simpler builders like this can be directly attached to their data class.
     @staticmethod
     def create_from_key_xml(og_xml: etree.Element) -> Key:
         """ Creates a key builder from the given item. """
@@ -49,5 +54,6 @@ class KeyBuilder:
                 note_str = f"{key_note.note_below.name.name}#"
 
         key = Key(mode, key_note, f"{note_str} {mode.name.lower()}")
-        log.info(f"Made key: {key}")
+        log.debug(key)
+        log.info(f"In {key.glance()}")
         return key

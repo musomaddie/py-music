@@ -41,14 +41,20 @@ class PartBuilder:
         return f"{self._part_name} [{self.part_id}]"
 
     def build(self) -> Part:
-        log.info(f"{globalvars.prefix} {self} built.")
+        log.debug(f"{globalvars.prefix} {self} built.")
         return Part(self.part_id, self._part_name, self._part_abbr)
+
+    def glance(self) -> str:
+        """ Returns a string representing this part at a glance. """
+        return f"{self._part_name} ({self.part_id})"
 
     @staticmethod
     def create_from_part_list_xml(part_list_xml: lxml.etree.Element) -> 'PartBuilder':
         builder = PartBuilder(part_list_xml.attrib["id"], part_list_xml)
-        log.info(f"starting to build {builder.part_id}")
+        log.debug(f"starting to build {builder.part_id}")
         builder.process_children()
+
+        log.info(f"Built information for {builder.glance()}")
 
         return builder
 
@@ -62,7 +68,7 @@ class PartBuilder:
                 self._additional_info.append(child)
 
     def add_measures(self, part_with_measures_xml: etree.Element):
-        log.info(f"Adding measures to {self}")
+        log.debug(f"Adding measures to {self}")
         for child in part_with_measures_xml:
             if child.tag == "measure":
                 # TODO - actually add the measure, not just make it.

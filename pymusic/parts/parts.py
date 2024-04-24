@@ -29,11 +29,15 @@ class PartsBuilder:
     def __repr__(self):
         return self._parts
 
+    def glance(self):
+        """ Returns a string representing all parts at a glance. """
+        return "; ".join([part.glance() for part in self._parts.values()])
+
     @staticmethod
     def create_from_part_list_xml(part_list_xml: etree.Element) -> 'PartsBuilder':
         builder = PartsBuilder(part_list_xml)
-        log.info(f"Starting to build {builder}")
         builder.process_children()
+        log.info(f"Created initial parts: {builder.glance()}")
         return builder
 
     # def build(self) -> Parts:

@@ -4,7 +4,6 @@ from dataclasses import dataclass, field
 import lxml
 from lxml import etree
 
-from pymusic import globalvars
 from pymusic.parts import PartsBuilder
 
 log = logging.getLogger("score")
@@ -34,7 +33,7 @@ class ScoreBuilder:
         for parent_element in root.iter("work"):
             for child_element in parent_element.iter("work-title"):
                 self._title = child_element.text
-                log.debug(f"{globalvars.prefix}title - %s", self._title)
+                log.debug(f"title - %s", self._title)
 
     def process_children(self):
         root = self._og_xml.getroot()
@@ -51,7 +50,7 @@ class ScoreBuilder:
 
     @staticmethod
     def create_from_musicxml_file(filename):
-        log.info(f"creating from %s", filename)
+        log.debug(f"creating from %s", filename)
         builder = ScoreBuilder(etree.parse(filename))
         builder.find_title()
         builder.process_children()
