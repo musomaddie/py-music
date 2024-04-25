@@ -1,38 +1,30 @@
-"""
-   <attributes>
-    <divisions>256</divisions>
-    <key color="#000000">
-     <fifths>-2</fifths>
-     <mode>major</mode>
-    </key>
-    <time color="#000000">
-     <beats>4</beats>
-     <beat-type>4</beat-type>
-    </time>
-    <staves>1</staves>
-    <clef number="1" color="#000000">
-     <sign>G</sign>
-     <line>2</line>
-    </clef>
-    <staff-details number="1" print-object="yes" />
-   </attributes>
-
-   https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/
-"""
+""" https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/ """
 import logging
 from dataclasses import dataclass, field
 
 import lxml.etree
 from lxml import etree
 
-from pymusic.key.key import KeyBuilder
+from pymusic.key.key import KeyBuilder, Key
 from pymusic.parts.clef import Clef
-from pymusic.rhythm.time_signature import TimeSignatureBuilder
+from pymusic.rhythm.time_signature import TimeSignatureBuilder, TimeSignature
 
 log = logging.getLogger("attributes")
 
 
 # Worry about what exactly to attach this to later, for now let's just the relevant parts processed.
+
+@dataclass
+class Attributes:
+    """ Represents attributes connected to a bar."""
+    time_signature: TimeSignature
+    key: Key
+    clef: Clef
+
+    def glance(self):
+        """ Returns a string representing this attribute at a glance."""
+        return f"{self.clef.glance()} clef, {self.key.glance()} in {self.time_signature.glance()} time"
+
 
 @dataclass
 class AttributesBuilder:
@@ -57,9 +49,8 @@ class AttributesBuilder:
     _additional_info: list = field(default_factory=list)
 
     @staticmethod
-    def create_from_attribute_xml(attribute_xml: etree.Element) -> 'AttributesBuilder':
+    def create_from_attribute_xml(attribute_xml: etree.Element) -> 'Attributes':
         builder = AttributesBuilder(attribute_xml)
-        log.warning(f"Building {builder} ...")
 
         # TODO -> have a better way of representing that it isn't present, and we should use the previous one instead
         # (if it exists). -> possibly just take in  the previous attributes instead, and use references.
@@ -85,4 +76,8 @@ class AttributesBuilder:
             else:
                 log.error(f"\tUnhandled attribute {child}")
 
-        return builder
+        attributes = Attributes(time_signature, key, clef)
+        log.debug(attributes)
+        log.info(attributes.glance())
+
+        return attributes

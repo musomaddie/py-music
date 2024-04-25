@@ -62,10 +62,11 @@ class MeasureBuilder:
         for child in measure_xml:
             if child.tag == "attributes":
                 # TODO - save result.
-                AttributesBuilder.create_from_attribute_xml(child)
+                attributes = AttributesBuilder.create_from_attribute_xml(child)
+            elif child.tag == "print":
+                continue  # Display only, not helpful
             else:
-                builder._additional_info.append(child)
-
+                log.error(f"\tUnhandled attribute {child}")
         # TODO - figure out how to store attributes in _additional_info. (or if I need to).
 
         return builder
