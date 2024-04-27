@@ -3,8 +3,8 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.key import find_mode_from_text, Mode
-from pymusic.pitch import C, KEYBOARD_OCTAVE, PERFECT_5th, BlackNote, Note
+from pymusic.key import find_mode_from_text, Mode, MAJOR
+from pymusic.pitch import C, PERFECT_5th, KEYBOARD_OCTAVE_SHARPS, KEYBOARD_OCTAVE_FLATS, Note, C_FLAT
 
 log = logging.getLogger("key")
 
@@ -13,12 +13,11 @@ log = logging.getLogger("key")
 class Key:
     """ Represents a key."""
     mode: Mode
-    note: Note | BlackNote
-    human_readable: str
+    note: Note
 
     def glance(self) -> str:
         """ Returns a string representing this key at a glance. """
-        return self.human_readable
+        return f"{self.note.name} {self.mode.name.lower()}"
 
 
 @dataclass
@@ -38,22 +37,21 @@ class KeyBuilder:
         mode_xml = og_xml.find("mode")
         mode = find_mode_from_text(mode_xml.text)
 
+        keyboard = KEYBOARD_OCTAVE_SHARPS
+        if fifths < 0:
+            keyboard = KEYBOARD_OCTAVE_FLATS
+
         # TODO -> check mode time (right now only major is supported)
         starting_note = C
-        starting_note_idx = KEYBOARD_OCTAVE.index(starting_note)
+        starting_note_idx = keyboard.index(starting_note)
         fifths_gap = PERFECT_5th.distance * fifths
-        key_note = KEYBOARD_OCTAVE[(starting_note_idx + fifths_gap) % len(KEYBOARD_OCTAVE)]
+        key_note = keyboard[(starting_note_idx + fifths_gap) % len(keyboard)]
 
-        # Let's make the human-readable string.
-        if isinstance(key_note, Note):
-            note_str = key_note.name.name
-        else:
-            if fifths < 0:
-                note_str = f"{key_note.note_above.name.name}b"
-            else:
-                note_str = f"{key_note.note_below.name.name}#"
+        # TODO -> generalise the special case a little more.
+        if fifths == -7 and mode == MAJOR:
+            key_note = C_FLAT
 
-        key = Key(mode, key_note, f"{note_str} {mode.name.lower()}")
+        key = Key(mode, key_note)
         log.debug(key)
         log.info(f"In {key.glance()}")
         return key

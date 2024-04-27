@@ -1,8 +1,8 @@
-from pymusic.notes.note_names import NoteName
 from .accidental import Accidental
 from .black_note import BlackNote
 from .interval import Interval
-from .note import Note
+from .note import (Note, A, A_FLAT, A_SHARP, B, B_FLAT, B_SHARP, C, C_SHARP, C_FLAT, D, D_SHARP, D_FLAT, E, E_FLAT,
+    E_SHARP, F, F_SHARP, F_FLAT, G, G_SHARP, G_FLAT)
 
 SEMITONE = Interval(text="semitone", distance=1)
 TONE = Interval(text="tone", distance=2)
@@ -25,18 +25,5 @@ SHARP = Accidental(alter="1", desc="Sharp", shorthand="#")
 FLAT = Accidental(alter="-1", desc="Flat", shorthand="b")
 NONE = Accidental(alter="0", desc="", shorthand="")
 
-A = Note(NoteName.A)
-B = Note(NoteName.B)
-C = Note(NoteName.C)
-D = Note(NoteName.D)
-E = Note(NoteName.E)
-F = Note(NoteName.F)
-G = Note(NoteName.G)
-
-AB = BlackNote(A, B)
-CD = BlackNote(C, D)
-DE = BlackNote(D, E)
-FG = BlackNote(F, G)
-GA = BlackNote(G, A)
-
-KEYBOARD_OCTAVE = [C, CD, D, DE, E, F, FG, G, GA, A, AB, B]
+KEYBOARD_OCTAVE_SHARPS = [C, C_SHARP, D, D_SHARP, E, F, F_SHARP, G, G_SHARP, A, A_SHARP, B]
+KEYBOARD_OCTAVE_FLATS = [C, D_FLAT, D, E_FLAT, E, F, G_FLAT, G, A_FLAT, A, B_FLAT, B]
