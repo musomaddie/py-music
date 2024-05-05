@@ -1,16 +1,12 @@
-from io import BytesIO
-
-from lxml import etree
-
 from pymusic.parts.part import PartBuilder
+from tests import create_xml
 
 PART_ID = "P1"
 PART_NAME = "Test Part"
 PART_ABBR = "T.Part."
 
-PART_ELEMENT = etree.parse(
-    BytesIO(
-        f"""
+PART_ELEMENT = create_xml(
+    f"""
         <score-part id="{PART_ID}">
             <part-name>{PART_NAME}</part-name>
             <part-name-display>
@@ -18,9 +14,8 @@ PART_ELEMENT = etree.parse(
             </part-name-display>
             <part-abbreviation>{PART_ABBR}</part-abbreviation>
         </score-part>
-        """.encode()
-    )
-).getroot()
+        """
+)
 
 
 class TestPartBuilder:

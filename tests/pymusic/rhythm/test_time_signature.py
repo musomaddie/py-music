@@ -1,32 +1,20 @@
 """ Tests related to the time signature! """
-from io import BytesIO
-
-from lxml import etree
 
 from pymusic.rhythm.time_signature import TimeSignatureBuilder
+from tests import create_xml
 
 N_DIVISIONS = "256"
 N_BEATS = "4"
 N_TYPE = "4"
 
-DIVISION_ELEMENT = etree.parse(
-    BytesIO(
-        f"""
-        <divisions>{N_DIVISIONS}</divisions>
-        """.encode()
-    )
-).getroot()
+DIVISION_ELEMENT = create_xml(
+    f""" <divisions>{N_DIVISIONS}</divisions> """)
 
-TIME_ELEMENT = etree.parse(
-    BytesIO(
-        f"""
-        <time color="#000000">
+TIME_ELEMENT = create_xml(
+    f""" <time color="#000000">
             <beats>{N_BEATS}</beats>
             <beat-type>{N_TYPE}</beat-type>
-        </time>
-        """.encode()
-    )
-).getroot()
+        </time> """)
 
 
 def test_builder():
