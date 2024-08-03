@@ -74,7 +74,7 @@ class AttributesBuilder:
             elif child.tag == "clef":
                 clef = Clef.create_from_xml(child)
             else:
-                log.error(f"\tUnhandled attribute {child}")
+                log.warning(f"\tUnhandled attribute {child}")
 
         attributes = Attributes(time_signature, key, clef)
         log.debug(attributes)

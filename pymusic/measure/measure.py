@@ -36,6 +36,7 @@ from dataclasses import dataclass, field
 from lxml import etree
 
 from pymusic.attributes import AttributesBuilder
+from pymusic.pitch.chord_symbol import ChordSymbol
 
 log = logging.getLogger("measure")
 
@@ -65,8 +66,10 @@ class MeasureBuilder:
                 attributes = AttributesBuilder.create_from_attribute_xml(child)
             elif child.tag == "print":
                 continue  # Display only, not helpful
+            elif child.tag == "harmony":
+                chord = ChordSymbol.create_from_xml(child)
             else:
-                log.error(f"\tUnhandled attribute {child}")
+                log.warning(f"Unhandled attribute {child}")
         # TODO - figure out how to store attributes in _additional_info. (or if I need to).
 
         return builder

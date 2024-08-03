@@ -4,7 +4,7 @@ from dataclasses import dataclass
 from lxml import etree
 
 from pymusic.key import find_mode_from_text, Mode, MAJOR
-from pymusic.pitch import C, PERFECT_5th, KEYBOARD_OCTAVE_SHARPS, KEYBOARD_OCTAVE_FLATS, Note, C_FLAT
+from pymusic.pitch import C, PERFECT_5, KEYBOARD_OCTAVE_SHARPS, KEYBOARD_OCTAVE_FLATS, Note, C_FLAT
 
 log = logging.getLogger("key")
 
@@ -44,7 +44,7 @@ class KeyBuilder:
         # TODO -> check mode time (right now only major is supported)
         starting_note = C
         starting_note_idx = keyboard.index(starting_note)
-        fifths_gap = PERFECT_5th.distance * fifths
+        fifths_gap = PERFECT_5.distance * fifths
         key_note = keyboard[(starting_note_idx + fifths_gap) % len(keyboard)]
 
         # TODO -> generalise the special case a little more.
