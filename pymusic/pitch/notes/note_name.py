@@ -1,20 +1,36 @@
 """ An enum for the note names, which also allows us to look up and return some other stuff about it. """
 
-from enum import Enum
+from enum import Enum, auto
 
 
 class NoteName(Enum):
-    """	
-    The names of each note in an octave as defined by `ASPN`_.	
-    Each octave starts at C, so the value assigned by the enum reflects this. Internal	
-    implementation of the `step data type`_ defined in Music XML.	
-    .. _`ASPN`: https://viva.pressbooks.pub/openmusictheory/chapter/aspn/	
-    .. _`step data type`: https://www.w3.org/2021/06/musicxml40/musicxml-reference/data-types/step/	
     """
-    C = 1
-    D = 2
-    E = 3
-    F = 4
-    G = 5
-    A = 6
-    B = 7
+    Full list of Note Names.
+    """
+    C_FLAT = auto()
+    C = auto()
+    C_SHARP = auto()
+
+    D_FLAT = auto()
+    D = auto()
+    D_SHARP = auto()
+
+    E_FLAT = auto()
+    E = auto()
+    E_SHARP = auto()
+
+    F_FLAT = auto()
+    F = auto()
+    F_SHARP = auto()
+
+    G_FLAT = auto()
+    G = auto()
+    G_SHARP = auto()
+
+    A_FLAT = auto()
+    A = auto()
+    A_SHARP = auto()
+
+    B_FLAT = auto()
+    B = auto()
+    B_SHARP = auto()
