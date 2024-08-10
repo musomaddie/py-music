@@ -60,6 +60,9 @@ class Mode(Enum):
     def intervals_relative(self):
         return self.intervals_relative
 
-
-if __name__ == '__main__':
-    print(Mode.MAJOR.mode_name)
+    @staticmethod
+    def find_mode_from_text(text: str) -> 'Mode':
+        """ Given text returns the corresponding mode. """
+        # TODO -> generalise this
+        if text == "major":
+            return Mode.MAJOR

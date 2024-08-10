@@ -1,2 +1,3 @@
 """ Helper methods for determining notes using the piano keys. """
-from pymusic.pitch.piano_keys.piano import WhiteKey, BlackKey
+
+from .piano import find_note_from_number_of_semitones, find_note_from_interval

@@ -2,6 +2,7 @@
 from .note import Note, NoteName
 from ..accidentals import Accidental
 
+# TODO -> enum this like I've done the Intervals and Mode.
 AF = Note(NoteName.A, Accidental.FLAT)
 AN = Note(NoteName.A, Accidental.NATURAL)
 AS = Note(NoteName.A, Accidental.SHARP)
