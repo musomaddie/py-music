@@ -1,36 +1,22 @@
-""" An enum for the note names, which also allows us to look up and return some other stuff about it. """
+""" NoteName stuff. """
+from dataclasses import dataclass
 
-from enum import Enum, auto
+from pymusic.pitch.accidentals import Accidental
+from pymusic.pitch.notes.octave_note_name import OctaveNoteName
 
 
-class NoteName(Enum):
-    """
-    Full list of Note Names.
-    """
-    C_FLAT = auto()
-    C = auto()
-    C_SHARP = auto()
+@dataclass
+class NoteName:
+    """ represents a single note. """
+    name: OctaveNoteName
+    accidental: Accidental
 
-    D_FLAT = auto()
-    D = auto()
-    D_SHARP = auto()
+    def glance(self):
+        """ Nicely readable thing. """
+        return f"{self.name.name}{self.accidental.shorthand}"
 
-    E_FLAT = auto()
-    E = auto()
-    E_SHARP = auto()
+    def __str__(self):
+        return self.glance()
 
-    F_FLAT = auto()
-    F = auto()
-    F_SHARP = auto()
-
-    G_FLAT = auto()
-    G = auto()
-    G_SHARP = auto()
-
-    A_FLAT = auto()
-    A = auto()
-    A_SHARP = auto()
-
-    B_FLAT = auto()
-    B = auto()
-    B_SHARP = auto()
+    def __repr__(self):
+        return self.glance()
