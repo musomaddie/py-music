@@ -1,6 +1,2 @@
-""" Accidental handling (stuff) """
+""" Accidentals """
 from .accidental import Accidental
-
-SHARP = Accidental("sharp", "♯")
-FLAT = Accidental("flat", "♭")
-NATURAL = Accidental("natural", "♮")

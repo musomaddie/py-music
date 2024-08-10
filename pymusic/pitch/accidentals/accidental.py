@@ -1,10 +1,8 @@
-from dataclasses import dataclass
+from enum import Enum
 
 
-@dataclass
-class Accidental:
-    """
-    Accidental representation.
-    """
-    name: str
-    shorthand: str
+class Accidental(Enum):
+    """ Enum representation of an accidental. """
+    SHARP = "♯"
+    FLAT = "♭"
+    NATURAL = "♮"
