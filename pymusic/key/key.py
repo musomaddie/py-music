@@ -6,7 +6,6 @@ from lxml import etree
 
 from pymusic.key.mode import Mode
 from pymusic.pitch import Note, Interval
-from pymusic.pitch.note import CN
 from pymusic.pitch.piano_keys import find_note_from_number_of_semitones
 
 log = logging.getLogger("key")
@@ -39,7 +38,7 @@ class KeyBuilder:
         fifths_xml = og_xml.find("fifths")
         fifths = int(fifths_xml.text)
         note = find_note_from_number_of_semitones(
-            starting_note=CN, semitones=(Interval.PERF_5.n_semitones * fifths)
+            starting_note=Note.C, semitones=(Interval.PERF_5.n_semitones * fifths)
         )
         key = Key(mode, note)
         log.debug(key)

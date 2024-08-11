@@ -2,7 +2,6 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-import pymusic.pitch.note as n
 from pymusic.pitch.interval import Interval
 from pymusic.pitch.note import Note
 
@@ -50,18 +49,18 @@ class BlackKey(KeyNote):
 
 
 octave = [
-    WhiteKey(n.CN),
-    BlackKey(n.CS, n.DF),
-    WhiteKey(n.DN),
-    BlackKey(n.DS, n.EF),
-    WhiteKey(n.EN),
-    WhiteKey(n.FN),
-    BlackKey(n.FS, n.GF),
-    WhiteKey(n.GN),
-    BlackKey(n.GS, n.AF),
-    WhiteKey(n.AN),
-    BlackKey(n.AS, n.BF),
-    WhiteKey(n.BN)
+    WhiteKey(Note.A),
+    BlackKey(Note.A_SHARP, Note.B_FLAT),
+    WhiteKey(Note.B),
+    WhiteKey(Note.C),
+    BlackKey(Note.C_SHARP, Note.D_FLAT),
+    WhiteKey(Note.D),
+    BlackKey(Note.D_SHARP, Note.E_FLAT),
+    WhiteKey(Note.E),
+    WhiteKey(Note.F),
+    BlackKey(Note.F_SHARP, Note.G_FLAT),
+    WhiteKey(Note.G),
+    BlackKey(Note.G_SHARP, Note.A_FLAT)
 ]
 
 
