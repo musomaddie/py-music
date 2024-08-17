@@ -5,7 +5,6 @@ from enum import Enum
 class Interval(Enum):
 
     def __init__(self, names: list[str], n_semitones: int):
-        """ The data used for the interval enum. """
         self.names = names
         self.n_semitones = n_semitones
 
