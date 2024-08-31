@@ -18,6 +18,10 @@ class KeyNote(ABC):
     def get_note(self, accidental_hint: str):
         """ Get the corresponding note from this key. """
 
+    @abstractmethod
+    def matches(self, other_note: Note):
+        """ Returns true if this keynote matches the passed note. """
+
 
 @dataclass
 class WhiteKey(KeyNote):
@@ -29,6 +33,9 @@ class WhiteKey(KeyNote):
 
     def get_note(self, accidental_hint: str):
         return self.note
+
+    def matches(self, other_note: Note):
+        return self.note == other_note
 
 
 @dataclass
@@ -46,6 +53,9 @@ class BlackKey(KeyNote):
         if accidental_hint == "♭":
             return self.flat_note
         return self.sharp_note
+
+    def matches(self, other_note: Note):
+        return self.flat_note == other_note or self.sharp_note == other_note
 
 
 octave = [
@@ -76,11 +86,18 @@ def _find_starting_idx(starting_note: Note):
     return idx
 
 
+def _note_idx(it, condition, default=-1):
+    return next((i for i, elem in enumerate(it) if condition(elem)), default)
+
+
 def find_note_from_number_of_semitones(starting_note: Note, semitones: int):
     """ Returns the note the number of given number of semitones away from the starting note. """
-    starting_idx = _find_starting_idx(starting_note)
-    keynote = octave[(starting_idx + semitones) % len(octave)]
-    return keynote.get_note(starting_note.accidental.value)
+    # first we have to find the starting index
+    starting_idx = _note_idx(
+        octave,
+        lambda note: note.matches(starting_note)
+    )
+    return octave[(starting_idx + semitones) % len(octave)]
 
 
 def find_note_from_interval(starting_note: Note, interval: Interval):

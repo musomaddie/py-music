@@ -60,6 +60,8 @@ class MeasureBuilder:
         #  or a specialised layout place??), and at the very least document it.
         # TODO -> measure-layout -> either document or decide what to do with.
 
+        # TODO -> some of this information should not be buried in the part but also extracted to an external place
+        #  to make it easy  to get info about the piece (i.e. the key (and any key changes)..
         for child in measure_xml:
             if child.tag == "attributes":
                 # TODO - save result.
