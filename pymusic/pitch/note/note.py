@@ -47,7 +47,7 @@ class Note(Enum):
 
     def glance(self):
         """ Returns an easy-to-read string representation of this note."""
-        return f"{self.note_name.value}{self.accidental.value}"
+        return f"{self.note_name.value}{self.accidental.glance()}"
 
     @staticmethod
     def corresponding_note(note_name: str, accidental: Accidental):

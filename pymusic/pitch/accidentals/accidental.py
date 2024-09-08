@@ -9,6 +9,12 @@ class Accidental(Enum):
     FLAT = "♭"
     NATURAL = "♮"
 
+    def glance(self):
+        """ Returns a short easily readable string for this accidental."""
+        if self == Accidental.NATURAL:
+            return ""
+        return self.value
+
     @staticmethod
     def corresponding_accidental(alter_xml: etree.Element) -> 'Accidental':
         """ Returns the accidental string from this alter bit."""
