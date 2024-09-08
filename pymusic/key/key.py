@@ -41,7 +41,7 @@ class KeyBuilder:
         note = find_note_from_number_of_semitones(
             starting_note=Note.C, semitones=(Interval.PERF_5.n_semitones * fifths)
         ).get_note(
-            Accidental.accidental_hint(fifths)
+            Accidental.corresponding_accidental_from_int(fifths)
         )
         key = Key(mode, note)
         log.debug(key)

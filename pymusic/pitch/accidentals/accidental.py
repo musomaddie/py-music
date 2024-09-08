@@ -24,11 +24,10 @@ class Accidental(Enum):
         raise ValueError(f"Can't handle alter text of {alter_xml}")
 
     @staticmethod
-    def accidental_hint(number: int) -> str:
-        """ Generates a string 'accidental hint' from the given number."""
-        accidental = Accidental.NATURAL
-        if number > 0:
-            accidental = Accidental.SHARP
-        elif number < 0:
-            accidental = accidental.FLAT
-        return accidental.value
+    def corresponding_accidental_from_int(i: int) -> 'Accidental':
+        """ Returns the accidental corresponding to the given number. (negative numbers = flat)"""
+        if i == 0:
+            return Accidental.NATURAL
+        elif i > 0:
+            return Accidental.SHARP
+        return Accidental.FLAT

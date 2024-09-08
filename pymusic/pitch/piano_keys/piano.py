@@ -2,6 +2,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
+from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.interval import Interval
 from pymusic.pitch.note import Note
 
@@ -15,7 +16,7 @@ class KeyNote(ABC):
         pass
 
     @abstractmethod
-    def get_note(self, accidental_hint: str):
+    def get_note(self, accidental: Accidental):
         """ Get the corresponding note from this key. """
 
     @abstractmethod
@@ -31,7 +32,7 @@ class WhiteKey(KeyNote):
     def glance(self, use_sharp: bool):
         return self.note.glance()
 
-    def get_note(self, accidental_hint: str):
+    def get_note(self, accidental: Accidental):
         return self.note
 
     def matches(self, other_note: Note):
@@ -49,8 +50,8 @@ class BlackKey(KeyNote):
             return self.sharp_note.glance()
         return self.flat_note.glance()
 
-    def get_note(self, accidental_hint: str):
-        if accidental_hint == "♭":
+    def get_note(self, accidental: Accidental):
+        if accidental == Accidental.FLAT:
             return self.flat_note
         return self.sharp_note
 

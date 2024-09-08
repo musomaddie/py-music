@@ -17,13 +17,6 @@ BB_KEY_ELEMENT = create_xml(
 )
 
 
-# < key
-# color = "#000000" >
-# < fifths > -2 < / fifths >
-# < mode > major < / mode >
-# < / key >
-
-
 def test_bb():
     result = KeyBuilder.create_from_key_xml(BB_KEY_ELEMENT)
     assert result.mode == Mode.MAJOR
