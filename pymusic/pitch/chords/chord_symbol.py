@@ -96,7 +96,6 @@ class ChordSymbol:
     @staticmethod
     def create_from_xml(harmony_xml: etree.Element) -> 'ChordSymbol':
         """ Returns a chord symbol created from the given XML. """
-        logger.error("Creating chord with %s", harmony_xml)
 
         chord_root_xml = harmony_xml.find("root")
         if chord_root_xml is None:
@@ -107,4 +106,6 @@ class ChordSymbol:
             Accidental.corresponding_accidental(chord_root_xml.find("root-alter"))
         )
         kind_text = harmony_xml.find("kind").text
-        return ChordSymbol(root_note, ChordType.find_corresponding(kind_text))
+        chord = ChordSymbol(root_note, ChordType.find_corresponding(kind_text))
+        logger.info("Chord %s", chord)
+        return chord
