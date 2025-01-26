@@ -1,8 +1,7 @@
 """ https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/ """
 import logging
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
-import lxml.etree
 from lxml import etree
 
 from pymusic.key.key import KeyBuilder, Key
@@ -16,20 +15,8 @@ log = logging.getLogger("attributes")
 
 @dataclass
 class Attributes:
-    """ Represents attributes connected to a bar."""
-    time_signature: TimeSignature
-    key: Key
-    clef: Clef
+    """ Represents attributes connected to a bar, as defined by musicXML.
 
-    def glance(self):
-        """ Returns a string representing this attribute at a glance."""
-        return f"{self.clef.glance()} clef, {self.key.glance()} in {self.time_signature.glance()} time"
-
-
-@dataclass
-class AttributesBuilder:
-    """ A builder for an attributes' element.
-    (https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/attributes/).
 
     (Plan) of what happens with its children.
         - divisions: delegates to a time builder (is important to determine relative note lengths).
@@ -45,15 +32,16 @@ class AttributesBuilder:
         - directive: TODO - seems deprecated?
         - measure-style: TODO - will need for multi rest, and some other fancy things.
     """
-    og_xml: lxml.etree.Element
-    _additional_info: list = field(default_factory=list)
+    time_signature: TimeSignature
+    key: Key
+    clef: Clef
+
+    def glance(self):
+        """ Returns a string representing this attribute at a glance."""
+        return f"{self.clef.glance()} clef, {self.key.glance()} in {self.time_signature.glance()} time"
 
     @staticmethod
-    def create_from_attribute_xml(attribute_xml: etree.Element) -> 'Attributes':
-        builder = AttributesBuilder(attribute_xml)
-
-        # TODO -> have a better way of representing that it isn't present, and we should use the previous one instead
-        # (if it exists). -> possibly just take in  the previous attributes instead, and use references.
+    def from_xml(attribute_xml: etree.Element) -> 'Attributes':
         time_signature = None
         key = None
         number_of_staves = 1  # default if absent, according to musicxml documentation.

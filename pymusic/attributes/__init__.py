@@ -1,1 +1,1 @@
-from .attributes import AttributesBuilder
+from .attributes import Attributes
