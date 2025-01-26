@@ -42,3 +42,17 @@ def chord_xml_with_alter(note_str: str, note_alter: int, kind_str: str):
 def test_chord_basics(note_xml, expected_glance):
     chord = ChordSymbol.create_from_xml(note_xml)
     assert chord.glance() == expected_glance
+
+
+@pytest.mark.parametrize(
+    ("note_xml", "expected_notes"),
+    [
+        (chord_xml("C", "major"), ["C", "E", "G"])
+    ]
+)
+def test_chord_notes(note_xml, expected_notes):
+    chord = ChordSymbol.create_from_xml(note_xml)
+    notes = chord.all_notes()
+    assert len(notes) == len(expected_notes)
+    for actual, expected in zip(notes, expected_notes):
+        assert actual.glance() == expected
