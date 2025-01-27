@@ -6,7 +6,7 @@ from lxml import etree
 
 from pymusic.key.key import Key
 from pymusic.parts.clef import Clef
-from pymusic.rhythm.time_signature import TimeSignatureBuilder, TimeSignature
+from pymusic.rhythm.time_signature import TimeSignature
 
 log = logging.getLogger("attributes")
 
@@ -52,8 +52,7 @@ class Attributes:
                 # handled for my own peace of mind.
                 pass
             elif child.tag == "time":
-                time_signature = TimeSignatureBuilder.create_from_xml(
-                    attribute_xml.find("divisions"), child)
+                time_signature = TimeSignature.from_xml(attribute_xml.find("divisions"), child)
             elif child.tag == "key":
                 key = Key.from_xml(child)
             elif child.tag == "staves":

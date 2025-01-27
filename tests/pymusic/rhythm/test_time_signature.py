@@ -1,6 +1,5 @@
 """ Tests related to the time signature! """
-
-from pymusic.rhythm.time_signature import TimeSignatureBuilder
+from pymusic.rhythm.time_signature import TimeSignature
 from tests import create_xml
 
 N_DIVISIONS = "256"
@@ -18,7 +17,7 @@ TIME_ELEMENT = create_xml(
 
 
 def test_builder():
-    time_sig = TimeSignatureBuilder.create_from_xml(DIVISION_ELEMENT, TIME_ELEMENT)
+    time_sig = TimeSignature.from_xml(DIVISION_ELEMENT, TIME_ELEMENT)
     assert time_sig.divisions == int(N_DIVISIONS)
     assert time_sig.numerator == int(N_BEATS)
     assert time_sig.denominator == int(N_TYPE)
