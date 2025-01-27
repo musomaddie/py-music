@@ -4,7 +4,7 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.key.key import KeyBuilder, Key
+from pymusic.key.key import Key
 from pymusic.parts.clef import Clef
 from pymusic.rhythm.time_signature import TimeSignatureBuilder, TimeSignature
 
@@ -55,7 +55,7 @@ class Attributes:
                 time_signature = TimeSignatureBuilder.create_from_xml(
                     attribute_xml.find("divisions"), child)
             elif child.tag == "key":
-                key = KeyBuilder.create_from_key_xml(child)
+                key = Key.from_xml(child)
             elif child.tag == "staves":
                 # TODO -> handle multiple staves.
                 number_of_staves = 1

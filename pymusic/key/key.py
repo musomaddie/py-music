@@ -14,7 +14,10 @@ log = logging.getLogger("key")
 
 @dataclass
 class Key:
-    """ Represents a musical key. """
+    """ Represents a musical key.
+
+    link: https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
+    """
     mode: Mode
     note: Note
 
@@ -22,16 +25,8 @@ class Key:
         """ Returns a string representing this key at a glance. """
         return f"{self.note.glance()} {self.mode.mode_name}"
 
-
-@dataclass
-class KeyBuilder:
-    """ Represents a key:
-    link: https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
-    """
-
-    # TODO -> the simpler builders like this can be directly attached to their data class.
     @staticmethod
-    def create_from_key_xml(og_xml: etree.Element) -> Key:
+    def from_xml(og_xml: etree.Element) -> 'Key':
         """ Creates a Key from the given xml. """
         mode_xml = og_xml.find("mode")
         mode = Mode.find_mode_from_text(mode_xml.text)
