@@ -5,7 +5,7 @@ import lxml.etree
 from lxml import etree
 
 from pymusic import globalvars
-from pymusic.measure import MeasureBuilder
+from pymusic.measure import Measure
 
 log = logging.getLogger("part")
 
@@ -72,5 +72,5 @@ class PartBuilder:
         for child in part_with_measures_xml:
             if child.tag == "measure":
                 # TODO - actually add the measure, not just make it.
-                MeasureBuilder.create_from_measure_xml(child)
+                Measure.from_xml(child)
                 break

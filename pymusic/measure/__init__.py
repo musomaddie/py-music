@@ -1,1 +1,1 @@
-from .measure import MeasureBuilder
+from .measure import Measure
