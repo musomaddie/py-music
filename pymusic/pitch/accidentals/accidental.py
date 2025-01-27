@@ -16,7 +16,7 @@ class Accidental(Enum):
         return self.value
 
     @staticmethod
-    def corresponding_accidental(alter_xml: etree.Element) -> 'Accidental':
+    def from_xml(alter_xml: etree.Element) -> 'Accidental':
         """ Returns the accidental string from this alter bit."""
         if alter_xml is None:
             return Accidental.NATURAL
@@ -30,7 +30,7 @@ class Accidental(Enum):
         raise ValueError(f"Can't handle alter text of {alter_xml}")
 
     @staticmethod
-    def corresponding_accidental_from_int(i: int) -> 'Accidental':
+    def from_int(i: int) -> 'Accidental':
         """ Returns the accidental corresponding to the given number. (negative numbers = flat)"""
         if i == 0:
             return Accidental.NATURAL

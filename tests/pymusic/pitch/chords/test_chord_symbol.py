@@ -40,7 +40,7 @@ def chord_xml_with_alter(note_str: str, note_alter: int, kind_str: str):
         (chord_xml_with_alter("F", 1, "major"), "F♯ major")
     ])
 def test_chord_basics(note_xml, expected_glance):
-    chord = ChordSymbol.create_from_xml(note_xml)
+    chord = ChordSymbol.from_xml(note_xml)
     assert chord.glance() == expected_glance
 
 
@@ -51,7 +51,7 @@ def test_chord_basics(note_xml, expected_glance):
     ]
 )
 def test_chord_notes(note_xml, expected_notes):
-    chord = ChordSymbol.create_from_xml(note_xml)
+    chord = ChordSymbol.from_xml(note_xml)
     notes = chord.all_notes()
     assert len(notes) == len(expected_notes)
     for actual, expected in zip(notes, expected_notes):

@@ -36,7 +36,7 @@ class Key:
         note = find_note_from_number_of_semitones(
             starting_note=Note.C, semitones=(Interval.PERF_5.n_semitones * fifths)
         ).get_note(
-            Accidental.corresponding_accidental_from_int(fifths)
+            Accidental.from_int(fifths)
         )
         key = Key(mode, note)
         log.debug(key)

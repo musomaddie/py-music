@@ -79,7 +79,7 @@ class _MeasureBuilder:
             elif child.tag == "print":
                 continue  # Display only, not helpful
             elif child.tag == "harmony":
-                chord = ChordSymbol.create_from_xml(child)
+                chord = ChordSymbol.from_xml(child)
             else:
                 log.warning(f"Unhandled attribute {child}")
         # TODO - figure out how to store attributes in _additional_info. (or if I need to).
