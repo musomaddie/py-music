@@ -51,7 +51,7 @@ class Clef:
         return self.symbol.name
 
     @staticmethod
-    def create_from_xml(clef_xml: etree.Element) -> 'Clef':
+    def from_xml(clef_xml: etree.Element) -> 'Clef':
         """ Creates a clef from some given xml. """
         clef = Clef(
             symbol=ClefSymbol.get_symbol_from_string(clef_xml.find("sign").text),

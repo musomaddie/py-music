@@ -60,7 +60,7 @@ class Attributes:
                 # TODO -> handle multiple staves.
                 number_of_staves = 1
             elif child.tag == "clef":
-                clef = Clef.create_from_xml(child)
+                clef = Clef.from_xml(child)
             else:
                 log.warning(f"\tUnhandled attribute {child}")
 
