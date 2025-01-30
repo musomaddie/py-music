@@ -29,3 +29,10 @@ def get_note(desired_idx: int) -> KeyNote:
 def find_index(searching_note: Note) -> int:
     """ Returns the index of the note passed. """
     return _note_idx(octave, lambda note: note.matches(searching_note))
+
+
+def find_key_note(note: Note) -> KeyNote:
+    """ Finds the keynote corresponding to the given note.
+    Not 100% sure how useful this will be outside of tests though :(
+    """
+    return next((elem for elem in octave if elem.matches(note)), -1)
