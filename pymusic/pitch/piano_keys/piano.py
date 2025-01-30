@@ -67,6 +67,7 @@ class BlackKey(KeyNote):
         return self.flat_note == other_note or self.sharp_note == other_note
 
 
+# TODO -> can octave go in its own package somewhere?
 octave = [
     WhiteKey(Note.A, Note.G_SHARP_2, Note.B_FLAT_2),
     BlackKey(Note.A_SHARP, Note.B_FLAT),
@@ -81,6 +82,10 @@ octave = [
     WhiteKey(Note.G, Note.F_SHARP_2, Note.A_FLAT_2),
     BlackKey(Note.G_SHARP, Note.A_FLAT)
 ]
+
+
+def _from_octave(desired_idx: int) -> KeyNote:
+    return octave[desired_idx % len(octave)]
 
 
 def _find_starting_idx(starting_note: Note):
@@ -99,16 +104,26 @@ def _note_idx(it, condition, default=-1):
     return next((i for i, elem in enumerate(it) if condition(elem)), default)
 
 
-def find_note_from_number_of_semitones(starting_note: Note, semitones: int):
+def _find_note_idx(searching_note: Note) -> int:
+    return _note_idx(octave, lambda note: note.matches(searching_note))
+
+
+def find_note_from_number_of_semitones(starting_note: Note, semitones: int) -> KeyNote:
     """ Returns the note the number of given number of semitones away from the starting note. """
-    # first we have to find the starting index
-    starting_idx = _note_idx(
-        octave,
-        lambda note: note.matches(starting_note)
-    )
-    return octave[(starting_idx + semitones) % len(octave)]
+    starting_idx = _find_note_idx(starting_note)
+    return _from_octave(starting_idx + semitones)
 
 
-def find_note_from_interval(starting_note: Note, interval: Interval):
+def adjust_accidental(note: Note, desired_accidental: Accidental) -> Note:
+    """ Takes in a note and returns the same note but with the desired accidental. Will return the note as is in the
+    case of it already being the desired accidental.  (does not yet support double sharps / flats). """
+    if note.accidental == desired_accidental:
+        return note
+    note_idx = _find_note_idx(note)
+    octave_note = _from_octave(note_idx + desired_accidental.interval)
+    return octave_note.get_note(desired_accidental)
+
+
+def find_note_from_interval(starting_note: Note, interval: Interval) -> KeyNote:
     """ Returns the note which is the interval away from the starting note."""
     return find_note_from_number_of_semitones(starting_note, interval.n_semitones)

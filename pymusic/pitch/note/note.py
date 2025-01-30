@@ -69,3 +69,12 @@ class Note(Enum):
                 return note
 
         raise ValueError(f"Unrecognised note {note_name} ({accidental})")
+
+    @staticmethod
+    def corresponding_note_from_str(note_str: str) -> 'Note':
+        if len(note_str) == 1:
+            return Note.corresponding_note(note_str, Accidental.NATURAL)
+        if len(note_str) == 2:
+            return Note.corresponding_note(note_str[0], Accidental.from_str(note_str[1]))
+
+        raise ValueError(f"Unrecognized note {note_str}")

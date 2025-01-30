@@ -9,8 +9,10 @@ from lxml import etree
 
 from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.chords.chord_type import ChordType
+from pymusic.pitch.interval import Interval
 from pymusic.pitch.note import Note
 from pymusic.pitch.piano_keys import find_note_from_number_of_semitones
+from pymusic.pitch.piano_keys.piano import KeyNote, find_note_from_interval, adjust_accidental
 
 logger = logging.getLogger("chord_symbol")
 
@@ -26,16 +28,30 @@ class ChordSymbol:
         """ Returns an easy-to-read string representation of this chord symbol. """
         return f"{self.root_note.glance()} {self.chord_type.desc}"
 
+    def _determine_note_representation_with_context(self, key_note: KeyNote, interval: Interval):
+        if key_note.matches(self.root_note):
+            return key_note.get_note(self.root_note.accidental)
+        if self.root_note.accidental == Accidental.NATURAL:
+            return key_note.get_note(self.root_note.accidental)
+
+        # The root has an accidental, so we want to inform a decision based on this.
+        natural_root_key_note = find_note_from_number_of_semitones(
+            self.root_note, self.root_note.accidental.inversion().interval
+        ).get_note(Accidental.NATURAL)
+
+        # TODO -> not sure how this will handle being passed a natural in the case of like Dmajor since we expect an F#.
+        natural_new_key_note = find_note_from_interval(natural_root_key_note, interval).get_note(Accidental.NATURAL)
+        return adjust_accidental(natural_new_key_note, self.root_note.accidental)
+
     def all_notes(self) -> list[Note]:
         """ Returns an (ordered) list of all notes contained in this chord, starting at the root. """
-        # TODO -> add a dictionary of notes so we don't have to recalculate this??? -> not sure if its worth it.
+
+        # TODO -> this is being a pain with C# and Db chords -> I think for determining accidentals if the base note
+        #  is an accidental we think on which of the options we want to return.
         notes = []
         for interval in self.chord_type.intervals:
-            new_note = find_note_from_number_of_semitones(
-                starting_note=self.root_note, semitones=interval.n_semitones
-                # TODO -> determine how to do this when the starting note isn't an accidental. (i.e. G major, F major).
-            ).get_note(self.root_note.accidental)
-            notes.append(new_note)
+            notes.append(self._determine_note_representation_with_context(
+                find_note_from_interval(starting_note=self.root_note, interval=interval), interval))
         return notes
 
     #

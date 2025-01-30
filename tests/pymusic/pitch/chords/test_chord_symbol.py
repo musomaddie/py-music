@@ -1,7 +1,7 @@
 """ Tests for the chord symbol. """
 import pytest
 
-from pymusic.pitch import ChordSymbol
+from pymusic.pitch import ChordSymbol, Note
 from tests import create_xml
 
 SS = "♯"
@@ -65,10 +65,27 @@ def test_chord_notes(note_xml, expected_notes):
     "note_xml, expected_glance, expected_notes",
     [
         (chord_xml("C"), "C major", "CEG"),
-        (chord_xml_with_alter("C", 1), f"C♯ major", "C♯E♯G♯")
+        (chord_xml_with_alter("C", 1), "C♯ major", "C♯E♯G♯"),
+        (chord_xml("D"), "D major", "DF♯A"),
+        (chord_xml_with_alter("D", -1), "D♭ major", "D♭F,A♭")
     ]
 )
 def test_all_common_major_chords(note_xml, expected_glance, expected_notes):
+    def convert_into_note_list():
+        notes = []
+        current_note = ""
+        for letter in expected_notes:
+            if letter in "ABCDEFG":
+                if len(current_note) == 0:
+                    current_note += letter
+                else:
+                    notes.append(Note.corresponding_note_from_str(current_note))
+                    current_note = letter
+            else:
+                current_note += letter
+        notes.append(Note.corresponding_note_from_str(current_note))
+        return notes
+
     chord = ChordSymbol.from_xml(note_xml)
     assert chord.glance() == expected_glance
-    assert "".join([note.glance() for note in chord.all_notes()]) == expected_notes
+    assert chord.all_notes() == convert_into_note_list()
