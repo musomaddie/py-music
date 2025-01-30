@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.note import Note
+from pymusic.pitch.note import Note, NoteName
 
 
 class KeyNote(ABC):
@@ -18,6 +18,11 @@ class KeyNote(ABC):
         """ Get the corresponding note from this key. """
 
     @abstractmethod
+    def get_note_from_name(self, name: NoteName):
+        """ Returns the specific note from this key that matches the given name. Throws ValueError if this does not
+        exist."""
+
+    @abstractmethod
     def matches(self, other_note: Note):
         """ Returns true if this keynote matches the passed note. """
 
@@ -25,6 +30,7 @@ class KeyNote(ABC):
 @dataclass
 class WhiteKey(KeyNote):
     """ Corresponds to a white note on a piano keyboard. """
+
     note: Note
     alt_with_sharps: Note
     alt_with_flats: Note
@@ -41,6 +47,17 @@ class WhiteKey(KeyNote):
         if accidental == Accidental.FLAT:
             return self.alt_with_flats
         raise ValueError(f"Don't know how to handle {accidental.glance()}")
+
+    def get_note_from_name(self, name: NoteName):
+        match name:
+            case self.note.note_name:
+                return self.note
+            case self.alt_with_sharps.note_name:
+                return self.alt_with_sharps
+            case self.alt_with_flats:
+                return self.alt_with_flats
+            case _:
+                ValueError(f"No note with {name} found in {self}")
 
     def matches(self, other_note: Note):
         return self.note == other_note
@@ -61,6 +78,15 @@ class BlackKey(KeyNote):
         if accidental == Accidental.FLAT:
             return self.flat_note
         return self.sharp_note
+
+    def get_note_from_name(self, name: NoteName):
+        match name:
+            case self.sharp_note.note_name:
+                return self.sharp_note
+            case self.flat_note.note_name:
+                return self.flat_note
+            case _:
+                ValueError(f"No note with {name} found in {self}")
 
     def matches(self, other_note: Note):
         return self.flat_note == other_note or self.sharp_note == other_note

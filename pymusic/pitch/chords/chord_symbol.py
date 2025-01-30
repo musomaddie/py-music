@@ -11,8 +11,7 @@ from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.chords.chord_type import ChordType
 from pymusic.pitch.interval import Interval
 from pymusic.pitch.note import Note
-from pymusic.pitch.piano_keys import find_note_from_number_of_semitones
-from pymusic.pitch.piano_keys.piano import KeyNote, find_note_from_interval, adjust_accidental
+from pymusic.pitch.piano_keys.piano import KeyNote, find_note_from_interval, find_note_from_number_of_semitones
 
 logger = logging.getLogger("chord_symbol")
 
@@ -33,15 +32,18 @@ class ChordSymbol:
             return key_note.get_note(self.root_note.accidental)
         if self.root_note.accidental == Accidental.NATURAL:
             return key_note.get_note(self.root_note.accidental)
+        # TODO -> consider doing this by default when calculating the note instead of calculating and then checking.
 
-        # The root has an accidental, so we want to inform a decision based on this.
-        natural_root_key_note = find_note_from_number_of_semitones(
-            self.root_note, self.root_note.accidental.inversion().interval
+        # We cannot simply return it based on accidentals like we do for the root since we will not give the correct
+        # note names (for example Db major -> Db F Ab).
+        naturalised_key_note = find_note_from_interval(
+            find_note_from_number_of_semitones(
+                self.root_note, self.root_note.accidental.inversion().interval
+            ).get_note(Accidental.NATURAL),
+            interval
         ).get_note(Accidental.NATURAL)
 
-        # TODO -> not sure how this will handle being passed a natural in the case of like Dmajor since we expect an F#.
-        natural_new_key_note = find_note_from_interval(natural_root_key_note, interval).get_note(Accidental.NATURAL)
-        return adjust_accidental(natural_new_key_note, self.root_note.accidental)
+        return key_note.get_note_from_name(naturalised_key_note.note_name)
 
     def all_notes(self) -> list[Note]:
         """ Returns an (ordered) list of all notes contained in this chord, starting at the root. """
