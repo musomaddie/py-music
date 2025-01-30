@@ -8,6 +8,8 @@ class Accidental(Enum):
     SHARP = "♯"
     FLAT = "♭"
     NATURAL = "♮"
+    SHARP_2 = "♯♯"
+    FLAT_2 = "♭♭"
 
     def glance(self):
         """ Returns a short easily readable string for this accidental."""

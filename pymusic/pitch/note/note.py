@@ -45,6 +45,18 @@ class Note(Enum):
     G_FLAT = NoteName.G, Accidental.FLAT
     G_SHARP = NoteName.G, Accidental.SHARP
 
+    # Double sharps and flats (some excluded like C double flat).
+    A_SHARP_2 = NoteName.A, Accidental.SHARP_2
+    A_FLAT_2 = NoteName.A, Accidental.FLAT_2
+    B_FLAT_2 = NoteName.B, Accidental.FLAT_2
+    C_SHARP_2 = NoteName.C, Accidental.SHARP_2
+    D_FLAT_2 = NoteName.D, Accidental.FLAT_2
+    D_SHARP_2 = NoteName.D, Accidental.SHARP_2
+    E_FLAT_2 = NoteName.E, Accidental.FLAT_2
+    F_SHARP_2 = NoteName.F, Accidental.SHARP_2
+    G_FLAT_2 = NoteName.G, Accidental.FLAT_2
+    G_SHARP_2 = NoteName.G, Accidental.SHARP_2
+
     def glance(self):
         """ Returns an easy-to-read string representation of this note."""
         return f"{self.note_name.value}{self.accidental.glance()}"

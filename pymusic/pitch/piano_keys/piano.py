@@ -28,11 +28,19 @@ class KeyNote(ABC):
 class WhiteKey(KeyNote):
     """ Corresponds to a white note on a piano keyboard. """
     note: Note
+    alt_with_sharps: Note
+    alt_with_flats: Note
 
     def glance(self, use_sharp: bool):
         return self.note.glance()
 
     def get_note(self, accidental: Accidental):
+        if accidental != self.note.accidental:
+            if accidental == Accidental.SHARP:
+                return self.alt_with_sharps
+            else:
+                return self.alt_with_flats
+
         return self.note
 
     def matches(self, other_note: Note):
@@ -60,17 +68,17 @@ class BlackKey(KeyNote):
 
 
 octave = [
-    WhiteKey(Note.A),
+    WhiteKey(Note.A, Note.G_SHARP_2, Note.B_FLAT_2),
     BlackKey(Note.A_SHARP, Note.B_FLAT),
-    WhiteKey(Note.B),
-    WhiteKey(Note.C),
+    WhiteKey(Note.B, Note.A_SHARP_2, Note.C_FLAT),
+    WhiteKey(Note.C, Note.B_SHARP, Note.D_FLAT_2),
     BlackKey(Note.C_SHARP, Note.D_FLAT),
-    WhiteKey(Note.D),
+    WhiteKey(Note.D, Note.C_SHARP_2, Note.E_FLAT_2),
     BlackKey(Note.D_SHARP, Note.E_FLAT),
-    WhiteKey(Note.E),
-    WhiteKey(Note.F),
+    WhiteKey(Note.E, Note.D_SHARP_2, Note.F_FLAT),
+    WhiteKey(Note.F, Note.E_SHARP, Note.G_FLAT_2),
     BlackKey(Note.F_SHARP, Note.G_FLAT),
-    WhiteKey(Note.G),
+    WhiteKey(Note.G, Note.F_SHARP_2, Note.A_FLAT_2),
     BlackKey(Note.G_SHARP, Note.A_FLAT)
 ]
 
