@@ -22,6 +22,8 @@ class ChordSymbol:
     root_note: Note
     chord_type: ChordType
 
+    # TODO -> consider automatically converting all notes into value here!
+
     # TODO -> determine the notes found in this chord.
     def glance(self):
         """ Returns an easy-to-read string representation of this chord symbol. """

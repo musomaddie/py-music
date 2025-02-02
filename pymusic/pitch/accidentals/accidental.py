@@ -13,10 +13,8 @@ class Accidental(Enum):
     SHARP = "♯", 1
     FLAT = "♭", -1
     NATURAL = "♮", 0
-
-    # TODO -> the following accidentals are not yet supported by 'from' methods.
-    SHARP_2 = "♯♯", 2
-    FLAT_2 = "♭♭", -2
+    SHARP_2 = "𝄪", 2
+    FLAT_2 = "𝄫", -2
 
     def glance(self):
         """ Returns a short easily readable string for this accidental."""
@@ -62,9 +60,11 @@ class Accidental(Enum):
 
     @staticmethod
     def from_str(accidental_str: str) -> 'Accidental':
-        if accidental_str == "♭":
-            return Accidental.FLAT
-        if accidental_str == "♯":
-            return Accidental.SHARP
-        else:
+        # Special case for natural.
+        if accidental_str == "":
             return Accidental.NATURAL
+        for accidental in Accidental:
+            if accidental.symbol == accidental_str:
+                return accidental
+
+        raise ValueError(f"Unrecognised accidental {accidental_str}")

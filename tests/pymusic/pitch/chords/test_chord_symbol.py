@@ -66,8 +66,22 @@ def test_chord_notes(note_xml, expected_notes):
     [
         (chord_xml("C"), "C major", "CEG"),
         (chord_xml_with_alter("C", 1), "C♯ major", "C♯E♯G♯"),
+        (chord_xml_with_alter("D", -1), "D♭ major", "D♭FA♭"),
         (chord_xml("D"), "D major", "DF♯A"),
-        (chord_xml_with_alter("D", -1), "D♭ major", "D♭F,A♭")
+        (chord_xml_with_alter("D", 1), "D♯ major", "D♯F𝄪A♯"),
+        (chord_xml_with_alter("E", -1), "E♭ major", "E♭GB♭"),
+        (chord_xml("E"), "E major", "EG♯B"),
+        (chord_xml("F"), "F major", "FAC"),
+        (chord_xml_with_alter("F", 1), "F♯ major", "F♯A♯C♯"),
+        (chord_xml_with_alter("G", -1), "G♭ major", "G♭B♭D♭"),
+        (chord_xml("G"), "G major", "GBD"),
+        (chord_xml_with_alter("G", 1), "G♯ major", "G♯B♯D♯"),
+        (chord_xml_with_alter("A", -1), "A♭ major", "A♭CE♭"),
+        (chord_xml("A"), "A major", "AC♯E"),
+        (chord_xml_with_alter("A", 1), "A♯ major", "A♯C𝄪E♯"),
+        (chord_xml_with_alter("B", -1), "B♭ major", "B♭DF"),
+        (chord_xml("B"), "B major", "BD♯F♯")
+
     ]
 )
 def test_all_common_major_chords(note_xml, expected_glance, expected_notes):
