@@ -47,9 +47,8 @@ class ChordSymbol:
 
     def all_notes(self) -> list[Note]:
         """ Returns an (ordered) list of all notes contained in this chord, starting at the root. """
+        # TODO -> cache for life of the program.
 
-        # TODO -> this is being a pain with C# and Db chords -> I think for determining accidentals if the base note
-        #  is an accidental we think on which of the options we want to return.
         notes = []
         for interval in self.chord_type.intervals:
             notes.append(self._determine_note_representation_with_context(
