@@ -55,7 +55,7 @@ def test_chord_basics(note_xml, expected_glance):
 )
 def test_chord_notes(note_xml, expected_notes):
     chord = ChordSymbol.from_xml(note_xml)
-    notes = chord.all_notes()
+    notes = chord.all_notes
     assert len(notes) == len(expected_notes)
     for actual, expected in zip(notes, expected_notes):
         assert actual.glance() == expected
@@ -102,4 +102,4 @@ def test_all_common_major_chords(note_xml, expected_glance, expected_notes):
 
     chord = ChordSymbol.from_xml(note_xml)
     assert chord.glance() == expected_glance
-    assert chord.all_notes() == convert_into_note_list()
+    assert chord.all_notes == convert_into_note_list()
