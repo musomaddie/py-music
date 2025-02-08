@@ -14,7 +14,7 @@ log = logging.getLogger("key")
 
 
 def _create_octave_scale(mode: Mode, starting_note: Note) -> list[Note]:
-    all_notes_str = "ABCDEFGABCDEF"
+    all_notes_str = "ABCDEFGABCDEFGABCDEF"
     all_notes = list(all_notes_str[all_notes_str.find(starting_note.note_name.name) + 1:all_notes_str.find(
         starting_note.note_name.name) + 7])
 

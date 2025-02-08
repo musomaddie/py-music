@@ -54,10 +54,10 @@ class WhiteKey(KeyNote):
                 return self.note
             case self.alt_with_sharps.note_name:
                 return self.alt_with_sharps
-            case self.alt_with_flats:
+            case self.alt_with_flats.note_name:
                 return self.alt_with_flats
             case _:
-                ValueError(f"No note with {name} found in {self}")
+                raise ValueError(f"No note with {name} found in {self}")
 
     def matches(self, other_note: Note):
         return self.note == other_note or self.alt_with_flats == other_note or self.alt_with_sharps == other_note
