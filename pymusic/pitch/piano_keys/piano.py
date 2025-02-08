@@ -13,16 +13,18 @@ def find_note_from_number_of_semitones(starting_note: Note, semitones: int) -> K
     return octave.get_note(starting_idx + semitones)
 
 
-def adjust_accidental(note: Note, desired_accidental: Accidental) -> Note:
-    """ Takes in a note and returns the same note but with the desired accidental. Will return the note as is in the
-    case of it already being the desired accidental.  (does not yet support double sharps / flats). """
-    if note.accidental == desired_accidental:
-        return note
-    note_idx = octave.find_index(note)
-    octave_note = octave.get_note(note_idx + desired_accidental.interval)
-    return octave_note.get_note(desired_accidental)
-
-
 def find_note_from_interval(starting_note: Note, interval: Interval) -> KeyNote:
     """ Returns the note which is the interval away from the starting note."""
     return find_note_from_number_of_semitones(starting_note, interval.n_semitones)
+
+
+def find_note_with_accidental(starting_note: Note, desired_accidental: Accidental) -> Note:
+    """ Returns the note passed with the desired accidental. """
+    if starting_note.accidental == desired_accidental:
+        return starting_note
+
+    # TODO -> correct determine the number of intervals between the accidentals.
+    accidental_list = [Accidental.FLAT_2, Accidental.FLAT, Accidental.NATURAL, Accidental.SHARP, Accidental.SHARP_2]
+    accidental_interval = accidental_list.index(desired_accidental) - accidental_list.index(starting_note.accidental)
+
+    return find_note_from_number_of_semitones(starting_note, accidental_interval).get_note(desired_accidental)

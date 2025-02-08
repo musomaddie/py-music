@@ -4,6 +4,7 @@ import pytest
 from pymusic.pitch import Note
 from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.piano_keys import octave, find_note_from_number_of_semitones
+from pymusic.pitch.piano_keys.piano import find_note_with_accidental
 
 
 @pytest.mark.parametrize(
@@ -63,3 +64,20 @@ def test_black_note_get_note(keynote, accidental, expected_note):
 )
 def test_find_note_from_number_of_semitones(semitones, expected_note):
     assert find_note_from_number_of_semitones(Note.C, semitones) == expected_note
+
+
+@pytest.mark.parametrize(
+    ("starting_note", "desired_accidental", "expected_note"),
+    [
+        (Note.corresponding_note_from_str("C"), Accidental.NATURAL, Note.corresponding_note_from_str("C")),
+        (Note.corresponding_note_from_str("C"), Accidental.SHARP, Note.corresponding_note_from_str("C♯")),
+        (Note.corresponding_note_from_str("C"), Accidental.FLAT, Note.corresponding_note_from_str("C♭")),
+        (Note.corresponding_note_from_str("C♯"), Accidental.FLAT, Note.corresponding_note_from_str("C♭")),
+        (Note.corresponding_note_from_str("C♯"), Accidental.NATURAL, Note.corresponding_note_from_str("C")),
+        (Note.corresponding_note_from_str("C♭"), Accidental.FLAT, Note.corresponding_note_from_str("C♭")),
+        (Note.corresponding_note_from_str("C♭"), Accidental.NATURAL, Note.corresponding_note_from_str("C")),
+        (Note.corresponding_note_from_str("C♭"), Accidental.SHARP, Note.corresponding_note_from_str("C♯")),
+    ]
+)
+def test_find_note_with_accidental(starting_note, desired_accidental, expected_note):
+    assert find_note_with_accidental(starting_note, desired_accidental) == expected_note

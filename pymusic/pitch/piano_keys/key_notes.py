@@ -60,7 +60,7 @@ class WhiteKey(KeyNote):
                 ValueError(f"No note with {name} found in {self}")
 
     def matches(self, other_note: Note):
-        return self.note == other_note
+        return self.note == other_note or self.alt_with_flats == other_note or self.alt_with_sharps == other_note
 
 
 @dataclass
