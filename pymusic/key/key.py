@@ -22,8 +22,6 @@ def _create_octave_scale(mode: Mode, starting_note: Note) -> list[Note]:
     cur_idx = 0
     octave = [starting_note]
 
-    print(mode.intervals_relative)
-
     while True:
         if len(all_notes) == 0:
             break

@@ -45,6 +45,8 @@ class Mode(Enum):
     @staticmethod
     def find_mode_from_text(text: str) -> 'Mode':
         """ Given text returns the corresponding mode. """
-        # TODO -> generalise this
-        if text == "major":
-            return Mode.MAJOR
+        for mode in Mode:
+            if mode.mode_name == text:
+                return mode
+
+        raise ValueError(f"Unrecognized mode {text}")

@@ -29,10 +29,19 @@ def test_bb():
 @pytest.mark.parametrize(
     ("mode", "expected_scale"),
     [
-        ("major", "CDEFGAB")
+        ("major", "CDEFGAB"),
+        ("minor", "CDE♭FGA♭B♭"),
+        ("harmonic minor", "CDE♭FGA♭B"),
+        ("ionian", "CDEFGAB"),
+        ("dorian", "CDE♭FGAB♭"),
+        ("phrygian", "CD♭E♭FGA♭B♭"),
+        ("lydian", "CDEF♯GAB"),
+        ("mixolydian", "CDEFGAB♭"),
+        ("aeolian", "CDE♭FGA♭B♭"),
+        ("locrian", "CD♭E♭FG♭A♭B♭")
     ]
 )
-def test_c_all_modes(mode, expected_scale):
+def test_c_all_modes_expected_scale(mode, expected_scale):
     c_key_element = create_xml(
         f"""
         <key>
