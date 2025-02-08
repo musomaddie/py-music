@@ -28,3 +28,6 @@ def find_note_with_accidental(starting_note: Note, desired_accidental: Accidenta
     accidental_interval = accidental_list.index(desired_accidental) - accidental_list.index(starting_note.accidental)
 
     return find_note_from_number_of_semitones(starting_note, accidental_interval).get_note(desired_accidental)
+
+
+ALL_NOTE_NAMES = "ABCDEFG"

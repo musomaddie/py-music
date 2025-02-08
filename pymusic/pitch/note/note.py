@@ -14,6 +14,12 @@ class NoteName(Enum):
     F = "F"
     G = "G"
 
+    @staticmethod
+    def from_str(note: str) -> 'NoteName':
+        for nn in NoteName:
+            if nn.value == note:
+                return nn
+
 
 class Note(Enum):
     """ Stores information relating to a single note (in notation). i.e. Eb and D# will be a different note,
