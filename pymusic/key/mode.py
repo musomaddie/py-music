@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pymusic.pitch import Interval as i, Interval
+from pymusic.pitch.interval import Interval as i, Interval
 
 
 class Mode(Enum):

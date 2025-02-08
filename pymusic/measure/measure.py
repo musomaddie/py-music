@@ -36,7 +36,7 @@ from dataclasses import dataclass, field
 from lxml import etree
 
 from pymusic.attributes import Attributes
-from pymusic.pitch import ChordSymbol
+from pymusic.pitch.chords import ChordSymbol
 
 log = logging.getLogger("measure")
 

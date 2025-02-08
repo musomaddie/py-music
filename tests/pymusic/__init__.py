@@ -1,4 +1,4 @@
-from pymusic.pitch import Note
+from pymusic.pitch.note import Note
 
 
 def convert_into_note_list(note_str: str) -> list[Note]:
