@@ -12,44 +12,121 @@ from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.chords.chord_type import ChordType
 from pymusic.pitch.interval import Interval
 from pymusic.pitch.note import Note
-from pymusic.pitch.piano_keys import find_note_from_number_of_semitones
+from pymusic.pitch.piano_keys.piano import (find_note_from_number_of_semitones)
 
 logger = logging.getLogger("chord_symbol")
-INTERVAL_TO_IDX = {
-    "unison": 0,
-    "2nd": 1,
-    "3rd": 2,
-    "4th": 3,
-    "5th": 4,
-    "6th": 5,
-    "7th": 6
+
+
+# TODO -> can the note generator stuff live in its own file??
+
+@dataclass
+class FurtherAlt:
+    interval_to_change: Interval
+    interval_idx_lookup: Interval
+    accidental: Accidental
+
+
+@dataclass
+class ChordTypeConverterNode:
+    chord_type: ChordType
+    mode: Mode
+    further_alts: list[FurtherAlt] = field(default_factory=list)
+
+    def has_alt_for(self, interval: Interval):
+        for alt in self.further_alts:
+            if alt.interval_to_change == interval:
+                return True
+        return False
+
+    def find_corresponding_alt(self, interval: Interval):
+        for alt in self.further_alts:
+            if alt.interval_to_change == interval:
+                return alt
+
+    def find_corresponding_idx(self, interval: Interval):
+        if self.has_alt_for(interval):
+            return self.find_corresponding_idx(self.find_corresponding_alt(interval).interval_idx_lookup)
+
+        for key, value in interval_to_idx.items():
+            if interval in key:
+                return value
+
+        raise ValueError(f"Could not find index for {interval}")
+
+    def adjust_note(self, note: Note, interval: Interval):
+        if not self.has_alt_for(interval):
+            return note
+        return find_note_from_number_of_semitones(
+            note, self.find_corresponding_alt(interval).accidental.interval).get_note_from_name(note.note_name)
+
+    def make_notes(self, root_note: Note) -> list[Note]:
+        octave_notes = Key(self.mode, root_note).octave
+        return [
+            self.adjust_note(octave_notes[self.find_corresponding_idx(interval)], interval)
+            for interval in self.chord_type.intervals
+        ]
+
+
+flat_5th_alt = FurtherAlt(Interval.TRI, Interval.PERF_5, Accidental.FLAT)
+sharp_5th_alt = FurtherAlt(Interval.MIN_6, Interval.PERF_5, Accidental.SHARP)
+all_nodes = [
+    ChordTypeConverterNode(ChordType.MAJ, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.MIN, Mode.MINOR),
+    ChordTypeConverterNode(ChordType.DIM, Mode.MINOR, [flat_5th_alt]),
+    ChordTypeConverterNode(ChordType.AUG, Mode.MAJOR, [sharp_5th_alt]),
+    ChordTypeConverterNode(ChordType.SUS_4, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.SUS_2, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.ITALIAN, Mode.MIXOLYDIAN),
+    ChordTypeConverterNode(ChordType.FRENCH, Mode.MIXOLYDIAN, [flat_5th_alt]),
+    ChordTypeConverterNode(ChordType.MAJ_6, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.MIN_6, Mode.MINOR),
+    ChordTypeConverterNode(ChordType.NEAPOLITAN, Mode.LOCRIAN),
+    ChordTypeConverterNode(ChordType.AUG_7, Mode.MIXOLYDIAN, [sharp_5th_alt]),
+    ChordTypeConverterNode(
+        ChordType.DIM_7, Mode.MINOR, [flat_5th_alt, FurtherAlt(Interval.MAJ_6, Interval.MIN_7, Accidental.FLAT)]),
+    ChordTypeConverterNode(ChordType.DOM, Mode.MIXOLYDIAN),
+    ChordTypeConverterNode(ChordType.HALF_DIM, Mode.MINOR, [flat_5th_alt]),
+    ChordTypeConverterNode(ChordType.MAJ_MIN, Mode.HARMONIC_MINOR),
+    ChordTypeConverterNode(ChordType.MAJ_7, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.MIN_7, Mode.MINOR),
+    ChordTypeConverterNode(ChordType.DOM_9, Mode.MIXOLYDIAN),
+    ChordTypeConverterNode(ChordType.MAJ_9, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.MIN_9, Mode.MINOR),
+    ChordTypeConverterNode(ChordType.DOM_11, Mode.MIXOLYDIAN),
+    ChordTypeConverterNode(ChordType.MAJ_11, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.MIN_11, Mode.MINOR),
+    ChordTypeConverterNode(ChordType.DOM_13, Mode.MIXOLYDIAN),
+    ChordTypeConverterNode(ChordType.MAJ_13, Mode.MAJOR),
+    ChordTypeConverterNode(
+        ChordType.MIN_13, Mode.MINOR, [FurtherAlt(Interval.MAJ_13, Interval.MAJ_6, Accidental.SHARP)]),
+    ChordTypeConverterNode(ChordType.PEDAL, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.POWER, Mode.MAJOR),
+    ChordTypeConverterNode(ChordType.TRISTAN, Mode.MINOR, [flat_5th_alt])
+]
+
+interval_to_idx = {
+    (Interval.UNI,): 0,
+    (Interval.MIN_2, Interval.MAJ_2): 1,
+    (Interval.MAJ_3, Interval.MIN_3): 2,
+    (Interval.PERF_4,): 3,
+    (Interval.PERF_5,): 4,
+    (Interval.MIN_6, Interval.MAJ_6): 5,
+    (Interval.MIN_7, Interval.MAJ_7): 6,
+    (Interval.MAJ_9,): 1,
+    (Interval.AUG_9,): 2,
+    (Interval.PERF_11,): 3,
+    (Interval.MAJ_13,): 5
 }
 
 
 def _generate_all_notes(root_note: Note, chord_type: ChordType) -> list[Note]:
-    # Create the major version of the scale and use the intervals from the chord with the note list somehow?
-    octave_note_list = Key(Mode.MAJOR, root_note).octave
+    def find_converter_node() -> ChordTypeConverterNode:
+        for node in all_nodes:
+            if node.chord_type == chord_type:
+                return node
+        raise ValueError(f"Could not convert {chord_type}")
 
-    def find_corresponding_idx(interval: Interval) -> int:
-        for key, value in INTERVAL_TO_IDX.items():
-            if key in " ".join(interval.names):
-                return value
-
-        raise ValueError(f"Cannot find the corresponding index for {interval.names}.")
-
-    def find_note_from_octave(interval: Interval, major_interval: Interval) -> Note:
-        major_note = octave_note_list[find_corresponding_idx(interval)]
-        if interval == major_interval:
-            return major_note
-
-        # Otherwise get the difference between the two.
-        diff_semitones = interval.n_semitones - major_interval.n_semitones
-        return find_note_from_number_of_semitones(major_note, diff_semitones).get_note_from_name(major_note.note_name)
-
-    notes = []
-    for itl, maj_itl in zip(chord_type.intervals, ChordType.MAJ.intervals):
-        notes.append(find_note_from_octave(itl, maj_itl))
-    return notes
+    return find_converter_node().make_notes(root_note)
 
 
 @dataclass

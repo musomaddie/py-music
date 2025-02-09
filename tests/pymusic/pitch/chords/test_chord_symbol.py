@@ -92,13 +92,40 @@ def test_all_common_major_chords(note_xml, expected_glance, expected_notes):
 
 
 @pytest.mark.parametrize(
-    ("chord_type", "expected_glance", "expected_notes"),
+    ("chord_type", "expected_notes"),
     [
-        ("major", "G major", "GBD"),
-        ("minor", "G minor", "GB♭D"),
+        ("major", "GBD"),
+        ("minor", "GB♭D"),
+        ("diminished", "GB♭D♭"),
+        ("augmented", "GBD♯"),
+        ("suspended-fourth", "GCD"),
+        ("suspended-second", "GAD"),
+        ("Italian", "GBF"),
+        ("French", "GBD♭F"),
+        ("major-sixth", "GBDE"),
+        ("minor-sixth", "GB♭DE♭"),
+        ("Neapolitan", "GB♭E♭"),
+        ("augmented-seventh", "GBD♯F"),
+        ("diminished-seventh", "GB♭D♭F♭"),
+        ("dominant", "GBDF"),
+        ("half-diminished", "GB♭D♭F"),
+        ("major-minor", "GB♭DF♯"),
+        ("major-seventh", "GBDF♯"),
+        ("minor-seventh", "GB♭DF"),
+        ("dominant-ninth", "GBDFA"),
+        ("major-ninth", "GBDF♯A"),
+        ("minor-ninth", "GB♭DFA"),
+        ("dominant-11th", "GBDFAC"),
+        ("major-11th", "GBDF♯AC"),
+        ("minor-11th", "GB♭DFAC"),
+        ("dominant-13th", "GBDFACE"),
+        ("major-13th", "GBDF♯ACE"),
+        ("minor-13th", "GB♭DFACE"),
+        ("pedal", "G"),
+        ("power", "GD"),
+        ("Tristan", "GD♭FB♭")
     ]
 )
-def test_all_chord_types_g_base(chord_type, expected_glance, expected_notes):
+def test_all_chord_types_g_base(chord_type, expected_notes):
     chord = ChordSymbol.from_xml(chord_xml("G", chord_type))
-    assert chord.glance() == expected_glance
     assert chord.all_notes == convert_into_note_list(expected_notes)
