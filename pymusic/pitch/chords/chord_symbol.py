@@ -86,7 +86,7 @@ all_nodes = [
         ChordType.DIM_7, Mode.MINOR, [flat_5th_alt, FurtherAlt(Interval.MAJ_6, Interval.MIN_7, Accidental.FLAT)]),
     ChordTypeConverterNode(ChordType.DOM, Mode.MIXOLYDIAN),
     ChordTypeConverterNode(ChordType.HALF_DIM, Mode.MINOR, [flat_5th_alt]),
-    ChordTypeConverterNode(ChordType.MAJ_MIN, Mode.HARMONIC_MINOR),
+    ChordTypeConverterNode(ChordType.MIN_MAJ, Mode.HARMONIC_MINOR),
     ChordTypeConverterNode(ChordType.MAJ_7, Mode.MAJOR),
     ChordTypeConverterNode(ChordType.MIN_7, Mode.MINOR),
     ChordTypeConverterNode(ChordType.DOM_9, Mode.MIXOLYDIAN),
@@ -141,7 +141,9 @@ class ChordSymbol:
 
     def glance(self):
         """ Returns an easy-to-read string representation of this chord symbol. """
-        return f"{self.root_note.glance()} {self.chord_type.desc}"
+        root_note_desc = f"{self.root_note.glance()}{self.chord_type.shorthand}"
+        all_notes = " ".join([note.glance() for note in self.all_notes])
+        return f"{root_note_desc} ({all_notes})"
 
     @staticmethod
     def from_xml(harmony_xml: etree.Element) -> 'ChordSymbol':
@@ -159,6 +161,6 @@ class ChordSymbol:
 
         kind_text = harmony_xml.find("kind").text
         chord = ChordSymbol(root_note, ChordType.from_text(kind_text))
+        logger.info(chord.glance())
 
-        logger.info("Chord %s", chord)
         return chord
