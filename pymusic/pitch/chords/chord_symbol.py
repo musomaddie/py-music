@@ -131,7 +131,10 @@ def _generate_all_notes(root_note: Note, chord_type: ChordType) -> list[Note]:
 
 @dataclass
 class ChordSymbol:
-    """ Represents a chord symbol. """
+    """ Represents a chord symbol.
+    # TODO handle slash chords (including with a bass alter)
+    # TODO -> consider handling "frames" (guitar chord diagrams).
+    """
     root_note: Note
     chord_type: ChordType
     all_notes: list[Note] = field(init=False)
@@ -161,6 +164,7 @@ class ChordSymbol:
 
         kind_text = harmony_xml.find("kind").text
         chord = ChordSymbol(root_note, ChordType.from_text(kind_text))
+
         logger.info(chord.glance())
 
         return chord

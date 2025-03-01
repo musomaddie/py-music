@@ -29,7 +29,7 @@ class Attributes:
         - staff details: additional info
         - transpose: TODO, but additional info for now.
         - for part: TODO
-        - directive: TODO - seems deprecated?
+        - directive: TODO - seems deprecated? (from Sibelius stores the tempo text stuff)
         - measure-style: TODO - will need for multi rest, and some other fancy things.
     """
     time_signature: TimeSignature
