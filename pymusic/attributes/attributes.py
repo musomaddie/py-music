@@ -52,6 +52,7 @@ class Attributes:
                 # handled for my own peace of mind.
                 pass
             elif child.tag == "time":
+                # TODO -> divisions are optional!!!
                 time_signature = TimeSignature.from_xml(attribute_xml.find("divisions"), child)
             elif child.tag == "key":
                 key = Key.from_xml(child)
