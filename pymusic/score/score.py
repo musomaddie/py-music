@@ -17,6 +17,10 @@ class Score:
     title: str
 
 
+""" The overall idea here now is to extract all the info from the xml and save in python stuff and then reformat
+it to match the way I would expect it to look for my own stuff."""
+
+
 @dataclass
 class ScoreBuilder:
     _og_xml: lxml.etree._ElementTree
