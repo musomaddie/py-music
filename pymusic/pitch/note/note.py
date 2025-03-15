@@ -22,6 +22,7 @@ class NoteName(Enum):
 
 
 class Note(Enum):
+    # TODO -> rename this to pitch!!!
     """ Stores information relating to a single note (in notation). i.e. Eb and D# will be a different note,
     despite being the same pitch."""
 
