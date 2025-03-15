@@ -5,7 +5,7 @@ import lxml.etree
 from lxml import etree
 
 from pymusic import globalvars
-from pymusic.measure import Measure
+from pymusic.measure.measure import Measure
 
 log = logging.getLogger("part")
 
