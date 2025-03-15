@@ -1,7 +1,7 @@
-from pymusic.pitch.note import Note
+from pymusic.pitch.pitchnote import PitchNote
 
 
-def convert_into_note_list(note_str: str) -> list[Note]:
+def convert_into_note_list(note_str: str) -> list[PitchNote]:
     notes = []
     current_note = ""
     for letter in note_str:
@@ -9,9 +9,9 @@ def convert_into_note_list(note_str: str) -> list[Note]:
             if len(current_note) == 0:
                 current_note += letter
             else:
-                notes.append(Note.corresponding_note_from_str(current_note))
+                notes.append(PitchNote.corresponding_note_from_str(current_note))
                 current_note = letter
         else:
             current_note += letter
-    notes.append(Note.corresponding_note_from_str(current_note))
+    notes.append(PitchNote.corresponding_note_from_str(current_note))
     return notes

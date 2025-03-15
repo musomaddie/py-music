@@ -11,8 +11,8 @@ from pymusic.key import Mode, Key
 from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.chords.chord_type import ChordType
 from pymusic.pitch.interval import Interval
-from pymusic.pitch.note import Note
 from pymusic.pitch.piano_keys.piano import (find_note_from_number_of_semitones)
+from pymusic.pitch.pitchnote import PitchNote
 
 logger = logging.getLogger("chord_symbol")
 
@@ -53,13 +53,13 @@ class ChordTypeConverterNode:
 
         raise ValueError(f"Could not find index for {interval}")
 
-    def adjust_note(self, note: Note, interval: Interval):
+    def adjust_note(self, note: PitchNote, interval: Interval):
         if not self.has_alt_for(interval):
             return note
         return find_note_from_number_of_semitones(
             note, self.find_corresponding_alt(interval).accidental.interval).get_note_from_name(note.note_name)
 
-    def make_notes(self, root_note: Note) -> list[Note]:
+    def make_notes(self, root_note: PitchNote) -> list[PitchNote]:
         octave_notes = Key(self.mode, root_note).octave
         return [
             self.adjust_note(octave_notes[self.find_corresponding_idx(interval)], interval)
@@ -119,7 +119,7 @@ interval_to_idx = {
 }
 
 
-def _generate_all_notes(root_note: Note, chord_type: ChordType) -> list[Note]:
+def _generate_all_notes(root_note: PitchNote, chord_type: ChordType) -> list[PitchNote]:
     def find_converter_node() -> ChordTypeConverterNode:
         for node in all_nodes:
             if node.chord_type == chord_type:
@@ -135,9 +135,9 @@ class ChordSymbol:
     # TODO handle slash chords (including with a bass alter)
     # TODO -> consider handling "frames" (guitar chord diagrams).
     """
-    root_note: Note
+    root_note: PitchNote
     chord_type: ChordType
-    all_notes: list[Note] = field(init=False)
+    all_notes: list[PitchNote] = field(init=False)
 
     def __post_init__(self):
         self.all_notes = _generate_all_notes(self.root_note, self.chord_type)
@@ -157,7 +157,7 @@ class ChordSymbol:
             # TODO -> add more detailed information to be displayed here.
             raise ValueError("No root element found, unable to process chord.")
 
-        root_note = Note.corresponding_note(
+        root_note = PitchNote.corresponding_note(
             chord_root_xml.find("root-step").text,
             Accidental.from_xml(chord_root_xml.find("root-alter"))
         )

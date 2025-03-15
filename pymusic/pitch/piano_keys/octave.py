@@ -1,19 +1,19 @@
-from pymusic.pitch.note import Note
 from pymusic.pitch.piano_keys.key_notes import WhiteKey, BlackKey, KeyNote
+from pymusic.pitch.pitchnote import PitchNote
 
 octave = [
-    WhiteKey(Note.A, Note.G_SHARP_2, Note.B_FLAT_2),
-    BlackKey(Note.A_SHARP, Note.B_FLAT),
-    WhiteKey(Note.B, Note.A_SHARP_2, Note.C_FLAT),
-    WhiteKey(Note.C, Note.B_SHARP, Note.D_FLAT_2),
-    BlackKey(Note.C_SHARP, Note.D_FLAT),
-    WhiteKey(Note.D, Note.C_SHARP_2, Note.E_FLAT_2),
-    BlackKey(Note.D_SHARP, Note.E_FLAT),
-    WhiteKey(Note.E, Note.D_SHARP_2, Note.F_FLAT),
-    WhiteKey(Note.F, Note.E_SHARP, Note.G_FLAT_2),
-    BlackKey(Note.F_SHARP, Note.G_FLAT),
-    WhiteKey(Note.G, Note.F_SHARP_2, Note.A_FLAT_2),
-    BlackKey(Note.G_SHARP, Note.A_FLAT)
+    WhiteKey(PitchNote.A, PitchNote.G_SHARP_2, PitchNote.B_FLAT_2),
+    BlackKey(PitchNote.A_SHARP, PitchNote.B_FLAT),
+    WhiteKey(PitchNote.B, PitchNote.A_SHARP_2, PitchNote.C_FLAT),
+    WhiteKey(PitchNote.C, PitchNote.B_SHARP, PitchNote.D_FLAT_2),
+    BlackKey(PitchNote.C_SHARP, PitchNote.D_FLAT),
+    WhiteKey(PitchNote.D, PitchNote.C_SHARP_2, PitchNote.E_FLAT_2),
+    BlackKey(PitchNote.D_SHARP, PitchNote.E_FLAT),
+    WhiteKey(PitchNote.E, PitchNote.D_SHARP_2, PitchNote.F_FLAT),
+    WhiteKey(PitchNote.F, PitchNote.E_SHARP, PitchNote.G_FLAT_2),
+    BlackKey(PitchNote.F_SHARP, PitchNote.G_FLAT),
+    WhiteKey(PitchNote.G, PitchNote.F_SHARP_2, PitchNote.A_FLAT_2),
+    BlackKey(PitchNote.G_SHARP, PitchNote.A_FLAT)
 ]
 
 
@@ -26,12 +26,12 @@ def get_note(desired_idx: int) -> KeyNote:
     return octave[desired_idx % len(octave)]
 
 
-def find_index(searching_note: Note) -> int:
+def find_index(searching_note: PitchNote) -> int:
     """ Returns the index of the note passed. """
     return _note_idx(octave, lambda note: note.matches(searching_note))
 
 
-def find_key_note(note: Note) -> KeyNote:
+def find_key_note(note: PitchNote) -> KeyNote:
     """ Finds the keynote corresponding to the given note.
     Not 100% sure how useful this will be outside of tests though :(
     """

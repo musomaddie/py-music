@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.note import Note, NoteName
+from pymusic.pitch.pitchnote import PitchNote, NoteName
 
 
 class KeyNote(ABC):
@@ -23,7 +23,7 @@ class KeyNote(ABC):
         exist."""
 
     @abstractmethod
-    def matches(self, other_note: Note):
+    def matches(self, other_note: PitchNote):
         """ Returns true if this keynote matches the passed note. """
 
 
@@ -31,9 +31,9 @@ class KeyNote(ABC):
 class WhiteKey(KeyNote):
     """ Corresponds to a white note on a piano keyboard. """
 
-    note: Note
-    alt_with_sharps: Note
-    alt_with_flats: Note
+    note: PitchNote
+    alt_with_sharps: PitchNote
+    alt_with_flats: PitchNote
 
     def glance(self, use_sharp: bool):
         return self.note.glance()
@@ -59,15 +59,15 @@ class WhiteKey(KeyNote):
             case _:
                 raise ValueError(f"No note with {name} found in {self}")
 
-    def matches(self, other_note: Note):
+    def matches(self, other_note: PitchNote):
         return self.note == other_note or self.alt_with_flats == other_note or self.alt_with_sharps == other_note
 
 
 @dataclass
 class BlackKey(KeyNote):
     """ Corresponds to a black note on a piano keyboard. """
-    sharp_note: Note
-    flat_note: Note
+    sharp_note: PitchNote
+    flat_note: PitchNote
 
     def glance(self, use_sharp: bool):
         if use_sharp:
@@ -88,5 +88,5 @@ class BlackKey(KeyNote):
             case _:
                 ValueError(f"No note with {name} found in {self}")
 
-    def matches(self, other_note: Note):
+    def matches(self, other_note: PitchNote):
         return self.flat_note == other_note or self.sharp_note == other_note

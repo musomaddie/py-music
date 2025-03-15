@@ -1,4 +1,4 @@
-""" Note class. """
+""" PitchNote class. """
 from enum import Enum
 
 from pymusic.pitch.accidentals import Accidental
@@ -21,8 +21,7 @@ class NoteName(Enum):
                 return nn
 
 
-class Note(Enum):
-    # TODO -> rename this to pitch!!!
+class PitchNote(Enum):
     """ Stores information relating to a single note (in notation). i.e. Eb and D# will be a different note,
     despite being the same pitch."""
 
@@ -71,17 +70,17 @@ class Note(Enum):
     @staticmethod
     def corresponding_note(note_name: str, accidental: Accidental):
         """ Returns the note corresponding to the given note name and alter (which reflects the accidental)."""
-        for note in Note:
+        for note in PitchNote:
             if note.note_name.value == note_name and note.accidental == accidental:
                 return note
 
         raise ValueError(f"Unrecognised note {note_name} ({accidental})")
 
     @staticmethod
-    def corresponding_note_from_str(note_str: str) -> 'Note':
+    def corresponding_note_from_str(note_str: str) -> 'PitchNote':
         if len(note_str) == 1:
-            return Note.corresponding_note(note_str, Accidental.NATURAL)
+            return PitchNote.corresponding_note(note_str, Accidental.NATURAL)
         if len(note_str) == 2:
-            return Note.corresponding_note(note_str[0], Accidental.from_str(note_str[1]))
+            return PitchNote.corresponding_note(note_str[0], Accidental.from_str(note_str[1]))
 
         raise ValueError(f"Unrecognized note {note_str}")

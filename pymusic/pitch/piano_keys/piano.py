@@ -2,23 +2,23 @@
 
 from pymusic.pitch.accidentals import Accidental
 from pymusic.pitch.interval import Interval
-from pymusic.pitch.note import Note
 from pymusic.pitch.piano_keys import octave
 from pymusic.pitch.piano_keys.key_notes import KeyNote
+from pymusic.pitch.pitchnote import PitchNote
 
 
-def find_note_from_number_of_semitones(starting_note: Note, semitones: int) -> KeyNote:
+def find_note_from_number_of_semitones(starting_note: PitchNote, semitones: int) -> KeyNote:
     """ Returns the note the number of given number of semitones away from the starting note. """
     starting_idx = octave.find_index(starting_note)
     return octave.get_note(starting_idx + semitones)
 
 
-def find_note_from_interval(starting_note: Note, interval: Interval) -> KeyNote:
+def find_note_from_interval(starting_note: PitchNote, interval: Interval) -> KeyNote:
     """ Returns the note which is the interval away from the starting note."""
     return find_note_from_number_of_semitones(starting_note, interval.n_semitones)
 
 
-def find_note_with_accidental(starting_note: Note, desired_accidental: Accidental) -> Note:
+def find_note_with_accidental(starting_note: PitchNote, desired_accidental: Accidental) -> PitchNote:
     """ Returns the note passed with the desired accidental. """
     if starting_note.accidental == desired_accidental:
         return starting_note

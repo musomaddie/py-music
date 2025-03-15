@@ -5,15 +5,15 @@ from dataclasses import dataclass, field
 from lxml import etree
 
 from pymusic.key.mode import Mode
-from pymusic.pitch import Note, Interval
+from pymusic.pitch import PitchNote, Interval
 from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.note import NoteName
 from pymusic.pitch.piano_keys import find_note_from_number_of_semitones, find_note_from_interval
+from pymusic.pitch.pitchnote import NoteName
 
 log = logging.getLogger("key")
 
 
-def _create_octave_scale(mode: Mode, starting_note: Note) -> list[Note]:
+def _create_octave_scale(mode: Mode, starting_note: PitchNote) -> list[PitchNote]:
     all_notes_str = "ABCDEFGABCDEF"
     all_notes = list(all_notes_str[all_notes_str.find(starting_note.note_name.name) + 1:all_notes_str.find(
         starting_note.note_name.name) + 7])
@@ -44,8 +44,8 @@ class Key:
     link: https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
     """
     mode: Mode
-    note: Note
-    octave: list[Note] = field(init=False)
+    note: PitchNote
+    octave: list[PitchNote] = field(init=False)
 
     def __post_init__(self):
         self.octave = _create_octave_scale(self.mode, self.note)
@@ -63,7 +63,7 @@ class Key:
         fifths_xml = og_xml.find("fifths")
         fifths = int(fifths_xml.text)
         note = find_note_from_number_of_semitones(
-            starting_note=Note.C, semitones=(Interval.PERF_5.n_semitones * fifths)
+            starting_note=PitchNote.C, semitones=(Interval.PERF_5.n_semitones * fifths)
         ).get_note(
             Accidental.from_int(fifths)
         )
