@@ -9,9 +9,13 @@ log = logging.getLogger("time signature")
 @dataclass
 class TimeSignature:
     """ Represents a time signature. """
-    divisions: int
+    divisions: int  # TODO -> not 100% sure if this is the best place for this. it's used to determine how long notes
+    # are (in conjunction with the time sig to be fair).
+    # https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/divisions/
     numerator: int
     denominator: int
+
+    # TODO -> sub beat grouping??? (is this relevant??)
 
     def glance(self) -> str:
         """ Returns a string representing this time signature at a glance."""
