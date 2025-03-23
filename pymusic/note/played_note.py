@@ -1,76 +1,54 @@
-""" Actually a note: ties pitch and duration together. """
-from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
 from lxml import etree
 
-
-# type PitchType = Pitch | Rest | Unpitched | Chord
-
-class PitchType(ABC):
-    """ Parent class for the following pitch types: """
-
-    @staticmethod
-    @abstractmethod
-    def from_xml(xml: etree.Element):
-        pass
-
-
-class Pitch(PitchType):
-
-    # TODO
-    @staticmethod
-    def from_xml(xml: etree.Element):
-        print("pitch!")
-        pass
-
-
-class Rest:
-    # TODO
-    @staticmethod
-    def from_xml(xml: etree.Element):
-        # TODO
-        pass
-
-
-class Unpitched:
-    # TODO
-    @staticmethod
-    def from_xml(xml: etree.Element):
-        # TODO
-        pass
-
-
-class Chord:
-    """ Multiple notes played at once. """
-
-    # TODO
-
-    @staticmethod
-    def from_xml(xml: etree.Element):
-        # TODO
-        return
+from pymusic.key import Key
+from pymusic.note import note_element_builder
 
 
 @dataclass
 class PlayedNote:
-    pitch: PitchType
+    """ Represents a music XML note element. Several different types of notes ...
+    https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
+    """
+
     duration: int
 
-    @staticmethod
-    def from_xml(xml: etree.Element):
-        """ Parses details about the note itself from XML. """
-        # Get the first child and call the appropriate builder.
-        first_child = xml[0]
+    # TODO - <tie>
 
-        match first_child.tag:
-            case "chord":
-                return Chord.from_xml(first_child)
-            case "unpitched":
-                return Unpitched.from_xml(first_child)
-            case "rest":
-                return Rest.from_xml(first_child)
-            case "pitch":
-                return Pitch.from_xml(first_child)
-            case _:
-                raise ValueError(f"{first_child.tag} is not a recognised played note.")
+    # TODO - <listen>
+    # TODO - <play>
+    # TODO - <lyric>
+    # TODO - <notations>
+    # TODO - <beam>
+    # TODO - <staff>
+    # TODO - <notehead-text>
+    # TODO - <notehead>
+    # TODO - <stem>
+    # TODO - <time-modification>
+    # TODO - <accidental>
+    # TODO - <dot>
+    # TODO - <type>
+
+    @staticmethod
+    def from_xml(
+            note_xml: etree.Element,
+            key_signature: Key,
+    ) -> 'PlayedNote':
+        return note_element_builder.create_note_element(note_xml)
+
+    """
+     <type> (Optional)
+    <dot> (Zero or more times)
+    <accidental> (Optional)
+    <time-modification> (Optional)
+    <stem> (Optional)
+    <notehead> (Optional)
+    <notehead-text> (Optional)
+    <staff> (Optional)
+    <beam> (0 to 8 times)
+    <notations> (Zero or more times)
+    <lyric> (Zero or more times)
+    <play> (Optional)
+    <listen> (Optional) 
+"""

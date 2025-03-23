@@ -45,6 +45,7 @@ class Key:
     """
     mode: Mode
     note: PitchNote
+    # TODO -> make this into a list of notes so we can easily look things up.
     octave: list[PitchNote] = field(init=False)
 
     def __post_init__(self):

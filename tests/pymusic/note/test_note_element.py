@@ -1,4 +1,4 @@
-from pymusic.note.note_element import NoteElement
+from pymusic.note.played_note import PlayedNote
 from tests import create_xml
 
 FIRST_XML = create_xml(
@@ -18,5 +18,5 @@ FIRST_XML = create_xml(
 
 
 def test_basic_note_xml():
-    note_element = NoteElement.from_xml(FIRST_XML)
+    note_element = PlayedNote.from_xml(FIRST_XML)
     assert False

@@ -31,11 +31,13 @@ EXAMPLE XML:
 """
 from dataclasses import dataclass
 
+from pymusic.note.played_note import PlayedNote
+
 
 # TODO -> convert this from XML.
 
 @dataclass
-class GraceNote:
+class GraceNote(PlayedNote):
     """ TODO -> pydoc and impl."""
     # grace_note: Note
     # slashed: Boolean
