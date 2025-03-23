@@ -7,7 +7,7 @@
       <excludeFolder url="file://$MODULE_DIR$/venv_13" />
       <excludeFolder url="file://$MODULE_DIR$/venv_py" />
     </content>
-    <orderEntry type="jdk" jdkName="Python 3.10 (py-music) (4)" jdkType="Python SDK" />
+    <orderEntry type="jdk" jdkName="py_music_py_13" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
   </component>
   <component name="PackageRequirementsSettings">

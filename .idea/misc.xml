@@ -3,5 +3,8 @@
   <component name="Black">
     <option name="sdkName" value="Python 3.10 (py-music)" />
   </component>
-  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.10 (py-music) (4)" project-jdk-type="Python SDK" />
+  <component name="ProjectRootManager" version="2" project-jdk-name="py_music_py_13" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
+  </component>
 </project>

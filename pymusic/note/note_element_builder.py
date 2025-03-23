@@ -7,6 +7,8 @@
 #     return NoteElement()
 from lxml import etree
 
+from pymusic.note.played_note import PlayedNote
+
 
 def create_note_element(note_xml: etree.Element) -> 'NoteElement':
     from .note_element import NoteElement
@@ -19,11 +21,8 @@ def create_note_element(note_xml: etree.Element) -> 'NoteElement':
     elif first_child.tag == "cue":
         # TODO
         print("Creating cue note ... ")
-    elif first_child.tag == "chord":
-        # TODO
-        print("Creating a chord note ...")
     else:
         print("Creating a standard note ...")
-    print(first_child.tag)
+        PlayedNote.from_xml(note_xml)
 
     return NoteElement()
