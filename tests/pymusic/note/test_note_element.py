@@ -20,3 +20,20 @@ FIRST_XML = create_xml(
 def test_basic_note_xml():
     note_element = PlayedNote.from_xml(FIRST_XML)
     assert False
+
+
+def test_rest_xml():
+    rest_xml = create_xml(
+        """
+        <note>
+            <rest />
+            <duration>1024</duration>
+            <instrument id="P1-I1" />
+            <voice>1</voice>
+            <type>whole</type>
+            <staff>1</staff>
+        </note>
+        """
+    )
+    rest_element = PlayedNote.from_xml(rest_xml)
+    assert False

@@ -47,16 +47,16 @@ class Pitched(PitchType):
         return f"{self.pitch.glance()}({self.octave})"
 
 
+@dataclass
 class Rest(PitchType):
-    # TODO
+
     @staticmethod
     def from_xml(xml: etree.Element):
-        # TODO
-        pass
+        # There is no pitch, so no need to calculate anything here.
+        return Rest()
 
     def glance(self) -> str:
-        # TODO
-        return ""
+        return "rest"
 
 
 class Unpitched(PitchType):
