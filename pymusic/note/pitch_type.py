@@ -1,6 +1,10 @@
-from abc import ABC
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
 
 from lxml import etree
+
+from pymusic.pitch import PitchNote
+from pymusic.pitch.accidentals import Accidental
 
 
 class PitchType(ABC):
@@ -19,16 +23,28 @@ class PitchType(ABC):
             case _:
                 raise ValueError(f"{first_child.tag} is not a valid pitch_type")
 
+    @abstractmethod
+    def glance(self) -> str:
+        pass
 
+
+@dataclass
 class Pitched(PitchType):
+    pitch: PitchNote
+    octave: int
 
     # TODO
     @staticmethod
     def from_xml(xml: etree.Element):
-        octave = xml.find("octave")
-        step = xml.find("step")
+        octave = int(xml.find("octave").text)
+        step = xml.find("step").text
         alter = xml.find("alter")
-        # TODO -> I need the key signature here!!
+
+        corresponding_note = PitchNote.corresponding_note(step, Accidental.from_xml(alter))
+        return Pitched(corresponding_note, octave)
+
+    def glance(self) -> str:
+        return f"{self.pitch.glance()}({self.octave})"
 
 
 class Rest(PitchType):
@@ -38,6 +54,10 @@ class Rest(PitchType):
         # TODO
         pass
 
+    def glance(self) -> str:
+        # TODO
+        return ""
+
 
 class Unpitched(PitchType):
     # TODO
@@ -45,3 +65,7 @@ class Unpitched(PitchType):
     def from_xml(xml: etree.Element):
         # TODO
         pass
+
+    def glance(self) -> str:
+        # TODO
+        return ""

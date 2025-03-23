@@ -2,7 +2,6 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.key import Key
 from pymusic.note import note_element_builder
 
 
@@ -31,10 +30,7 @@ class PlayedNote:
     # TODO - <type>
 
     @staticmethod
-    def from_xml(
-            note_xml: etree.Element,
-            key_signature: Key,
-    ) -> 'PlayedNote':
+    def from_xml(note_xml: etree.Element) -> 'PlayedNote':
         return note_element_builder.create_note_element(note_xml)
 
     """
