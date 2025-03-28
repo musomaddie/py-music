@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from lxml import etree
 
 from pymusic.note import note_element_builder
+from pymusic.note.pitch_type import PitchType
+from pymusic.rhythm.note_duration import Duration
 
 
 @dataclass
@@ -11,10 +13,11 @@ class PlayedNote:
     https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
     """
 
-    duration: int
+    pitch_type: PitchType
+    duration: Duration
 
+    # TODO - <duration>
     # TODO - <tie>
-
     # TODO - <listen>
     # TODO - <play>
     # TODO - <lyric>

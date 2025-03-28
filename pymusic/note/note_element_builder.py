@@ -5,13 +5,16 @@
 # #     print(first_child.tag)
 # #     print(first_child)
 # #     return NoteElement()
+
 from lxml import etree
 
 from pymusic.note.pitch_type import PitchType
+from pymusic.rhythm.note_duration import Duration
 
 
 # TODO -> rename!!
 def create_note_element(note_xml: etree.Element) -> 'PlayedNote':
+    from pymusic.note.played_note import PlayedNote
     print()
     # Gather all the common info FIRST and then delegate to more precise builders as needed.
 
@@ -30,9 +33,14 @@ def create_note_element(note_xml: etree.Element) -> 'PlayedNote':
     # TODO - <type>
     # TODO - <voice>
 
-    # TODO delegate to grace or cue or chord notes first.
-    PitchType.from_xml(note_xml)
-    pass
+    # Duration:
+
+    # TODO delegate to grace or cue or chord notes before getting pitch type ??
+    # Duration ...
+    pitch_type = PitchType.from_xml(note_xml)
+    duration = Duration.create(note_xml)
+
+    return PlayedNote(pitch_type, duration)
 
 
 """
