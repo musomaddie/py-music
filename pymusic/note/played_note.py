@@ -11,12 +11,20 @@ from pymusic.rhythm.note_duration import Duration
 class PlayedNote:
     """ Represents a music XML note element. Several different types of notes ...
     https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
+
+    How elements from the music XML are applied:
+        * duration -> Duration
+        * pitch -> PitchType
+        * footnote -> not saved as it contains editorial information.
     """
 
     pitch_type: PitchType
     duration: Duration
 
-    # TODO - <duration>
+    # TODO - <instrument> used when there are multiple <score-instrument>s in a <score-part>. Requires this to be
+    #  implemented first.
+    # TODO -> figure out level and if its needed. (Probably not since its editorial)
+
     # TODO - <tie>
     # TODO - <listen>
     # TODO - <play>
@@ -37,8 +45,6 @@ class PlayedNote:
         return note_element_builder.create_note_element(note_xml)
 
     """
-     <type> (Optional)
-    <dot> (Zero or more times)
     <accidental> (Optional)
     <time-modification> (Optional)
     <stem> (Optional)

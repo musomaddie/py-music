@@ -1,0 +1,15 @@
+<note color="#000000" default-x="50" default-y="-9">
+    <grace slash="yes"/>
+    <pitch>
+        <step>G</step>
+        <octave>4</octave>
+    </pitch>
+    <instrument id="P1-I1"/>
+    <voice>1</voice>
+    <type>eighth</type>
+    <stem>up</stem>
+    <staff>1</staff>
+    <notations>
+        <slur color="#000000" type="start" orientation="under"/>
+    </notations>
+</note>

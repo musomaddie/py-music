@@ -30,16 +30,42 @@ EXAMPLE XML:
 </measure>
 """
 from dataclasses import dataclass
+from typing import Optional
 
+from lxml import etree
+
+from pymusic.note.articulation.slur import Slur
+from pymusic.note.pitch_type import PitchType
 from pymusic.note.played_note import PlayedNote
+from pymusic.rhythm.note_duration import Duration
 
-
-# TODO -> convert this from XML.
 
 @dataclass
 class GraceNote(PlayedNote):
-    """ TODO -> pydoc and impl."""
-    # grace_note: Note
-    # slashed: Boolean
-    # note: Note
-    # TODO -> make-time, steal-time-following and steal-time-previous.
+    """ TODO -> pydoc. """
+    # TODO -> determine a common way of handling slurs and include that here.  (probably don't have to care too much
+    #  about them).
+    slash: bool
+    slur: Optional[Slur]
+
+    #  TODO -> in practice this will likely be joined to the following note (until we hit a note that is not a grace
+    #   note).
+    #       It might be useful to create a class that is used when we first encounter a grace note to store all the info
+    #       until we find its friend?
+
+    def glance(self) -> str:
+        grace_sym = "𝆔 " if self.slash else "𝆕 "
+        slur_str = f"({self.slur.value}) " if self.slur is not None else ""
+        pitch_and_dur_str = f"{self.pitch_type.glance()} {self.pitch_type.duration_glance(self.duration)}"
+        return grace_sym + slur_str + pitch_and_dur_str
+
+    @staticmethod
+    def from_xml(note_xml: etree.Element) -> "GraceNote":
+        # The rest of the stuff here will just help as determine what note it is joined to.
+        # TODO -> use the rest of this stuff to determine what note this joins to.
+        return GraceNote(
+            PitchType.from_xml(note_xml.find("pitch")),
+            Duration.create(note_xml),
+            note_xml.find("grace").attrib.get("slash") is not None,
+            Slur.from_xml(note_xml.find("notations"))
+        )

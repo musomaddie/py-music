@@ -5,14 +5,17 @@ from lxml import etree
 
 from pymusic.pitch import PitchNote
 from pymusic.pitch.accidentals import Accidental
+from pymusic.rhythm.note_duration import Duration
 
 
 class PitchType(ABC):
     """ Parent class for pitch types that belong to played notes."""
 
     @staticmethod
-    def from_xml(xml: etree.Element) -> 'PitchType':
-        first_child = xml.getchildren()[0]
+    def from_xml(pitch_xml: etree.Element) -> 'PitchType':
+        if pitch_xml is None:
+            raise ValueError("Pitch XML is None")
+        first_child = pitch_xml.getchildren()[0]
         match first_child.tag:
             case "pitch":
                 return Pitched.from_xml(first_child)
@@ -25,6 +28,10 @@ class PitchType(ABC):
 
     @abstractmethod
     def glance(self) -> str:
+        pass
+
+    @abstractmethod
+    def duration_glance(self, duration: Duration) -> str:
         pass
 
 
@@ -46,6 +53,9 @@ class Pitched(PitchType):
     def glance(self) -> str:
         return f"{self.pitch.glance()}({self.octave})"
 
+    def duration_glance(self, duration: Duration) -> str:
+        return duration.note_display()
+
 
 @dataclass
 class Rest(PitchType):
@@ -56,7 +66,10 @@ class Rest(PitchType):
         return Rest()
 
     def glance(self) -> str:
-        return "rest"
+        return ""
+
+    def duration_glance(self, duration: Duration) -> str:
+        return duration.rest_display()
 
 
 class Unpitched(PitchType):
@@ -67,5 +80,9 @@ class Unpitched(PitchType):
         pass
 
     def glance(self) -> str:
+        # TODO
+        return ""
+
+    def duration_glance(self, duration: Duration) -> str:
         # TODO
         return ""
