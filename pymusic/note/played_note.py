@@ -16,6 +16,8 @@ class PlayedNote:
         * duration -> Duration
         * pitch -> PitchType
         * footnote -> not saved as it contains editorial information.
+        * level -> currently not used it contains editorial information.
+        * instrument -> TODO
     """
 
     pitch_type: PitchType
@@ -42,7 +44,7 @@ class PlayedNote:
 
     @staticmethod
     def from_xml(note_xml: etree.Element) -> 'PlayedNote':
-        return note_element_builder.create_note_element(note_xml)
+        return note_element_builder.create_played_note(note_xml)
 
     """
     <accidental> (Optional)

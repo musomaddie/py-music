@@ -81,8 +81,6 @@ class Duration:
     def create(note_xml: etree.Element) -> "Duration":
         # TODO -> handle fancy things using the duration and division values.
         # TODO -> handle triplets!! (and the like)
-        print(note_xml.find("dot"))
-        [print(child) for child in note_xml]
         return Duration(
             type_dict[note_xml.find("type").text],
             note_xml.find("dot") is not None

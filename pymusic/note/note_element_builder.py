@@ -1,11 +1,3 @@
-# # @staticmethod
-# # def from_xml(note_xml: etree.Element) -> 'NoteElement':
-# #     first_child = note_xml[0]
-# #     print()
-# #     print(first_child.tag)
-# #     print(first_child)
-# #     return NoteElement()
-
 from lxml import etree
 
 from pymusic.note.pitch_type import PitchType
@@ -13,7 +5,7 @@ from pymusic.rhythm.note_duration import Duration
 
 
 # TODO -> rename!!
-def create_note_element(note_xml: etree.Element) -> 'PlayedNote':
+def create_played_note(note_xml: etree.Element) -> 'PlayedNote':
     from pymusic.note.played_note import PlayedNote
     print()
     # Gather all the common info FIRST and then delegate to more precise builders as needed.
@@ -39,6 +31,8 @@ def create_note_element(note_xml: etree.Element) -> 'PlayedNote':
     # Duration ...
     pitch_type = PitchType.from_xml(note_xml)
     duration = Duration.create(note_xml)
+
+    # TODO -> VOICE!! (multiple notes in the part at once!)
 
     return PlayedNote(pitch_type, duration)
 

@@ -12,10 +12,10 @@ class PitchType(ABC):
     """ Parent class for pitch types that belong to played notes."""
 
     @staticmethod
-    def from_xml(pitch_xml: etree.Element) -> 'PitchType':
-        if pitch_xml is None:
+    def from_xml(note_xml: etree.Element) -> 'PitchType':
+        if note_xml is None:
             raise ValueError("Pitch XML is None")
-        first_child = pitch_xml.getchildren()[0]
+        first_child = note_xml.getchildren()[0]
         match first_child.tag:
             case "pitch":
                 return Pitched.from_xml(first_child)

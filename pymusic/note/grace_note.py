@@ -35,7 +35,7 @@ from typing import Optional
 from lxml import etree
 
 from pymusic.note.articulation.slur import Slur
-from pymusic.note.pitch_type import PitchType
+from pymusic.note.pitch_type import Pitched
 from pymusic.note.played_note import PlayedNote
 from pymusic.rhythm.note_duration import Duration
 
@@ -64,7 +64,7 @@ class GraceNote(PlayedNote):
         # The rest of the stuff here will just help as determine what note it is joined to.
         # TODO -> use the rest of this stuff to determine what note this joins to.
         return GraceNote(
-            PitchType.from_xml(note_xml.find("pitch")),
+            Pitched.from_xml(note_xml.find("pitch")),
             Duration.create(note_xml),
             note_xml.find("grace").attrib.get("slash") is not None,
             Slur.from_xml(note_xml.find("notations"))
