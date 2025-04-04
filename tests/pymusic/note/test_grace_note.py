@@ -1,9 +1,9 @@
 """ Tests for the grace note xml item. """
 
 import pytest
-from lxml import etree
 
 from pymusic.note.grace_note import GraceNote
+from tests import create_xml_from_file
 
 
 @pytest.mark.parametrize(
@@ -16,5 +16,6 @@ from pymusic.note.grace_note import GraceNote
     ]
 )
 def test_single_grace_note(slash, slur, expected_glance):
-    music_xml_fn = f"tests/resources/grace_notes/single_notes/slash_{slash}_slur_{slur}.musicxml"
-    assert GraceNote.from_xml(etree.parse(music_xml_fn).getroot()).glance() == expected_glance
+    grace_note_xml = create_xml_from_file(
+        f"tests/resources/grace_notes/single_notes/slash_{slash}_slur_{slur}.musicxml")
+    assert GraceNote.from_xml(grace_note_xml).glance() == expected_glance
