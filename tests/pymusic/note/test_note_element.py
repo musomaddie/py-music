@@ -1,3 +1,4 @@
+from pymusic.note.grace_note import GraceNote
 from pymusic.note.played_note import PlayedNote
 from tests import create_xml
 
@@ -39,3 +40,22 @@ def test_rest_xml():
     rest_element = PlayedNote.from_xml(rest_xml)
     assert rest_element.pitch_type.glance() == ""
     assert False
+
+
+def test_grace_note_xml():
+    grace_xml = create_xml(
+        """
+        <note>
+            <grace />
+            <pitch>
+                <step>G</step>
+                <octave>4</octave>
+            </pitch>
+            <voice>1</voice>
+            <type>eighth</type>
+            <stem>up</stem>
+            <staff>1</staff>
+        </note>
+        """
+    )
+    assert GraceNote.from_xml(grace_xml).glance() == "𝆕 G(4) 𝅘𝅥𝅮"

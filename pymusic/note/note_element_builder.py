@@ -7,28 +7,14 @@ from pymusic.rhythm.note_duration import Duration
 # TODO -> rename!!
 def create_played_note(note_xml: etree.Element) -> 'PlayedNote':
     from pymusic.note.played_note import PlayedNote
+    from pymusic.note.grace_note import GraceNote
     print()
     # Gather all the common info FIRST and then delegate to more precise builders as needed.
 
-    # TODO - <listen>
-    # TODO - <play>
-    # TODO - <lyric>
-    # TODO - <notations>
-    # TODO - <beam>
-    # TODO - <staff>
-    # TODO - <notehead-text>
-    # TODO - <notehead>
-    # TODO - <stem>
-    # TODO - <time-modification>
-    # TODO - <accidental>
-    # TODO - <dot>
-    # TODO - <type>
-    # TODO - <voice>
+    first_child = note_xml.getchildren()[0]
+    if first_child.tag == "grace":
+        return GraceNote.from_xml(note_xml)
 
-    # Duration:
-
-    # TODO delegate to grace or cue or chord notes before getting pitch type ??
-    # Duration ...
     pitch_type = PitchType.from_xml(note_xml)
     duration = Duration.create(note_xml)
 
