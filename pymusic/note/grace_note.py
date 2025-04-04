@@ -40,7 +40,7 @@ from pymusic.note.played_note import PlayedNote
 from pymusic.rhythm.note_duration import Duration
 
 
-@dataclass
+@dataclass(kw_only=True)
 class GraceNote(PlayedNote):
     """ TODO -> pydoc. """
     # TODO -> determine a common way of handling slurs and include that here.  (probably don't have to care too much
@@ -60,12 +60,15 @@ class GraceNote(PlayedNote):
         return grace_sym + slur_str + pitch_and_dur_str
 
     @staticmethod
-    def from_xml(note_xml: etree.Element) -> "GraceNote":
+    def from_xml(
+            note_xml: etree.Element) -> "GraceNote":
+        from pymusic.note.played_note_builder import voice
         # The rest of the stuff here will just help as determine what note it is joined to.
         # TODO -> use the rest of this stuff to determine what note this joins to.
         return GraceNote(
-            Pitched.from_xml(note_xml.find("pitch")),
-            Duration.create(note_xml),
-            note_xml.find("grace").attrib.get("slash") is not None,
-            Slur.from_xml(note_xml.find("notations"))
+            pitch_type=Pitched.from_xml(note_xml.find("pitch")),
+            duration=Duration.create(note_xml),
+            voice=voice(note_xml),
+            slash=note_xml.find("grace").attrib.get("slash") is not None,
+            slur=Slur.from_xml(note_xml.find("notations"))
         )

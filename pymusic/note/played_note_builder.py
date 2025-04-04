@@ -18,9 +18,12 @@ def create_played_note(note_xml: etree.Element) -> 'PlayedNote':
     pitch_type = PitchType.from_xml(note_xml)
     duration = Duration.create(note_xml)
 
-    # TODO -> VOICE!! (multiple notes in the part at once!)
+    return PlayedNote(pitch_type, duration, voice(note_xml))
 
-    return PlayedNote(pitch_type, duration)
+
+def voice(note_xml: etree.Element) -> int:
+    voice_element = note_xml.find("voice")
+    return int(voice_element.text) if voice_element is not None else 1
 
 
 """

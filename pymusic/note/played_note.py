@@ -2,7 +2,7 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.note import note_element_builder
+from pymusic.note import played_note_builder
 from pymusic.note.pitch_type import PitchType
 from pymusic.rhythm.note_duration import Duration
 
@@ -18,10 +18,12 @@ class PlayedNote:
         * footnote -> not saved as it contains editorial information.
         * level -> currently not used it contains editorial information.
         * instrument -> TODO
+        * voice -> int (used when constructing the overall measure).
     """
 
     pitch_type: PitchType
     duration: Duration
+    voice: int
 
     # TODO - <instrument> used when there are multiple <score-instrument>s in a <score-part>. Requires this to be
     #  implemented first.
@@ -44,7 +46,7 @@ class PlayedNote:
 
     @staticmethod
     def from_xml(note_xml: etree.Element) -> 'PlayedNote':
-        return note_element_builder.create_played_note(note_xml)
+        return played_note_builder.create_played_note(note_xml)
 
     """
     <accidental> (Optional)

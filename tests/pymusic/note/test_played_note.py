@@ -1,6 +1,8 @@
+import pytest
+
 from pymusic.note.grace_note import GraceNote
 from pymusic.note.played_note import PlayedNote
-from tests import create_xml
+from tests import create_xml, create_xml_from_file
 
 FIRST_XML = create_xml(
     """
@@ -59,3 +61,16 @@ def test_grace_note_xml():
         """
     )
     assert GraceNote.from_xml(grace_xml).glance() == "𝆕 G(4) 𝅘𝅥𝅮"
+
+
+@pytest.mark.parametrize(
+    ("xml_fn", "expected_voice"),
+    [
+        ("voice_1", 1),
+        ("voice_2", 2),
+        ("no_voice", 1)
+    ]
+)
+def test_voice(xml_fn: str, expected_voice: int):
+    fn = f"tests/resources/voices/{xml_fn}.musicxml"
+    assert PlayedNote.from_xml(create_xml_from_file(fn)).voice == expected_voice
