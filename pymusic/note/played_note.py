@@ -19,6 +19,10 @@ class PlayedNote:
         * level -> currently not used it contains editorial information.
         * instrument -> TODO
         * voice -> int (used when constructing the overall measure).
+        * type -> Duration
+        * dot -> Duration
+        * accidental: TODO -> how does this differ from the alter applied to the pitch?? Does this still appear if
+        the accidental is in the key signature ?????
     """
 
     pitch_type: PitchType
