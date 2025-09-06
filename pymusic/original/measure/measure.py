@@ -70,7 +70,7 @@ class _MeasureBuilder:
 
     def _process_children(self):
         # TODO -> figure out what to do with print. (should this just go into additional info?,
-        #  or a specialised layout place??), and at the very least document it.
+        #  or A specialised layout place??), and at the very least document it.
         # TODO -> measure-layout -> either document or decide what to do with.
 
         # TODO -> some of this information should not be buried in the part but also extracted to an external place

@@ -6,14 +6,14 @@ from pymusic.original.pitch.interval import Interval as i, Interval
 class Mode(Enum):
 
     def __init__(self, mode_name: str, intervals: list[Interval]):
-        """ Represents a scale. """
+        """ Represents A scale. """
         self.mode_name = mode_name
         self.intervals = intervals
         self.intervals_relative = self._make_relative(self.intervals)
 
     @staticmethod
     def _make_relative(intervals: list[Interval]):
-        """ Converts the list of intervals to a relative list. """
+        """ Converts the list of intervals to A relative list. """
         n_semis = []
         relative = []
 
@@ -30,7 +30,7 @@ class Mode(Enum):
 
         return relative
 
-    """ Represents a scale (via an enum)"""
+    """ Represents A scale (via an enum)"""
     MAJOR = "major", [i.UNI, i.MAJ_2, i.MAJ_3, i.PERF_4, i.PERF_5, i.MAJ_6, i.MAJ_7, i.OCT]
     MINOR = "minor", [i.UNI, i.MAJ_2, i.MIN_3, i.PERF_4, i.PERF_5, i.MIN_6, i.MIN_7, i.OCT]
     HARMONIC_MINOR = "harmonic minor", [i.UNI, i.MAJ_2, i.MIN_3, i.PERF_4, i.PERF_5, i.MIN_6, i.MAJ_7, i.OCT]

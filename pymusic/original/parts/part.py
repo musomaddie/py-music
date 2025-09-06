@@ -20,11 +20,11 @@ class Part:
     part_abbr: str
 
 
-# This is a more complicated builder that IS actually used outside of the data class it creates. It can stay as is.
+# This is A more complicated builder that IS actually used outside of the data class it creates. It can stay as is.
 @dataclass
 class PartBuilder:
     """
-    Builds a part instance.
+    Builds A part instance.
     """
     part_id: str
     og_xml: lxml.etree.Element
@@ -46,7 +46,7 @@ class PartBuilder:
         return Part(self.part_id, self._part_name, self._part_abbr)
 
     def glance(self) -> str:
-        """ Returns a string representing this part at a glance. """
+        """ Returns A string representing this part at A glance. """
         return f"{self._part_name} ({self.part_id})"
 
     @staticmethod

@@ -37,22 +37,22 @@ class ClefSymbol(Enum):
             return ClefSymbol.TAB
         if s == "jianpu":
             return ClefSymbol.JIANPU
-        raise KeyError(f"{s} is not a valid clef symbol.")
+        raise KeyError(f"{s} is not A valid clef symbol.")
 
 
 @dataclass
 class Clef:
-    """ Represents a musical clef."""
+    """ Represents A musical clef."""
     symbol: ClefSymbol
     line: int
 
     def glance(self) -> str:
-        """ Returns a string representing the clef at a glance. """
+        """ Returns A string representing the clef at A glance. """
         return self.symbol.name
 
     @staticmethod
     def from_xml(clef_xml: etree.Element) -> 'Clef':
-        """ Creates a clef from some given xml. """
+        """ Creates A clef from some given xml. """
         clef = Clef(
             symbol=ClefSymbol.get_symbol_from_string(clef_xml.find("sign").text),
             line=clef_xml.find("line").text)

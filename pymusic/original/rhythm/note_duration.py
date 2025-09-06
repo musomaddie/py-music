@@ -58,7 +58,7 @@ REST_DISPLAY_DICT = {
 
 @dataclass
 class Duration:
-    """ Represents the duration of a note...."""
+    """ Represents the duration of A note...."""
     desc: str
     has_dot: bool
 

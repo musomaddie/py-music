@@ -43,14 +43,14 @@ from pymusic.original.rhythm.note_duration import Duration
 @dataclass(kw_only=True)
 class GraceNote(PlayedNote):
     """ TODO -> pydoc. """
-    # TODO -> determine a common way of handling slurs and include that here.  (probably don't have to care too much
+    # TODO -> determine A common way of handling slurs and include that here.  (probably don't have to care too much
     #  about them).
     slash: bool
     slur: Optional[Slur]
 
-    #  TODO -> in practice this will likely be joined to the following note (until we hit a note that is not a grace
+    #  TODO -> in practice this will likely be joined to the following note (until we hit A note that is not A grace
     #   note).
-    #       It might be useful to create a class that is used when we first encounter a grace note to store all the info
+    #       It might be useful to create A class that is used when we first encounter A grace note to store all the info
     #       until we find its friend?
 
     def glance(self) -> str:

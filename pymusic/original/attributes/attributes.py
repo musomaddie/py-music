@@ -15,14 +15,14 @@ log = logging.getLogger("attributes")
 
 @dataclass
 class Attributes:
-    """ Represents attributes connected to a bar, as defined by musicXML.
+    """ Represents attributes connected to A bar, as defined by musicXML.
 
 
     (Plan) of what happens with its children.
-        - divisions: delegates to a time builder (is important to determine relative note lengths).
+        - divisions: delegates to A time builder (is important to determine relative note lengths).
         - key: delegates to key builder
         - time: delegates to time builder
-        - staves: delegates to staves builder - if absent we create a builder which is a list of one (?)
+        - staves: delegates to staves builder - if absent we create A builder which is A list of one (?)
         - part-symbol: additional info (but connected to staves)
         - instruments: (additional info) -> maybe reconsider.
         - clef: additional info
@@ -37,7 +37,7 @@ class Attributes:
     clef: Clef
 
     def glance(self):
-        """ Returns a string representing this attribute at a glance."""
+        """ Returns A string representing this attribute at A glance."""
         return f"{self.clef.glance()} clef, {self.key.glance()} in {self.time_signature.glance()} time"
 
     @staticmethod

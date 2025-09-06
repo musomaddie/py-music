@@ -32,7 +32,7 @@ loc_intervals = [Mi.UNI, Mi.MIN_2, Mi.MIN_3, Mi.PERF_4, Mi.TRI, Mi.MIN_6, Mi.MIN
 
 
 class Mode(Enum):
-    """ Represents a scale. """
+    """ Represents A scale. """
 
     def __init__(
             self,

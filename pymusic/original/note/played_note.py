@@ -9,7 +9,7 @@ from pymusic.original.rhythm.note_duration import Duration
 
 @dataclass
 class PlayedNote:
-    """ Represents a music XML note element. Several different types of notes ...
+    """ Represents A music XML note element. Several different types of notes ...
     https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/note/
 
     How elements from the music XML are applied:
@@ -29,7 +29,7 @@ class PlayedNote:
     duration: Duration
     voice: int
 
-    # TODO - <instrument> used when there are multiple <score-instrument>s in a <score-part>. Requires this to be
+    # TODO - <instrument> used when there are multiple <score-instrument>s in A <score-part>. Requires this to be
     #  implemented first.
     # TODO -> figure out level and if its needed. (Probably not since its editorial)
 

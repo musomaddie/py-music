@@ -1,7 +1,7 @@
 from pymusic.xml_conversion.score import get_title
 from tests import create_xml
 
-TITLE = "I am a title"
+TITLE = "I am A title"
 
 TITLE_ONLY_CONTENT = create_xml(
     f"""

@@ -1,5 +1,5 @@
 """
-Handles a chord symbol (i.e. name / guitar chart above the main system).
+Handles A chord symbol (i.e. name / guitar chart above the main system).
 Corresponds to harmony music xml element.
 """
 import logging
@@ -131,8 +131,8 @@ def _generate_all_notes(root_note: PitchNote, chord_type: ChordType) -> list[Pit
 
 @dataclass
 class ChordSymbol:
-    """ Represents a chord symbol.
-    # TODO handle slash chords (including with a bass alter)
+    """ Represents A chord symbol.
+    # TODO handle slash chords (including with A bass alter)
     # TODO -> consider handling "frames" (guitar chord diagrams).
     """
     root_note: PitchNote
@@ -150,7 +150,7 @@ class ChordSymbol:
 
     @staticmethod
     def from_xml(harmony_xml: etree.Element) -> 'ChordSymbol':
-        """ Returns a chord symbol created from the given XML. """
+        """ Returns A chord symbol created from the given XML. """
 
         chord_root_xml = harmony_xml.find("root")
         if chord_root_xml is None:

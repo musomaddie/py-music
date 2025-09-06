@@ -22,7 +22,7 @@ class NoteName(Enum):
 
 
 class PitchNote(Enum):
-    """ Stores information relating to a single note (in notation). i.e. Eb and D# will be a different note,
+    """ Stores information relating to A single note (in notation). i.e. Eb and D# will be A different note,
     despite being the same pitch."""
 
     def __init__(self, note_name: NoteName, accidental: Accidental):

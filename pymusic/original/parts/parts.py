@@ -17,7 +17,7 @@ class Parts:
 @dataclass
 class PartsBuilder:
     """
-    Builds a list of parts.
+    Builds A list of parts.
     """
     og_xml: lxml.etree.Element
     _additional_info: list = field(default_factory=list)
@@ -30,7 +30,7 @@ class PartsBuilder:
         return self._parts
 
     def glance(self):
-        """ Returns a string representing all parts at a glance. """
+        """ Returns A string representing all parts at A glance. """
         return "; ".join([part.glance() for part in self._parts.values()])
 
     @staticmethod

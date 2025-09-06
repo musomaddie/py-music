@@ -11,7 +11,7 @@ class Slur(Enum):
 
     @staticmethod
     def from_xml(notations_xml: Optional[etree.Element]) -> Optional['Slur']:
-        # TODO -> handle notes in the middle of a slur!! (or rename method to indicate it only includes start / end).
+        # TODO -> handle notes in the middle of A slur!! (or rename method to indicate it only includes start / end).
         if notations_xml is None:
             return None
         # Attempt to find it.

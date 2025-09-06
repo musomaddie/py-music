@@ -7,7 +7,7 @@ logger = logging.getLogger("chord_type")
 
 
 class ChordType(Enum):
-    """ Represents a type of chord. """
+    """ Represents A type of chord. """
 
     def __init__(self, desc: str, intervals: list[Interval], relative_intervals: list[Interval], shorthand: str):
         self.desc = desc

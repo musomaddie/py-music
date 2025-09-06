@@ -39,7 +39,7 @@ def _create_octave_scale(mode: Mode, starting_note: PitchNote) -> list[PitchNote
 
 @dataclass
 class Key:
-    """ Represents a musical key.
+    """ Represents A musical key.
 
     link: https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/key/
     """
@@ -51,12 +51,12 @@ class Key:
         self.octave = _create_octave_scale(self.mode, self.note)
 
     def glance(self) -> str:
-        """ Returns a string representing this key at a glance. """
+        """ Returns A string representing this key at A glance. """
         return f"{self.note.glance()} {self.mode.mode_name}"
 
     @staticmethod
     def from_xml(og_xml: etree.Element) -> 'Key':
-        """ Creates a Key from the given xml. """
+        """ Creates A Key from the given xml. """
         mode_xml = og_xml.find("mode")
         mode = Mode.find_mode_from_text(mode_xml.text)
 

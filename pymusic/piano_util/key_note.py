@@ -1,8 +1,9 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from pymusic.original.pitch.accidentals import Accidental
-from pymusic.original.pitch.pitchnote import PitchNote, NoteName
+from pymusic.pitch.accidental import Accidental
+from pymusic.pitch.note_name import NoteName
+from pymusic.pitch.pitchnote import PitchNote
 
 
 class KeyNote(ABC):
@@ -14,16 +15,16 @@ class KeyNote(ABC):
         pass
 
     @abstractmethod
-    def get_note(self, accidental: Accidental):
+    def get_note(self, accidental: Accidental) -> PitchNote:
         """ Get the corresponding note from this key. """
 
     @abstractmethod
-    def get_note_from_name(self, name: NoteName):
+    def get_note_from_name(self, name: NoteName) -> PitchNote:
         """ Returns the specific note from this key that matches the given name. Throws ValueError if this does not
         exist."""
 
     @abstractmethod
-    def matches(self, other_note: PitchNote):
+    def matches(self, other_note: PitchNote) -> bool:
         """ Returns true if this keynote matches the passed note. """
 
 

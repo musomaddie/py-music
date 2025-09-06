@@ -17,7 +17,7 @@ class Accidental(Enum):
     FLAT_2 = "𝄫", -2
 
     def glance(self):
-        """ Returns a short easily readable string for this accidental."""
+        """ Returns A short easily readable string for this accidental."""
         if self == Accidental.NATURAL:
             return ""
         return self.symbol
