@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 from lxml import etree
 from lxml.etree import Element
 
-from pymusic.xml_conversion.musicxml_identifiers import WORK_INFO, TITLE, PARTS
+from pymusic.xml_conversion.musicxml_identifiers import WORK_INFO, TITLE, PARTS, PART
 from pymusic.xml_conversion.parts import PartsBuilder, create_parts_builder
 
 # Logging isn't working because we're not loading from any other packages. In the other version this works when we
@@ -28,6 +28,7 @@ def create_score_builder(score_element: Element):
     builder = ScoreBuilder()
     builder.title = get_title(score_element)
     builder.parts = create_parts_builder(score_element.find(PARTS))
+    builder.parts.add_bars_for_all_parts(score_element.findall(PART))
 
 
 def create_from_musicxml_file(filename: str):
