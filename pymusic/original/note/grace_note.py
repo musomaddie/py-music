@@ -34,10 +34,10 @@ from typing import Optional
 
 from lxml import etree
 
-from pymusic.note.articulation.slur import Slur
-from pymusic.note.pitch_type import Pitched
-from pymusic.note.played_note import PlayedNote
-from pymusic.rhythm.note_duration import Duration
+from pymusic.original.note.articulation.slur import Slur
+from pymusic.original.note.pitch_type import Pitched
+from pymusic.original.note.played_note import PlayedNote
+from pymusic.original.rhythm.note_duration import Duration
 
 
 @dataclass(kw_only=True)
@@ -62,7 +62,7 @@ class GraceNote(PlayedNote):
     @staticmethod
     def from_xml(
             note_xml: etree.Element) -> "GraceNote":
-        from pymusic.note.played_note_builder import voice
+        from pymusic.original.note.played_note_builder import voice
         # The rest of the stuff here will just help as determine what note it is joined to.
         # TODO -> use the rest of this stuff to determine what note this joins to.
         return GraceNote(

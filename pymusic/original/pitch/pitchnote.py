@@ -1,7 +1,7 @@
 """ PitchNote class. """
 from enum import Enum
 
-from pymusic.pitch.accidentals import Accidental
+from pymusic.original.pitch.accidentals import Accidental
 
 
 class NoteName(Enum):

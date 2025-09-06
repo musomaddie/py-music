@@ -3,9 +3,9 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.pitch import PitchNote
-from pymusic.pitch.accidentals import Accidental
-from pymusic.rhythm.note_duration import Duration
+from pymusic.original.pitch import PitchNote
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.rhythm.note_duration import Duration
 
 
 class PitchType(ABC):

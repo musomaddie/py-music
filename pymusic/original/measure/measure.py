@@ -36,7 +36,7 @@ from typing import Optional
 
 from lxml import etree
 
-from pymusic.pitch.chords import ChordSymbol
+from pymusic.original.pitch.chords import ChordSymbol
 
 log = logging.getLogger("measure")
 
@@ -76,7 +76,7 @@ class _MeasureBuilder:
         # TODO -> some of this information should not be buried in the part but also extracted to an external place
         #  to make it easy  to get info about the piece (i.e. the key (and any key changes)..
         # Chords can likely be separated from the part too.
-        from pymusic.attributes import Attributes  # import here to avoid circular dependencies ?
+        from pymusic.original.attributes import Attributes  # import here to avoid circular dependencies ?
         for child in self.og_xml:
             if child.tag == "attributes":
                 # TODO - save result.

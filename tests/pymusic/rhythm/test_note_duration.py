@@ -1,6 +1,6 @@
 import pytest
 
-from pymusic.rhythm.note_duration import Duration
+from pymusic.original.rhythm.note_duration import Duration
 from tests import create_xml
 
 

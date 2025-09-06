@@ -4,7 +4,7 @@ from dataclasses import dataclass, field
 import lxml
 from lxml import etree
 
-from pymusic.parts import PartsBuilder
+from pymusic.original.parts import PartsBuilder
 
 log = logging.getLogger("score")
 

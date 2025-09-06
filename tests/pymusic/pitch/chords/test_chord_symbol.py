@@ -1,7 +1,7 @@
 """ Tests for the chord symbol. """
 import pytest
 
-from pymusic.pitch.chords import ChordSymbol
+from pymusic.original.pitch.chords import ChordSymbol
 from tests import create_xml
 from tests.pymusic import convert_into_note_list
 

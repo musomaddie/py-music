@@ -1,10 +1,10 @@
 """ Logic regarding notes using the piano keyboard. """
 
-from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.interval import Interval
-from pymusic.pitch.piano_keys import octave
-from pymusic.pitch.piano_keys.key_notes import KeyNote
-from pymusic.pitch.pitchnote import PitchNote
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.pitch.interval import Interval
+from pymusic.original.pitch.piano_keys import octave
+from pymusic.original.pitch.piano_keys.key_notes import KeyNote
+from pymusic.original.pitch.pitchnote import PitchNote
 
 
 def find_note_from_number_of_semitones(starting_note: PitchNote, semitones: int) -> KeyNote:

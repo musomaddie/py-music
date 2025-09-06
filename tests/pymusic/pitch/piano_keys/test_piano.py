@@ -1,10 +1,10 @@
 """ Test EVERYTHING in piano keys - thoroughly. """
 import pytest
 
-from pymusic.pitch import PitchNote
-from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.piano_keys import octave, find_note_from_number_of_semitones
-from pymusic.pitch.piano_keys.piano import find_note_with_accidental
+from pymusic.original.pitch import PitchNote
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.pitch.piano_keys import octave
+from pymusic.original.pitch.piano_keys.piano import find_note_with_accidental, find_note_from_number_of_semitones
 
 
 @pytest.mark.parametrize(

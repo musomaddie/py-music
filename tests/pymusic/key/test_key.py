@@ -2,9 +2,9 @@
 
 import pytest
 
-from pymusic.key.key import Key
-from pymusic.key.mode import Mode
-from pymusic.pitch import PitchNote
+from pymusic.original.key import Key
+from pymusic.original.key import Mode
+from pymusic.original.pitch import PitchNote
 from tests import create_xml
 from tests.pymusic import convert_into_note_list
 

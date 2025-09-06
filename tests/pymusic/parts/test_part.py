@@ -1,4 +1,4 @@
-from pymusic.parts.part import PartBuilder
+from pymusic.original.parts.part import PartBuilder
 from tests import create_xml
 
 PART_ID = "P1"

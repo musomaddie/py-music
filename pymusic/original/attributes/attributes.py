@@ -4,9 +4,9 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.key.key import Key
-from pymusic.parts.clef import Clef
-from pymusic.rhythm.time_signature import TimeSignature
+from pymusic.original.key.key import Key
+from pymusic.original.parts.clef import Clef
+from pymusic.original.rhythm.time_signature import TimeSignature
 
 log = logging.getLogger("attributes")
 

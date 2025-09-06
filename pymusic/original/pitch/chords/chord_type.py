@@ -1,7 +1,7 @@
 import logging
 from enum import Enum
 
-from pymusic.pitch.interval.interval import Interval as i, Interval
+from pymusic.original.pitch.interval.interval import Interval as i, Interval
 
 logger = logging.getLogger("chord_type")
 

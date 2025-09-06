@@ -1,8 +1,8 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.pitchnote import PitchNote, NoteName
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.pitch.pitchnote import PitchNote, NoteName
 
 
 class KeyNote(ABC):

@@ -2,7 +2,7 @@
 
 import pytest
 
-from pymusic.note.grace_note import GraceNote
+from pymusic.original.note.grace_note import GraceNote
 from tests import create_xml_from_file
 
 

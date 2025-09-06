@@ -2,9 +2,9 @@ from dataclasses import dataclass
 
 from lxml import etree
 
-from pymusic.note import played_note_builder
-from pymusic.note.pitch_type import PitchType
-from pymusic.rhythm.note_duration import Duration
+from pymusic.original.note import played_note_builder
+from pymusic.original.note.pitch_type import PitchType
+from pymusic.original.rhythm.note_duration import Duration
 
 
 @dataclass

@@ -1,7 +1,7 @@
 """ Tests for the slur file."""
 import pytest
 
-from pymusic.note.articulation.slur import Slur
+from pymusic.original.note.articulation.slur import Slur
 from tests import create_xml
 
 

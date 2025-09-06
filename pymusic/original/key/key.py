@@ -4,11 +4,11 @@ from dataclasses import dataclass, field
 
 from lxml import etree
 
-from pymusic.key.mode import Mode
-from pymusic.pitch import PitchNote, Interval
-from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.piano_keys import find_note_from_number_of_semitones, find_note_from_interval
-from pymusic.pitch.pitchnote import NoteName
+from pymusic.original.key.mode import Mode
+from pymusic.original.pitch import PitchNote, Interval
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.pitch.piano_keys import find_note_from_number_of_semitones, find_note_from_interval
+from pymusic.original.pitch.pitchnote import NoteName
 
 log = logging.getLogger("key")
 

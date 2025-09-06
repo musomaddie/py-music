@@ -1,4 +1,4 @@
-from pymusic.attributes.attributes import Attributes
+from pymusic.original.attributes import Attributes
 from tests import create_xml
 
 

@@ -1,13 +1,13 @@
 from lxml import etree
 
-from pymusic.note.pitch_type import PitchType
-from pymusic.rhythm.note_duration import Duration
+from pymusic.original.note.pitch_type import PitchType
+from pymusic.original.rhythm.note_duration import Duration
 
 
 # TODO -> rename!!
 def create_played_note(note_xml: etree.Element) -> 'PlayedNote':
-    from pymusic.note.played_note import PlayedNote
-    from pymusic.note.grace_note import GraceNote
+    from pymusic.original.note.played_note import PlayedNote
+    from pymusic.original.note.grace_note import GraceNote
     print()
     # Gather all the common info FIRST and then delegate to more precise builders as needed.
 

@@ -2,7 +2,7 @@ from io import BytesIO
 
 from lxml import etree
 
-from pymusic.score import ScoreBuilder
+from pymusic.original.score import ScoreBuilder
 
 TITLE_ONLY_TEXT = BytesIO(
     b""" 

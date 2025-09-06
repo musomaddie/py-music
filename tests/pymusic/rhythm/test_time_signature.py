@@ -1,7 +1,7 @@
 """ Tests related to the time signature! """
 import pytest
 
-from pymusic.rhythm.time_signature import TimeSignature
+from pymusic.original.rhythm.time_signature import TimeSignature
 from tests import create_xml
 
 N_DIVISIONS = "256"

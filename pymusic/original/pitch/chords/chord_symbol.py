@@ -7,12 +7,12 @@ from dataclasses import dataclass, field
 
 from lxml import etree
 
-from pymusic.key import Mode, Key
-from pymusic.pitch.accidentals import Accidental
-from pymusic.pitch.chords.chord_type import ChordType
-from pymusic.pitch.interval import Interval
-from pymusic.pitch.piano_keys.piano import (find_note_from_number_of_semitones)
-from pymusic.pitch.pitchnote import PitchNote
+from pymusic.original.key import Mode, Key
+from pymusic.original.pitch.accidentals import Accidental
+from pymusic.original.pitch.chords.chord_type import ChordType
+from pymusic.original.pitch.interval import Interval
+from pymusic.original.pitch.piano_keys.piano import (find_note_from_number_of_semitones)
+from pymusic.original.pitch.pitchnote import PitchNote
 
 logger = logging.getLogger("chord_symbol")
 

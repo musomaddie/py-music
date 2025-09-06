@@ -1,5 +1,5 @@
 """ tests for the accidental package. """
-from pymusic.pitch.accidentals import Accidental
+from pymusic.original.pitch.accidentals import Accidental
 from tests import create_xml
 
 

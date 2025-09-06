@@ -1,5 +1,5 @@
-from pymusic.pitch.piano_keys.key_notes import WhiteKey, BlackKey, KeyNote
-from pymusic.pitch.pitchnote import PitchNote
+from pymusic.original.pitch.piano_keys.key_notes import WhiteKey, BlackKey, KeyNote
+from pymusic.original.pitch.pitchnote import PitchNote
 
 octave = [
     WhiteKey(PitchNote.A, PitchNote.G_SHARP_2, PitchNote.B_FLAT_2),

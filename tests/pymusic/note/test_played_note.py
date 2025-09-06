@@ -1,7 +1,7 @@
 import pytest
 
-from pymusic.note.grace_note import GraceNote
-from pymusic.note.played_note import PlayedNote
+from pymusic.original.note.grace_note import GraceNote
+from pymusic.original.note.played_note import PlayedNote
 from tests import create_xml, create_xml_from_file
 
 FIRST_XML = create_xml(
