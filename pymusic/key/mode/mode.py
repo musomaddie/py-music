@@ -1,6 +1,6 @@
 from enum import Enum
 
-from pymusic.pitch.interval.interval import Interval as Mi
+from pymusic.pitch.interval import Interval as Mi
 
 
 def _make_relative_intervals(intervals: list[Mi]) -> list[Mi]:

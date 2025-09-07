@@ -7,7 +7,7 @@ from pymusic.key.mode.mode import Mode
 from pymusic.piano_util.note_finder import find_note_from_interval, find_note_from_n_semitones
 from pymusic.piano_util.octave_util import get_all_base_octave_notes
 from pymusic.pitch.accidental import Accidental
-from pymusic.pitch.interval.interval import Interval
+from pymusic.pitch.interval import Interval
 from pymusic.pitch.note_name import NoteName
 from pymusic.pitch.pitchnote import PitchNote
 
