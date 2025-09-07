@@ -3,6 +3,7 @@ from typing import Optional
 
 from lxml.etree import Element
 
+from pymusic.xml_conversion.key import KeyBuilder, create_key_builder
 from pymusic.xml_conversion.time_signature import TimeSignatureBuilder, create_time_signature_builder
 
 
@@ -27,6 +28,7 @@ class BarAttributesBuilder:
     """
     # If the time signature is absent we default to using the one from the bar before.
     time_signature_builder: Optional[TimeSignatureBuilder] = None
+    key_builder: Optional[KeyBuilder] = None
 
 
 def create_bar_attributes_builder(attributes_element: Element) -> BarAttributesBuilder:
@@ -34,5 +36,8 @@ def create_bar_attributes_builder(attributes_element: Element) -> BarAttributesB
 
     # TODO -> handle the time sig being absent.
     builder.time_signature_builder = create_time_signature_builder(attributes_element)
+    builder.key_builder = create_key_builder(attributes_element.find("key"))
+
+    # TODO -> handle the key being absent
 
     return builder

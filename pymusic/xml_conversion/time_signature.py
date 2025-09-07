@@ -8,11 +8,11 @@ log = logging.getLogger("time_signature")
 
 @dataclass
 class TimeSignatureBuilder:
-    """ Represents a time signature. """
+    """ Represents A time signature. """
     numerator: int
     denominator: int
     # TODO -> not 100% sure if this is the best place for this. it's used to determine how long
-    # notes are (in conjunction with the time sig to be fair). It's also optional so we should determine a sensible
+    # notes are (in conjunction with the time sig to be fair). It's also optional so we should determine A sensible
     # default.
     # https://www.w3.org/2021/06/musicxml40/musicxml-reference/elements/divisions/
     divisions: int = 256

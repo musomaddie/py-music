@@ -44,8 +44,12 @@ class WhiteKey(KeyNote):
             return self.note
 
         if accidental == Accidental.SHARP:
+            if self.alt_with_sharps.accidental == Accidental.SHARP_2:
+                return self.note
             return self.alt_with_sharps
         if accidental == Accidental.FLAT:
+            if self.alt_with_flats.accidental == Accidental.FLAT_2:
+                return self.note
             return self.alt_with_flats
         raise ValueError(f"Don't know how to handle {accidental.glance()}")
 

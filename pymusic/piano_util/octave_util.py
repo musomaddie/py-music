@@ -41,3 +41,8 @@ def pitch_note_to_key_note(pitch_note: PitchNote) -> KeyNote:
     if key_note == -1:
         raise ValueError('No note matches {}'.format(pitch_note))
     return key_note
+
+
+def get_all_base_octave_notes(starting_note: PitchNote) -> list[str]:
+    starting_note_str_idx = TWO_OCTAVE_NOTE_STR.find(starting_note.note_name.name)
+    return list(TWO_OCTAVE_NOTE_STR[starting_note_str_idx + 1: starting_note_str_idx + 7])

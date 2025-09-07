@@ -3,7 +3,7 @@ import pytest
 
 from pymusic.original.pitch.chords import ChordSymbol
 from tests import create_xml
-from tests.pymusic import convert_into_note_list
+from tests.pymusic import convert_into_old_note_list
 
 SS = "♯"
 FS = "♭"
@@ -88,7 +88,7 @@ def test_chord_notes(note_xml, expected_notes):
 def test_all_common_major_chords(note_xml, expected_root_note_glance, expected_notes):
     chord = ChordSymbol.from_xml(note_xml)
     assert chord.root_note.glance() == expected_root_note_glance
-    assert chord.all_notes == convert_into_note_list(expected_notes)
+    assert chord.all_notes == convert_into_old_note_list(expected_notes)
 
 
 @pytest.mark.parametrize(
@@ -128,4 +128,4 @@ def test_all_common_major_chords(note_xml, expected_root_note_glance, expected_n
 )
 def test_all_chord_types_g_base(chord_type, expected_notes):
     chord = ChordSymbol.from_xml(chord_xml("G", chord_type))
-    assert chord.all_notes == convert_into_note_list(expected_notes)
+    assert chord.all_notes == convert_into_old_note_list(expected_notes)

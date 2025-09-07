@@ -1,9 +1,9 @@
 from enum import Enum
 
-from pymusic.pitch.interval.interval import ModeInterval as Mi, Interval
+from pymusic.pitch.interval.interval import Interval as Mi
 
 
-def _make_relative_intervals(intervals: list[Mi]) -> list[Interval]:
+def _make_relative_intervals(intervals: list[Mi]) -> list[Mi]:
     n_semis = [
         i2.n_semitones - i1.n_semitones for i1, i2 in zip(intervals, intervals[1:])
     ]
@@ -11,11 +11,11 @@ def _make_relative_intervals(intervals: list[Mi]) -> list[Interval]:
     relative_intervals = []
     for num in n_semis:
         if num == 1:
-            relative_intervals.append(Interval.SEMITONE)
+            relative_intervals.append(Mi.SEMITONE)
         elif num == 2:
-            relative_intervals.append(Interval.TONE)
+            relative_intervals.append(Mi.TONE)
         else:
-            relative_intervals.append(Interval.MIN_3)
+            relative_intervals.append(Mi.MIN_3)
     return relative_intervals
 
 
@@ -32,13 +32,13 @@ loc_intervals = [Mi.UNI, Mi.MIN_2, Mi.MIN_3, Mi.PERF_4, Mi.TRI, Mi.MIN_6, Mi.MIN
 
 
 class Mode(Enum):
-    """ Represents A scale. """
+    """ Represents a scale. """
 
     def __init__(
             self,
             mode_name: str,
             root_intervals: list[Mi],
-            relative_intervals: list[Interval]
+            relative_intervals: list[Mi]
     ):
         self.mode_name = mode_name
         self.root_intervals = root_intervals
@@ -54,3 +54,12 @@ class Mode(Enum):
     MIXOLYDIAN = "mixolydian", mixo_intervals, _make_relative_intervals(mixo_intervals)
     AEOLIAN = "aeolian", aeo_intervals, _make_relative_intervals(aeo_intervals)
     LOCRIAN = "locrian", loc_intervals, _make_relative_intervals(loc_intervals)
+
+    @staticmethod
+    def find_mode_from_text(text: str) -> 'Mode':
+        """ Given text returns the corresponding mode. """
+        for mode in Mode:
+            if mode.mode_name == text:
+                return mode
+
+        raise ValueError(f"Unrecognized mode {text}")

@@ -3,20 +3,12 @@ from enum import Enum
 
 class Interval(Enum):
 
-    def __init__(self, name: str, n_semitones: int):
-        self.name = name
+    def __init__(self, names: list[str], n_semitones: int):
+        self.names = names
         self.n_semitones = n_semitones
 
     SEMITONE = ["semitone"], 1
     TONE = ["tone"], 2
-    MIN_3 = ["minor 3rd"], 3
-
-
-class ModeInterval(Enum, Interval):
-    def __init__(self, names: list[str], n_semitones: int):
-        self.name = names[0]
-        self.names = names
-        self.n_semitones = n_semitones
 
     UNI = ["unison", "root"], 0
     MIN_2 = ["minor 2nd"], 1

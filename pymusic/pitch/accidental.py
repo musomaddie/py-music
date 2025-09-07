@@ -44,6 +44,14 @@ class Accidental(Enum):
         raise ValueError(f"Unrecognized accidental by {i} semitones")
 
     @staticmethod
+    def from_fifths(n_fifths: int) -> 'Accidental':
+        if n_fifths > 0:
+            return Accidental.SHARP
+        if n_fifths < 0:
+            return Accidental.FLAT
+        return Accidental.NATURAL
+
+    @staticmethod
     def from_str(s: str) -> 'Accidental':
         # Special case for natural
         if s == "":
