@@ -62,6 +62,7 @@ class Accidental(Enum):
         raise ValueError(f"Unrecognized accidental with string: {s}")
 
 
+# TODO -> this should be in xml conversion and not in the accidental file.
 def create_accidental_from_element(element: Optional[Element]) -> Accidental:
     if element is None:
         return Accidental.NATURAL
