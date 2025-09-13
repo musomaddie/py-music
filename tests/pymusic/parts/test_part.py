@@ -1,4 +1,4 @@
-from pymusic.original.parts.part import PartBuilder
+from pymusic.xml_conversion.part import create_part_builder
 from tests import create_xml
 
 PART_ID = "P1"
@@ -20,13 +20,13 @@ PART_ELEMENT = create_xml(
 
 class TestPartBuilder:
     def test_part_id(self):
-        builder = PartBuilder.create_from_part_list_xml(PART_ELEMENT)
-        assert builder.part_id == "P1"
+        builder = create_part_builder(PART_ELEMENT)
+        assert builder.id == "P1"
 
     def test_part_name(self):
-        builder = PartBuilder.create_from_part_list_xml(PART_ELEMENT)
-        assert builder._part_name == PART_NAME
+        builder = create_part_builder(PART_ELEMENT)
+        assert builder.name == PART_NAME
 
     def test_part_abbr(self):
-        builder = PartBuilder.create_from_part_list_xml(PART_ELEMENT)
-        assert builder._part_abbr == PART_ABBR
+        builder = create_part_builder(PART_ELEMENT)
+        assert builder.abbr == PART_ABBR
