@@ -1,9 +1,9 @@
 """ Tests for the chord symbol. """
 import pytest
 
-from pymusic.original.pitch.chords import ChordSymbol
+from pymusic.xml_conversion.chord_symbol import create_chord_symbol_builder
 from tests import create_xml
-from tests.pymusic import convert_into_old_note_list
+from tests.pymusic import convert_into_note_list
 
 SS = "♯"
 FS = "♭"
@@ -44,7 +44,7 @@ def chord_xml_with_alter(note_str: str, note_alter: int, kind_str: str = "major"
         (chord_xml_with_alter("F", 1), "F♯ (F♯ A♯ C♯)")
     ])
 def test_chord_basics(note_xml, expected_glance):
-    chord = ChordSymbol.from_xml(note_xml)
+    chord = create_chord_symbol_builder(note_xml)
     assert chord.glance() == expected_glance
 
 
@@ -55,7 +55,7 @@ def test_chord_basics(note_xml, expected_glance):
     ]
 )
 def test_chord_notes(note_xml, expected_notes):
-    chord = ChordSymbol.from_xml(note_xml)
+    chord = create_chord_symbol_builder(note_xml)
     notes = chord.all_notes
     assert len(notes) == len(expected_notes)
     for actual, expected in zip(notes, expected_notes):
@@ -86,9 +86,9 @@ def test_chord_notes(note_xml, expected_notes):
     ]
 )
 def test_all_common_major_chords(note_xml, expected_root_note_glance, expected_notes):
-    chord = ChordSymbol.from_xml(note_xml)
+    chord = create_chord_symbol_builder(note_xml)
     assert chord.root_note.glance() == expected_root_note_glance
-    assert chord.all_notes == convert_into_old_note_list(expected_notes)
+    assert chord.all_notes == convert_into_note_list(expected_notes)
 
 
 @pytest.mark.parametrize(
@@ -127,5 +127,5 @@ def test_all_common_major_chords(note_xml, expected_root_note_glance, expected_n
     ]
 )
 def test_all_chord_types_g_base(chord_type, expected_notes):
-    chord = ChordSymbol.from_xml(chord_xml("G", chord_type))
-    assert chord.all_notes == convert_into_old_note_list(expected_notes)
+    chord = create_chord_symbol_builder(chord_xml("G", chord_type))
+    assert chord.all_notes == convert_into_note_list(expected_notes)
