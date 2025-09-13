@@ -1,4 +1,4 @@
-from pymusic.original.attributes import Attributes
+from pymusic.xml_conversion.bar_attributes import create_bar_attributes_builder
 from tests import create_xml
 
 
@@ -33,5 +33,7 @@ def attribute_xml(
 
 
 def test_attribute():
-    attributes = Attributes.from_xml(attribute_xml())
-    assert attributes.time_signature.glance() == "4/4"
+    bar_attr_builder = create_bar_attributes_builder(attribute_xml())
+    assert bar_attr_builder.time_signature_builder.glance() == "4/4"
+    assert bar_attr_builder.key_builder.glance() == "C major"
+    assert bar_attr_builder.clef_builder.glance() == "𝄞"
