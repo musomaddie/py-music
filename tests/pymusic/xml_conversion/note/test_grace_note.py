@@ -1,7 +1,9 @@
 """ More detailed tests for the grace note than what is covered by test_note. """
 import pytest
 
+from pymusic.articulation.slur_marker import SlurMarker
 from pymusic.xml_conversion.note.grace_note import create_grace_note_builder
+from pymusic.xml_conversion.note.slur import SlurBuilder
 from tests import create_xml
 
 
@@ -51,5 +53,5 @@ def test_single_grace_note(slash, slur, expected_glance):
         create_grace_note_xml(slash, slur)
     )
     assert builder.slash == slash
-    assert builder.slur == slur
+    assert builder.slur == (SlurBuilder(SlurMarker.START) if slur else None)
     assert builder.glance() == expected_glance
