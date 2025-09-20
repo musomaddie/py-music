@@ -1,3 +1,4 @@
+from dataclasses import dataclass, field
 from enum import Enum
 
 from pymusic.pitch.interval import Interval as Mi
@@ -31,29 +32,32 @@ aeo_intervals = [Mi.UNI, Mi.MAJ_2, Mi.MIN_3, Mi.PERF_4, Mi.PERF_5, Mi.MIN_6, Mi.
 loc_intervals = [Mi.UNI, Mi.MIN_2, Mi.MIN_3, Mi.PERF_4, Mi.TRI, Mi.MIN_6, Mi.MIN_7, Mi.OCT]
 
 
-class Mode(Enum):
+@dataclass
+class ModeDataMixin:
+    mode_name: str
+    root_intervals: list[Mi]
+    relative_intervals: list[Mi] = field(init=False)
+
+    def __post_init__(self):
+        self.relative_intervals = _make_relative_intervals(self.root_intervals)
+
+    def __hash__(self):
+        return hash(self.mode_name)
+
+
+class Mode(ModeDataMixin, Enum):
     """ Represents a scale. """
 
-    def __init__(
-            self,
-            mode_name: str,
-            root_intervals: list[Mi],
-            relative_intervals: list[Mi]
-    ):
-        self.mode_name = mode_name
-        self.root_intervals = root_intervals
-        self.relative_intervals = relative_intervals
-
-    MAJOR = "major", maj_intervals, _make_relative_intervals(maj_intervals)
-    MINOR = "minor", min_intervals, _make_relative_intervals(min_intervals)
-    HARMONIC_MINOR = "harmonic minor", harm_min_intervals, _make_relative_intervals(harm_min_intervals)
-    IONIAN = "ionian", ion_intervals, _make_relative_intervals(ion_intervals)
-    DORIAN = "dorian", dor_intervals, _make_relative_intervals(dor_intervals)
-    PHRYGIAN = "phrygian", phry_intervals, _make_relative_intervals(phry_intervals)
-    LYDIAN = "lydian", lyd_intervals, _make_relative_intervals(lyd_intervals)
-    MIXOLYDIAN = "mixolydian", mixo_intervals, _make_relative_intervals(mixo_intervals)
-    AEOLIAN = "aeolian", aeo_intervals, _make_relative_intervals(aeo_intervals)
-    LOCRIAN = "locrian", loc_intervals, _make_relative_intervals(loc_intervals)
+    MAJOR = "major", maj_intervals
+    MINOR = "minor", min_intervals
+    HARMONIC_MINOR = "harmonic minor", harm_min_intervals
+    IONIAN = "ionian", ion_intervals
+    DORIAN = "dorian", dor_intervals
+    PHRYGIAN = "phrygian", phry_intervals
+    LYDIAN = "lydian", lyd_intervals
+    MIXOLYDIAN = "mixolydian", mixo_intervals
+    AEOLIAN = "aeolian", aeo_intervals
+    LOCRIAN = "locrian", loc_intervals
 
     @staticmethod
     def find_mode_from_text(text: str) -> 'Mode':

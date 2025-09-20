@@ -1,3 +1,4 @@
+from dataclasses import field, dataclass
 from enum import Enum
 
 from lxml.etree import Element
@@ -14,7 +15,11 @@ intervals_dict = {
     "It+6": ([I.UNI, I.MAJ_3, I.MIN_7], [I.UNI, I.MAJ_3, I.TRI]),
     "Fr+6": ([I.UNI, I.MAJ_3, I.TRI, I.MIN_7], [I.UNI, I.MAJ_3, I.MAJ_2, I.MAJ_3]),
     "Gr+6": ([I.UNI, I.MAJ_3, I.PERF_5, I.MIN_7], [I.UNI, I.MAJ_3, I.MIN_3, I.MIN_3]),
-    "N6": ([I.UNI, I.MIN_3, I.MIN_6], [I.UNI, I.MIN_3, I.PERF_4])
+    "N6": ([I.UNI, I.MIN_3, I.MIN_6], [I.UNI, I.MIN_3, I.PERF_4]),
+    "none": ([], []),
+    "pedal": ([I.UNI], [I.UNI]),
+    "power": ([I.UNI, I.PERF_5], [I.UNI, I.PERF_5]),
+    "Tristan": ([I.UNI, I.TRI, I.MIN_7, I.AUG_9], [I.UNI, I.TRI, I.MAJ_3, I.PERF_4]),
 }
 
 intervals_dict["6"] = (intervals_dict[""][0] + [I.MAJ_6], intervals_dict[""][1] + [I.MAJ_2])
@@ -41,63 +46,72 @@ def _get_data(abbrev: str) -> tuple:
     return abbrev, intervals_dict[abbrev][0], intervals_dict[abbrev][1]
 
 
-class ChordType(Enum):
-    """ Represents a type of chord. """
+@dataclass()
+class ChordTypeDataMixin:
+    desc: str
+    shorthand: str
+    intervals: list[Interval] = field(init=False)
+    relative_intervals: list[Interval] = field(init=False)
 
-    def __init__(self, desc: str, shorthand: str, intervals: list[Interval], relative_intervals: list[Interval]):
-        self.desc = desc
-        self.shorthand = shorthand
-        self.intervals = intervals
-        self.relative_intervals = relative_intervals
+    def __post_init__(self):
+        self.intervals = intervals_dict[self.shorthand][0]
+        self.relative_intervals = intervals_dict[self.shorthand][1]
+
+    def __hash__(self):
+        return hash(self.desc)
+
+
+class ChordType(ChordTypeDataMixin, Enum):
+    """ Represents a type of chord. """
 
     def glance(self):
         return self.shorthand
 
     # Triads
-    MAJ = "major", *_get_data(""),
-    MIN = "minor", *_get_data("m")
-    DIM = "diminished", *_get_data("dim")
-    AUG = "augmented", *_get_data("+")
-    SUS_4 = "suspended-fourth", *_get_data("sus")
-    SUS_2 = "suspended-second", *_get_data("sus2")
+    MAJ = "major", ""
+    MIN = "minor", "m"
+    DIM = "diminished", "dim"
+    AUG = "augmented", "+"
+    SUS_4 = "suspended-fourth", "sus"
+    SUS_2 = "suspended-second", "sus2"
 
     # Sixths
-    ITALIAN = "Italian", *_get_data("It+6")
-    FRENCH = "French", *_get_data("Fr+6")
-    GERMAN = "German", *_get_data("Gr+6")
-    MAJ_6 = "major-sixth", *_get_data("6")
-    MIN_6 = "minor-sixth", *_get_data("m6")
-    NEAPOLITAN = "Neapolitan", *_get_data("N6")
+    ITALIAN = "Italian", "It+6"
+    FRENCH = "French", "Fr+6"
+    GERMAN = "German", "Gr+6"
+    MAJ_6 = "major-sixth", "6"
+    MIN_6 = "minor-sixth", "m6"
+    NEAPOLITAN = "Neapolitan", "N6"
 
     # Sevenths
-    AUG_7 = "augmented-seventh", *_get_data("+7")
-    DIM_7 = "diminished-seventh", *_get_data("dim7")
-    DOM = "dominant", *_get_data("7")
-    HALF_DIM = "half-diminished", *_get_data("7(♭5)")
-    MIN_MAJ = "minor-major", *_get_data("m(M7)")
-    MAJ_7 = "major-seventh", *_get_data("maj7")
-    MIN_7 = "minor-seventh", *_get_data("m7")
+    AUG_7 = "augmented-seventh", "+7"
+    DIM_7 = "diminished-seventh", "dim7"
+    DOM = "dominant", "7"
+    HALF_DIM = "half-diminished", "7(♭5)"
+    MIN_MAJ = "minor-major", "m(M7)"
+    MAJ_7 = "major-seventh", "maj7"
+    MIN_7 = "minor-seventh", "m7"
 
     # Ninths
-    DOM_9 = "dominant-ninth", *_get_data("9")
-    MAJ_9 = "major-ninth", *_get_data("maj9")
-    MIN_9 = "minor-ninth", *_get_data("m9")
+    DOM_9 = "dominant-ninth", "9"
+    MAJ_9 = "major-ninth", "maj9"
+    MIN_9 = "minor-ninth", "m9"
 
     # Elevenths
-    DOM_11 = "dominant-11th", *_get_data("11")
-    MAJ_11 = "major-11th", *_get_data("maj11")
-    MIN_11 = "minor-11th", *_get_data("m11")
+    DOM_11 = "dominant-11th", "11"
+    MAJ_11 = "major-11th", "maj11"
+    MIN_11 = "minor-11th", "m11"
 
     # Thirteenth
-    DOM_13 = "dominant-13th", *_get_data("13")
-    MAJ_13 = "major-13th", *_get_data("maj13")
-    MIN_13 = "minor-13th", *_get_data("m13")
+    DOM_13 = "dominant-13th", "13"
+    MAJ_13 = "major-13th", "maj13"
+    MIN_13 = "minor-13th", "m13"
 
     # Extras
-    NO_CHORD = "none", "none", [], []
-    PEDAL = "pedal", "pedal", [I.UNI], [I.UNI]
-    POWER = "power", "power", [I.UNI, I.PERF_5], [I.UNI, I.PERF_5]
-    TRISTAN = "Tristan", "Tristan", [I.UNI, I.TRI, I.MIN_7, I.AUG_9], [I.UNI, I.TRI, I.MAJ_3, I.PERF_4]
+    NO_CHORD = "none", "none"
+    PEDAL = "pedal", "pedal"
+    POWER = "power", "power"
+    TRISTAN = "Tristan", "Tristan"
 
     @staticmethod
     def from_element(element: Element) -> 'ChordType':
