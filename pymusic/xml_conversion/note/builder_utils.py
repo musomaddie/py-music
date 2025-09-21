@@ -1,9 +1,23 @@
-# TODO -> not sure if this is the best location for these but anyway.
+"""
+TODO -> make sure this is actually the best location for these.
+
+All common utils so we don't get an import error ??
+"""
 from lxml.etree import Element
 
 from pymusic.pitch.accidental import create_accidental_from_element
 from pymusic.pitch.pitch_type import PitchType, Pitched, Unpitched, Rest
 from pymusic.pitch.pitchnote import PitchNote
+from pymusic.rhythm.duration import Duration
+from pymusic.rhythm.duration_type import DurationType
+
+
+def create_duration(element: Element, is_rest: bool = False) -> Duration:
+    return Duration(
+        length=DurationType.from_str(element.find("type").text),
+        has_dot=element.find("dot") is not None,
+        is_rest=is_rest
+    )
 
 
 def create_pitched_pitch_type(element: Element) -> Pitched:
@@ -22,6 +36,7 @@ def _create_unpitched() -> Unpitched:
 
 
 def _create_rest() -> Rest:
+    # TODO
     return Rest()
 
 

@@ -2,6 +2,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from pymusic.pitch.pitch_type import PitchType
+from pymusic.rhythm.duration import Duration
 from pymusic.xml_conversion.note.slur import SlurBuilder
 
 
@@ -24,8 +25,8 @@ class NoteBuilder:
     """
 
     pitch_type: PitchType
+    duration: Duration
     slur: Optional[SlurBuilder]
-    duration: str = ""  # TODO
     voice: int = 1  # TODO
 
     def glance(self):

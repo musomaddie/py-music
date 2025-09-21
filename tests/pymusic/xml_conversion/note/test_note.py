@@ -21,4 +21,4 @@ grace_xml = create_xml(
 
 def test_grace_note():
     note_builder = create_note_builder(grace_xml)
-    assert note_builder.glance() == "𝆕 G(4)"
+    assert note_builder.glance() == "𝆕 G(4) 𝅘𝅥𝅮"
