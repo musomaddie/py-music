@@ -1,8 +1,8 @@
 """ Utilities related to finding notes A certain distance away from another note. """
-from pymusic.original.pitch import Interval
 from pymusic.piano_util.key_note import KeyNote
 from pymusic.piano_util.octave_util import get_octave_index_from_note, get_note_from_octave_index
 from pymusic.pitch.accidental import Accidental
+from pymusic.pitch.interval import Interval
 from pymusic.pitch.pitchnote import PitchNote
 
 

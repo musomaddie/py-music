@@ -1,6 +1,6 @@
 import pytest
 
-from pymusic.original.rhythm.time_signature import TimeSignature
+from pymusic.xml_conversion.time_signature import create_time_signature_builder
 from tests import create_xml
 
 N_DIVISIONS = "256"
@@ -9,16 +9,19 @@ N_TYPE = "4"
 
 
 def division_xml(n_divisions: int = 256):
-    return create_xml(f""" <divisions>{n_divisions}</divisions> """)
+    return f""" <divisions>{n_divisions}</divisions> """
 
 
 def create_time_xml(beats: int = 4, beat_type: int = 4):
     return create_xml(
         f"""
-            <time>
-                <beats>{beats}</beats>
-                <beat-type>{beat_type}</beat-type>
-            </time>
+            <attributes>
+            {division_xml()}
+                <time>
+                    <beats>{beats}</beats>
+                    <beat-type>{beat_type}</beat-type>
+                </time>
+                </attributes>
         """
     )
 
@@ -41,7 +44,7 @@ def create_time_xml(beats: int = 4, beat_type: int = 4):
 )
 def test_from_xml(time_xml, expected_numerator, expected_denominator):
     # TODO -> rewrite this test to use the new way
-    time_sig = TimeSignature.from_xml(division_xml(), time_xml)
+    time_sig = create_time_signature_builder(time_xml)
     assert time_sig.divisions == int(N_DIVISIONS)
     assert time_sig.numerator == int(expected_numerator)
     assert time_sig.denominator == int(expected_denominator)

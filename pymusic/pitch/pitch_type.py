@@ -1,7 +1,7 @@
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
 
-from pymusic.original.pitch import PitchNote
+from pymusic.pitch.pitchnote import PitchNote
 
 
 class PitchType(ABC):
